@@ -1,0 +1,61 @@
+# Postgres + Postgrest
+Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu. Creates generic Table ```product``` and adds values to it.
+
+## 1. Download & Install Docker Desktop
+
+https://docs.docker.com/desktop/install/ubuntu/
+
+
+## 2. Run in Background
+
+```bash
+docker compose -f  docker-compose.yml --env-file ./config/.env.dev  up
+```
+
+### Potgrest
+http://localhost:3000/
+
+### Postgres
+http://localhost:5432/
+
+## Config
+
+Change Credentials in ```config/_.env.dev``` and remove leading underscore.
+
+Check docker-compose.yml config:
+
+```bash
+docker compose --env-file ./config/.env.dev config
+```
+More: https://docs.docker.com/compose/environment-variables/set-environment-variables/
+
+## Stop
+No Persistant DATA.
+
+```bash
+docker compose down --volumes
+```
+
+## Setup pgAdmin (optional)
+
+Open: http://localhost:5050/
+
+E-Mail: ```default@email.com```
+
+Password: ```defaultSecret```
+
+----
+
+Register -> Server
+
+Name: [your-name]
+
+Host name/address: ```pgsql-server```
+
+Username: ```app_user```
+
+Password: ```secret```
+
+## Reference
+https://medium.com/@shlomi.fenster1/setup-local-environment-for-postgresql-5531b8268397
+https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f
