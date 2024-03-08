@@ -36,26 +36,7 @@ No Persistant DATA.
 docker compose down --volumes
 ```
 
-## Setup pgAdmin (optional)
-
-Open: http://localhost:5050/
-
-E-Mail: ```default@email.com```
-
-Password: ```defaultSecret```
-
-----
-
-Register -> Server
-
-Name: [your-name]
-
-Host name/address: ```pgsql-server```
-
-Username: ```app_user```
-
-Password: ```secret```
-
 ## Reference
 https://medium.com/@shlomi.fenster1/setup-local-environment-for-postgresql-5531b8268397
+
 https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f
