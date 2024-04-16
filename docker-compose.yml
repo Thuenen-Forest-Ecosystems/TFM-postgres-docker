@@ -25,7 +25,7 @@ services:
   db:
     image: "postgres:${POSTGRES_VERSION}"
     ports:
-        - "5432:5432"
+        - "5430:5432"
     environment:
       POSTGRES_DB: "BWI_${DB_VERSION}${DB_VERSION_POSTFIX}" # name for the default database
 
