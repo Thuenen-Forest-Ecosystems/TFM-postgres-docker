@@ -14,7 +14,7 @@ services:
     links:
       - db:db
     environment:
-      PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/BWI_${DB_VERSION}${DB_VERSION_POSTFIX}"
+      PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5430/BWI_${DB_VERSION}${DB_VERSION_POSTFIX}"
       PGRST_DB_SCHEMA: api
       PGRST_DB_ANON_ROLE: ${POSTGRES_USER} #In production this role should NOT be the same as the one used for the connection
       PGRST_SERVER_PROXY_URI: "http://127.0.0.1:3000"
