@@ -1,4 +1,7 @@
 # docker-compose.yml
+
+## https://gist.github.com/leopoldodonnell/b0b7e06943bd389560184d948bdc2d5b
+## Etensions: pgcrypto, https://github.com/michelp/pgjwt
  
 version: '3'
 
@@ -12,9 +15,10 @@ services:
       - db:db
     environment:
       PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/BWI_${DB_VERSION}${DB_VERSION_POSTFIX}"
-      PGRST_DB_SCHEMA: public
+      PGRST_DB_SCHEMA: api
       PGRST_DB_ANON_ROLE: ${POSTGRES_USER} #In production this role should NOT be the same as the one used for the connection
       PGRST_SERVER_PROXY_URI: "http://127.0.0.1:3000"
+
     depends_on:
       - db
 
@@ -31,35 +35,40 @@ services:
       #PGDATA: /var/lib/postgresql/data
       #POSTGRES_INITDB_ARGS: "--auth-host=md5 --auth-local=md5"
 
+      POSTGRES_EXTENSIONS: pgcrypto, pgjwt
+
     volumes:
       #- ./db-data:/var/lib/postgresql/data
+      - ../ci2027-db-structure/pgjwt--0.1.1.sql:/docker-entrypoint-initdb.d/pgjwt--0.1.1.sql
+      
+      - ../ci2027-db-structure/authentication.sql:/docker-entrypoint-initdb.d/authentication.sql
+      
       - ../ci2027-db-structure/${DB_VERSION}/structure.sql:/docker-entrypoint-initdb.d/structure.sql
-      - ../ci2027-db-structure/${DB_VERSION}/data.sql:/docker-entrypoint-initdb.d/data.sql
+      #- ../ci2027-db-structure/${DB_VERSION}/data.sql:/docker-entrypoint-initdb.d/data.sql
 
-  #pgadmin:
-  #  container_name: pgadmin4_container
-  #  image: dpage/pgadmin4
-  #  restart: always
-  #  environment:
-  #      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-  #      PGADMIN_DEFAULT_PASSWORD: defaultSecret
-  #      PGADMIN_LISTEN_PORT: 80
-  #  ports:
-  #      - "5050:80"
-  #  links:
-  #      - "db:pgsql-server"
-  #  volumes:
-  #      - pgadmin-data:/var/lib/pgadmin
-  
-  #swagger:
-  #  image: swaggerapi/swagger-ui
-  #  ports:
-  #      - "8080:8080"
-  #  expose:
-  #      - "8080"
-  #  environment:
-  #      API_URL: http://127.0.0.1:3000/      
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+        PGADMIN_DEFAULT_EMAIL: test@test.com
+        PGADMIN_DEFAULT_PASSWORD: j7f5wDAFvqVcsw
+        PGADMIN_LISTEN_PORT: 80
+    ports:
+        - "5050:80"
+    links:
+        - "db:pgsql-server"
+    #volumes:
+        #- pgadmin-data:/var/lib/pgadmin
 
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+        - "8080:8080"
+    expose:
+        - "8080"
+    environment:
+        API_URL: http://127.0.0.1:3000/      
 volumes:
   db-data:
   pgadmin-data:
