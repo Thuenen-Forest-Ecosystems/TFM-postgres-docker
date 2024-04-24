@@ -36,6 +36,12 @@ No Persistant DATA.
 docker compose down --volumes
 ```
 
+## ERROR
+Close pgadmin and rerun. 
+```
+"The CSRF session token is missing."
+```
+
 ## Reference
 https://medium.com/@shlomi.fenster1/setup-local-environment-for-postgresql-5531b8268397
 
