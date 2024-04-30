@@ -38,7 +38,7 @@ create or replace function
 basic_auth.encrypt_pass() returns trigger as $$
 begin
   if tg_op = 'INSERT' or new.pass <> old.pass then
-    new.pass = crypt(new.pass, gen_salt('bf'));
+    new.pass = ext_pgcrypto.crypt(new.pass, ext_pgcrypto.gen_salt('bf'));
   end if;
   return new;
 end
