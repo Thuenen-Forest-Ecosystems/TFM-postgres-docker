@@ -16,9 +16,10 @@ services:
       - postgres:postgres
     environment:
       PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgres" #BWI_${DB_VERSION}_${DB_VERSION_POSTFIX}
-      PGRST_DB_SCHEMA: api
+      #PGRST_DB_SCHEMA: api
       PGRST_DB_ANON_ROLE: ${POSTGRES_USER} #In production this role should NOT be the same as the one used for the connection
       PGRST_SERVER_PROXY_URI: "http://127.0.0.1:3000"
+      PGRST_DB_PRE_CONFIG: "postgrest.pre_config"
 
     depends_on:
       - postgres
@@ -36,17 +37,26 @@ services:
       POSTGRES_EXTENSIONS: pgcrypto, pgjwt
 
     volumes:
+      
+
       - ./pgjwt/extension/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
       - ./pgjwt/extension/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
+
+      
 
       - ./pgjwt/authentication.sql:/docker-entrypoint-initdb.d/authentication.sql
       - ./pgjwt/users.sql:/docker-entrypoint-initdb.d/users.sql
 
+      - ../ci2027-db-structure/default-users.sql:/docker-entrypoint-initdb.d/default-users.sql
+
       #- ./schemas:/docker-entrypoint-initdb.d
 
       - ./api.sql:/docker-entrypoint-initdb.d/api.sql
-      
+
+      - ./config/postgrest.sql:/docker-entrypoint-initdb.d/postgrest.sql
+
       - ../ci2027-db-structure/v001/tables.sql:/docker-entrypoint-initdb.d/tables.sql
+      
 
       - ./postgres-data:/docker-entrypoint-initdb.d
 

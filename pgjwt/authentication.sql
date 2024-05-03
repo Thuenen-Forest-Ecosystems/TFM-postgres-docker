@@ -138,7 +138,7 @@ ALTER FUNCTION api.login(username text, password text) OWNER TO postgres;
 
 
 CREATE ROLE anon NOINHERIT;
-CREATE role authenticator NOINHERIT LOGIN PASSWORD 'secret';
+CREATE role authenticator NOINHERIT LOGIN PASSWORD 'Eg2E40xHOopUQdS';
 GRANT anon TO authenticator;
 
 GRANT EXECUTE ON FUNCTION api.login(username text, password text) TO anon;
