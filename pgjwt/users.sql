@@ -80,3 +80,9 @@ grant anon to authenticator;
 CREATE TYPE jwt_token AS (
   token text
 );
+
+
+
+
+-- ADD DEFAULT USER
+INSERT INTO basic_auth.users (email, pass, role) VALUES ('admin@thuenen.de', 'bL8GaeewtxXUTyK', 'anon');

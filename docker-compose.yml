@@ -47,8 +47,6 @@ services:
       - ./pgjwt/authentication.sql:/docker-entrypoint-initdb.d/authentication.sql
       - ./pgjwt/users.sql:/docker-entrypoint-initdb.d/users.sql
 
-      - ../ci2027-db-structure/default-users.sql:/docker-entrypoint-initdb.d/default-users.sql
-
       #- ./schemas:/docker-entrypoint-initdb.d
 
       - ./api.sql:/docker-entrypoint-initdb.d/api.sql
@@ -57,6 +55,7 @@ services:
 
       - ../ci2027-db-structure/v001/tables.sql:/docker-entrypoint-initdb.d/tables.sql
       
+      #- ../ci2027-db-structure/default.sql:/docker-entrypoint-initdb.d/default.sql
 
       - ./postgres-data:/docker-entrypoint-initdb.d
 
