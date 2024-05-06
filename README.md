@@ -46,3 +46,6 @@ Close pgadmin and rerun.
 https://medium.com/@shlomi.fenster1/setup-local-environment-for-postgresql-5531b8268397
 
 https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f
+
+
+https://shusson.info/post/building-nested-json-objects-with-postgres
