@@ -17,7 +17,7 @@ services:
     environment:
       PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgres" #BWI_${DB_VERSION}_${DB_VERSION_POSTFIX}
       #PGRST_DB_SCHEMA: api
-      PGRST_DB_ANON_ROLE: ${POSTGRES_USER} #In production this role should NOT be the same as the one used for the connection
+      PGRST_DB_ANON_ROLE: anon #In production this role should NOT be the same as the one used for the connection
       PGRST_SERVER_PROXY_URI: "http://127.0.0.1:3000"
       PGRST_DB_PRE_CONFIG: "postgrest.pre_config"
 
@@ -42,22 +42,29 @@ services:
       - ./pgjwt/extension/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
       - ./pgjwt/extension/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
 
+      #- ./config/postgrest.sql:/docker-entrypoint-initdb.d/postgrest.sql
       
 
-      - ./pgjwt/authentication.sql:/docker-entrypoint-initdb.d/authentication.sql
-      - ./pgjwt/users.sql:/docker-entrypoint-initdb.d/users.sql
+      #- ./pgjwt/authentication.sql:/docker-entrypoint-initdb.d/authentication.sql
+      #- ./pgjwt/users.sql:/docker-entrypoint-initdb.d/users.sql
 
-      #- ./schemas:/docker-entrypoint-initdb.d
-
-      - ./api.sql:/docker-entrypoint-initdb.d/api.sql
-
-      - ./config/postgrest.sql:/docker-entrypoint-initdb.d/postgrest.sql
-
-      - ../ci2027-db-structure/v001/tables.sql:/docker-entrypoint-initdb.d/tables.sql
       
+      - ../ci2027-db-structure/struct/globals.sql:/docker-entrypoint-initdb.d/globals.sql
+
+      - ../ci2027-db-structure/struct/structure.sql:/docker-entrypoint-initdb.d/structure.sql
+      
+
+      #- ./api.sql:/docker-entrypoint-initdb.d/api.sql
+
+      
+
+      #- ../ci2027-db-structure/v001/tables.sql:/docker-entrypoint-initdb.d/tables.sql
+      
+      #- ../thuenen/ci2027-db-structure/localhost_gesamt.sql:/docker-entrypoint-initdb.d/localhost_gesamt.sql
+
+      #- ./postgres-data:/docker-entrypoint-initdb.d
+
       #- ../ci2027-db-structure/default.sql:/docker-entrypoint-initdb.d/default.sql
-
-      - ./postgres-data:/docker-entrypoint-initdb.d
 
   pgadmin:
     restart: always
@@ -72,7 +79,7 @@ services:
     links:
         - "postgres:${PGADMIN_HOST_NAME}"
     depends_on:
-      - postgres
+      - postgrest
     #volumes:
     #  - pgadmin-data:/var/lib/pgadmin
 
