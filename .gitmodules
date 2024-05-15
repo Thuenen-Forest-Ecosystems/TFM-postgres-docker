@@ -1,0 +1,3 @@
+[submodule "ci2027-db-structure"]
+	path = ci2027-db-structure
+	url = https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git
