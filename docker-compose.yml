@@ -36,10 +36,23 @@ services:
       - ./pgjwt/extension/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
       - ./pgjwt/extension/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
 
-      - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/globals.sql
-      - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/structure.sql
+      - ./pgcrypto.sql:/docker-entrypoint-initdb.d/pgcrypto.sql
 
-      #- ./postgres-data:/docker-entrypoint-initdb.d
+
+      - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
+
+      - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
+
+      - ./start_replication.sql:/docker-entrypoint-initdb.d/zy-start_replication.sql
+      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/zz-data.sql
+
+      - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest.sql
+
+      - ./schema/structure.sql:/docker-entrypoint-initdb.d/90-structure.sql
+      - ./schema/view.sql:/docker-entrypoint-initdb.d/91-view.sql
+      - ./schema/data.sql:/docker-entrypoint-initdb.d/92-data.sql
+
+      - ./pgdata:/docker-entrypoint-initdb.d
 
   pgadmin:
     restart: always

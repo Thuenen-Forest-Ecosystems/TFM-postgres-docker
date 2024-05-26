@@ -9,7 +9,7 @@ https://docs.docker.com/desktop/install/ubuntu/
 ## 2. Run in Background
 
 ```bash
-docker compose -f  docker-compose.yml --env-file ./config/.env.dev  up
+docker compose -f  docker-compose.yml --env-file ./.env.dev  up
 ```
 
 ### Potgrest

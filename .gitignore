@@ -1,5 +1,6 @@
 postgres-data
 db-data
+pgdata
 credentials
 
 .env*
