@@ -1,51 +1,33 @@
 # Postgres + Postgrest
-Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu. Creates generic Table ```product``` and adds values to it.
+Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu.
 
 ## 1. Download & Install Docker Desktop
 
 https://docs.docker.com/desktop/install/ubuntu/
 
+## 2. Change credentials
+Copy the ```_.env.dev``` file to ```.env``` and change the credentials.
 
-## 2. Run in Background
+## 3. Run in Background
 
 ```bash
-docker compose -f  docker-compose.yml --env-file ./.env.dev  up
+docker compose up -d
 ```
 
 ### Potgrest
 http://localhost:3000/
 
-### Postgres
-http://localhost:5432/
+### Swagger
+http://localhost:4080/
 
-## Config
+### PgAdmin
+http://localhost:5050/pgadmin/
 
-Change Credentials in ```config/_.env.dev``` and remove leading underscore.
-
-Check docker-compose.yml config:
-
-```bash
-docker compose --env-file ./config/.env.dev config
-```
-More: https://docs.docker.com/compose/environment-variables/set-environment-variables/
 
 ## Stop
-No Persistant DATA.
-
 ```bash
 docker compose down --volumes
 ```
 
-## ERROR
-Close pgadmin and rerun. 
-```
-"The CSRF session token is missing."
-```
-
-## Reference
-https://medium.com/@shlomi.fenster1/setup-local-environment-for-postgresql-5531b8268397
-
-https://levelup.gitconnected.com/creating-and-filling-a-postgres-db-with-docker-compose-e1607f6f882f
-
-
-https://shusson.info/post/building-nested-json-objects-with-postgres
+### ERROR: The CSRF session token is missing.
+Close pgadmin session in browser tab and retry.
