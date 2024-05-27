@@ -160,7 +160,7 @@ ALTER TABLE bwi_root.b3v_wzp
 ADD CONSTRAINT b3v_wzp_key UNIQUE (intkey);
 
 GRANT SELECT ON TABLE bwi_root.b3v_wzp TO web_anon;
-GRANT INSERT, UPDATE, SELECT ON TABLE bwi_root.b3v_wzp TO laender; 
+GRANT INSERT, UPDATE, SELECT ON TABLE bwi_root.b3v_wzp TO laender;
 
 ALTER TABLE bwi_root.b3v_wzp ENABLE ROW LEVEL SECURITY;
 ALTER TABLE bwi_root.b3v_wzp OWNER TO postgres;
