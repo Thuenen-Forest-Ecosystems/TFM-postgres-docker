@@ -24,7 +24,7 @@ http://localhost:4080/
 http://localhost:5050/pgadmin/
 
 
-## Stop
+## 4. Stop
 ```bash
 docker compose down --volumes
 ```
