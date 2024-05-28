@@ -17,6 +17,7 @@ services:
       PGRST_DB_ANON_ROLE: web_anon
       PGRST_OPENAPI_SERVER_PROXY_URI: ${PGRST_OPENAPI_SERVER_PROXY_URI}
       PGRST_DB_PRE_CONFIG: "postgrest.pre_config"
+      PGRST_OPENAPI_SECURITY_ACTIVE: "true"
       labels:
       
         
@@ -35,8 +36,8 @@ services:
       POSTGRES_EXTENSIONS: pgcrypto, pgjwt
 
     volumes:
-      - ./pgjwt/extension/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
-      - ./pgjwt/extension/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
+      - ./pgjwt/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
+      - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
 
       - ./pgcrypto.sql:/docker-entrypoint-initdb.d/pgcrypto.sql
 

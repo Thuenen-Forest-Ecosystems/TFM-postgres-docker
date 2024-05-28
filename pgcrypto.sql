@@ -6,12 +6,7 @@
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-
 create schema if not exists basic_auth;
-
-CREATE SCHEMA ext_pgcrypto;
-ALTER SCHEMA ext_pgcrypto OWNER TO postgres;
-CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA ext_pgcrypto;
 
 create table if not exists
 basic_auth.users (
@@ -38,14 +33,11 @@ create constraint trigger ensure_user_role_exists
   for each row
   execute procedure basic_auth.check_role_exists();
 
-
-create extension if not exists pgcrypto;
-
 create or replace function
 basic_auth.encrypt_pass() returns trigger as $$
 begin
   if tg_op = 'INSERT' or new.pass <> old.pass then
-    new.pass = ext_pgcrypto.crypt(new.pass, ext_pgcrypto.gen_salt('bf'));
+    new.pass = crypt(new.pass, gen_salt('bf'));
   end if;
   return new;
 end
@@ -74,6 +66,7 @@ begin
 end;
 $$;
 
+CREATE EXTENSION pgjwt;
 
 CREATE TYPE jwt_token AS (
   token text
