@@ -5,8 +5,14 @@ Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and 
 
 https://docs.docker.com/desktop/install/ubuntu/
 
+## 2. clone repository
+!! To clone the repo AND submodules use the ```--recursive``` flag !!
+```
+git clone --recursive https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git
+```
+
 ## 2. Change credentials
-Copy the ```_.env.dev``` file to ```.env``` and change the credentials.
+**Copy** the ```_.env``` file to ```.env``` and change the credentials.
 
 ## 3. Run in Background
 
@@ -14,20 +20,22 @@ Copy the ```_.env.dev``` file to ```.env``` and change the credentials.
 docker compose up -d
 ```
 
-### Potgrest
+**Potgrest**
 http://localhost:3000/
 
-### Swagger
+**Swagger**
 http://localhost:4080/
 
-### PgAdmin
+**PgAdmin**
 http://localhost:5050/pgadmin/
 
 
-## 4. Stop
+## 4. Stop & Remove
+
 ```bash
 docker compose down --volumes
 ```
 
-### ERROR: The CSRF session token is missing.
+### ERROR
+#### If "The CSRF session token is missing." error occures
 Close pgadmin session in browser tab and retry.
