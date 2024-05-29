@@ -29,5 +29,5 @@ jobs:
           POSTGRES_HOST: localhost
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
-          POSTGRES_USER: postgres@example.com
-          POSTGRES_PASSWORD: SecretSecret
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: SecretSecretSecretSecret
