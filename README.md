@@ -12,8 +12,14 @@ https://nodejs.org/
 ## 2. clone repository
 !! To clone the repo AND submodules use the ```--recursive``` flag !!
 ```
+git clone https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git
+```
+
+<sub>For employees of the Thünen Institute:</sub>
+```
 git clone --recursive https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git
 ```
+
 
 ## 3. Install/Build JS dependencies
 ```bash
