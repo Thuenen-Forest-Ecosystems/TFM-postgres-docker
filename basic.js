@@ -3,10 +3,6 @@
 const { Client } = require('pg');
 const result = require('dotenv').config()
 
-
-console.log(result.parsed);
-
-
 const pgclient = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
