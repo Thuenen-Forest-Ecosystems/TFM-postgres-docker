@@ -6,3 +6,5 @@ credentials
 .env*
 
 *.conf
+
+node_modules
