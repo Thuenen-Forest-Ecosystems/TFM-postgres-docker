@@ -1,3 +1,5 @@
+[![Docker Compose Actions Workflow](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/actions/workflows/test.yml/badge.svg)](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/actions/workflows/test.yml)
+
 # Postgres + Postgrest
 Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu.
 
