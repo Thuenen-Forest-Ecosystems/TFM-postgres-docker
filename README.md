@@ -20,24 +20,16 @@ git clone https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git
 git clone --recursive https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git
 ```
 
-
-## 3. Install/Build JS dependencies
-```bash
-cd TFM-postgres-docker/js
-npm install
-npm run build
-```
-
-## 4. Change credentials
-**Copy** the ```_.env``` file to ```.env``` and change the credentials.
+## 3. Change credentials
+**Copy** the ```_.env``` file to ```.env``` and change the credentials for production.
 
 
-
-## 5. Run in Background
+## 4. Run
 
 ```bash
-docker compose up -d
+docker compose up
 ```
+<sub>To run docker in background mode add ```-d```</sub>
 
 **Potgrest**
 http://localhost:3000/
@@ -49,7 +41,7 @@ http://localhost:4080/
 http://localhost:5050/pgadmin/
 
 
-## 6. Stop & Remove
+## 5. Stop & Remove
 
 ```bash
 docker compose down --volumes
