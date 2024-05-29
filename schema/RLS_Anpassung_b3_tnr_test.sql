@@ -1,9 +1,13 @@
 -- FUNCTION: bwi_de_002_dev.pruefe_rechte_rolle_work(text, integer)
 
- DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte_rolle_work(text, integer);
-DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte( integer);
-DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte_bil( integer);
+DROP POLICY IF EXISTS read_datverwend ON bwi_de_002_dev.b3_tnr_test;
+ DROP POLICY IF EXISTS update_dathoheit ON bwi_de_002_dev.b3_tnr_test;
 
+
+ DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte_rolle_work(text, integer);
+ DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte( integer);
+ DROP FUNCTION IF EXISTS bwi_de_002_dev.pruefe_rechte_bil( integer);
+ 
 
 CREATE OR REPLACE FUNCTION bwi_de_002_dev.pruefe_rechte_rolle_work(
 	rolle text,
@@ -94,8 +98,7 @@ CREATE POLICY read_pruefe_rechte_rolle_work
 	
 	-- POLICY: update_pruefe_rechte_rolle_work
 
- DROP POLICY IF EXISTS read_datverwend ON bwi_de_002_dev.b3_tnr_test;
- DROP POLICY IF EXISTS update_dathoheit ON bwi_de_002_dev.b3_tnr_test;
+ 
 
 CREATE POLICY update_pruefe_rechte_rolle_work
     ON bwi_de_002_dev.b3_tnr_test

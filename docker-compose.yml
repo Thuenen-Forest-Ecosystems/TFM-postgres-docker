@@ -52,6 +52,8 @@ services:
       - ./schema/structure.sql:/docker-entrypoint-initdb.d/90-structure.sql
       - ./schema/view.sql:/docker-entrypoint-initdb.d/91-view.sql
       - ./schema/data.sql:/docker-entrypoint-initdb.d/92-data.sql
+      - ./schema/RLS_Anpassung_b3_tnr_test.sql:/docker-entrypoint-initdb.d/93-data.sql
+      
 
 #      - ./pgdata:/docker-entrypoint-initdb.d
 
