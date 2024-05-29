@@ -57,9 +57,9 @@ docker compose down --volumes
 
 ## SETUP pgAdmin
 Add a connection to postGres by register a new Server. Add Host name (```PGADMIN_HOST_NAME```), username (```POSTGRES_USER```) and password (```POSTGRES_PASSWORD```) defined in your ```.env``` file.
+
 ![image](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/assets/11278402/a0d44a13-6dea-4071-928c-26f0c7ccc4fb)
 
 
-### ERROR
 #### If "The CSRF session token is missing." error occures
 Close pgadmin session in browser tab and retry.
