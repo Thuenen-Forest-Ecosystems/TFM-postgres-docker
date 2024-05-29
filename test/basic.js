@@ -1,7 +1,9 @@
 // https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers#testing-the-postgresql-service-container
 
 const { Client } = require('pg');
-const result = require('dotenv').config()
+const result = require('dotenv').config({ path: `_.env` })
+
+console.log(JSON.stringify(result.parsed), '....', JSON.stringify(process.env));
 
 const pgclient = new Client({
     host: process.env.POSTGRES_HOST || 'localhost',
