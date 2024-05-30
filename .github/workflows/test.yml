@@ -24,10 +24,7 @@ jobs:
         #  persist-credentials: true
       
       - name: Clone data
-        run: git clone "https://balindt:$GITLAB_TOKEN@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data" ci2027-db-data
-        
-        env:
-          EXTERNAL_TOKEN : ${{ secrets.GITLAB_TOKEN }}
+        run: 'git clone https://balindt:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data ci2027-db-data'
         
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
