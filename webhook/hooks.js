@@ -16,6 +16,13 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
   // Check the `x-github-event` header to learn what event type was sent.
   const githubEvent = request.headers['x-github-event'];
 
+  const data = request.body;
+
+  console.log(JSON.stringify(data, null, 2));
+  //if(!data.ref.endsWith('master'))
+  console.log('Branch: ', data.ref, 'main');
+  console.log('Action: ', githubEvent, 'push');
+
   // You should add logic to handle each event type that your webhook is subscribed to.
   // For example, this code handles the `issues` and `ping` events.
   //
