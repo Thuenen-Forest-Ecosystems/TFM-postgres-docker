@@ -5,7 +5,7 @@ const path = require('path');
 const{ execSync } = require('child_process');
 
 // This initializes a new Express application.
-const app = express(); //myselfe
+const app = express();
 
 
 const options = {
