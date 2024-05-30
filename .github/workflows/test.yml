@@ -12,7 +12,8 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
         with:
-          submodules: true
+          token: '${{ secrets.GITLAB_TOKEN }}'
+          submodules: recursive
         
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
