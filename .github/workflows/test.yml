@@ -12,18 +12,21 @@ jobs:
       # https://github.com/orgs/community/discussions/28672
       - name: Check out repository code
         uses: actions/checkout@v4
+        
 
-      - name: Run shell commands
-        run: |
-          git clone https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git
+      - name: clone submodule Data
+        uses: actions/checkout@v4
+        #with:
+        #  github-server-url: 'https://git-dmz.thuenen.de/'
+        #  repository: datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data
+        #  path: ci2027-db-data
+        #  ssh-key: ${{ secrets.GITLAB_TOKEN }}
+        #  persist-credentials: true
+      
+      - name: Clone private repo
+        run: git clone "https://balindt:$GITLAB_TOKEN@github.company.com/my-org/my-repo" ci2027-db-data
         env:
           EXTERNAL_TOKEN : ${{ secrets.GITLAB_TOKEN }}
-        
-      #- name: Clone private repo
-      #  run: git clone https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git ci2027-db-data
-      #  env:
-      #    EXTERNAL_TOKEN : ${{ secrets.GITLAB_TOKEN }}
-
         
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
