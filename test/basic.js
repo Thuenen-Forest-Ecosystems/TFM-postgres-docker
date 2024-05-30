@@ -6,7 +6,18 @@ const request = require('sync-request')
 
 try {
     const res = request('GET', 'http://localhost:3000/');
-    console.log('OpenApi:', res.statusCode)
+    if(res.statusCode !== 200)
+        throw 'http://localhost:3000/ not running!'
+} catch (e) {
+    throw e
+}
+
+
+// http://localhost:3000/my_schemata
+try {
+    const res = request('GET', 'http://localhost:3000/my_schemata');
+    if(res.statusCode !== 200)
+        throw 'function http://localhost:3000/my_schemata does not exist!'
 } catch (e) {
     throw e
 }
