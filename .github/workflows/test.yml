@@ -1,6 +1,7 @@
-name: Docker Compose Actions Workflow
+name: Test Database - Docker Compose Actions Workflow
+run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
 
-on: pull_request
+on: [push]
 
 jobs:
 
