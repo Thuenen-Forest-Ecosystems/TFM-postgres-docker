@@ -1,8 +1,33 @@
 // You installed the `express` library earlier. For more information, see "[JavaScript example: Install dependencies](#javascript-example-install-dependencies)."
 const express = require('express');
+const simpleGit = require('simple-git');
+const path = require('path');
+const{ execSync } = require('child_process');
 
 // This initializes a new Express application.
 const app = express(); //myselfe
+
+
+const options = {
+  baseDir: path.resolve(__dirname, '../'),
+  binary: 'git',
+  maxConcurrentProcesses: 6,
+  trimmed: false,
+};
+// when setting all options in a single object
+const git = simpleGit(options);
+
+function pull() {
+  git.pull((err, update) => {
+    if (err) {
+      console.log('Error: ', err);
+    } else {
+      console.log('Update: ', update);
+    }
+  });
+}
+
+
 
 // This defines a POST route at the `/webhook` path. This path matches the path that you specified for the smee.io forwarding. For more information, see "[Forward webhooks](#forward-webhooks)."
 //
@@ -18,10 +43,20 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
 
   const data = request.body;
 
-  console.log(JSON.stringify(data, null, 2));
+  
   //if(!data.ref.endsWith('master'))
+  if(!data.ref.endsWith('/main') && githubEvent !== 'push') return;
+
   console.log('Branch: ', data.ref, 'main');
   console.log('Action: ', githubEvent, 'push');
+
+
+  pull();
+  return;
+
+
+
+
 
   // You should add logic to handle each event type that your webhook is subscribed to.
   // For example, this code handles the `issues` and `ping` events.
