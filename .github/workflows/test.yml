@@ -16,18 +16,18 @@ jobs:
 
       - name: clone submodule Data
         uses: actions/checkout@v4
-        #with:
-        #  github-server-url: 'https://git-dmz.thuenen.de/'
-        #  repository: datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data
-        #  path: ci2027-db-data
-        #  ssh-key: ${{ secrets.GITLAB_TOKEN }}
-        #  persist-credentials: true
 
       - name: Clone data
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
       - name: Clone data
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git" ci2027-db-structure'
         
+      - name: List root
+        run: ls -la
+
+      - name: List
+        run: ls -la ci2027-db-structure/
+
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
 
