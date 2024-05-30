@@ -12,10 +12,6 @@ jobs:
       # https://github.com/orgs/community/discussions/28672
       - name: Check out repository code
         uses: actions/checkout@v4
-        
-
-      - name: clone submodule Data
-        uses: actions/checkout@v4
 
       - name: Clone data
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'

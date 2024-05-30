@@ -2,6 +2,19 @@
 
 const { Client } = require('pg');
 const result = require('dotenv').config({ path: `_.env` })
+const request = require('sync-request')
+
+try {
+    const res = request('GET', 'http://localhost:3000/');
+    console.log('OpenApi:', res.statusCode)
+} catch (e) {
+    throw e
+}
+
+console.log('PW:', process.env.POSTGRES_HOST);
+console.log('PW:', process.env.POSTGRES_PORT);
+console.log('PW:', process.env.POSTGRES_USER);
+console.log('PW:', process.env.POSTGRES_PASSWORD);
 
 const pgclient = new Client({
     host: process.env.POSTGRES_HOST || 'localhost',
@@ -10,8 +23,6 @@ const pgclient = new Client({
     password: process.env.POSTGRES_PASSWORD,
     database: 'postgres'
 });
-
-console.log(JSON.stringify(pgclient));
 
 pgclient.connect();
 
