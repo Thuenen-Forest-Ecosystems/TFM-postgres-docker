@@ -49,6 +49,14 @@ http://localhost:5050/pgadmin/
 docker compose down --volumes
 ```
 
+
+## Test
+```bash
+docker compose --env-file ./_.env up
+npm test
+```
+
+
 ## SETUP pgAdmin
 Add a connection to postGres by register a new Server. Add Host name (```PGADMIN_HOST_NAME```), username (```POSTGRES_USER```) and password (```POSTGRES_PASSWORD```) defined in your ```.env``` file.
 

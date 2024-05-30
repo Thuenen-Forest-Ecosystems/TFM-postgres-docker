@@ -2,8 +2,30 @@
 
 const { Client } = require('pg');
 const result = require('dotenv').config({ path: `_.env` })
+const request = require('sync-request')
 
-console.log(JSON.stringify(result.parsed), '....', JSON.stringify(process.env));
+try {
+    const res = request('GET', 'http://localhost:3000/');
+    if(res.statusCode !== 200)
+        throw 'http://localhost:3000/ not running!'
+} catch (e) {
+    throw e
+}
+
+
+// http://localhost:3000/my_schemata
+try {
+    const res = request('GET', 'http://localhost:3000/my_schemata');
+    if(res.statusCode !== 200)
+        throw 'function http://localhost:3000/my_schemata does not exist!'
+} catch (e) {
+    throw e
+}
+
+console.log('PW:', process.env.POSTGRES_HOST);
+console.log('PW:', process.env.POSTGRES_PORT);
+console.log('PW:', process.env.POSTGRES_USER);
+console.log('PW:', process.env.POSTGRES_PASSWORD);
 
 const pgclient = new Client({
     host: process.env.POSTGRES_HOST || 'localhost',

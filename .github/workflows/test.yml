@@ -10,9 +10,21 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      # https://github.com/orgs/community/discussions/28672
       - name: Check out repository code
         uses: actions/checkout@v4
-        
+
+      - name: Clone data
+        run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
+      - name: Clone data
+        run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git" ci2027-db-structure'
+
+      - name: List root
+        run: ls -la
+
+      - name: List
+        run: ls -la ci2027-db-structure/
+
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
 
