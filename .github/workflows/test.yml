@@ -21,7 +21,7 @@ jobs:
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
       - name: Clone data
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git" ci2027-db-structure'
-        
+
       - name: List root
         run: ls -la
 
