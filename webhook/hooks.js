@@ -18,6 +18,8 @@ const options = {
 };
 
 // when setting all options in a single object
+
+// smee --url https://smee.io/SHEfVsriuoRxq8AF --path /webhook --port 4000
 const git = simpleGit(options);
 
 function docker_up() {
@@ -60,6 +62,7 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
   //if(!data.ref.endsWith('master'))
   if(!data.ref?.endsWith('/main') && githubEvent !== 'push') return;
 
+  console.log(data.ref, githubEvent);
 
   pull();
 
