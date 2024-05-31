@@ -1,0 +1,33 @@
+{
+  "name": "postgrest-docker",
+  "version": "1.0.0",
+  "description": "Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test/basic.js",
+    "start": "npm run start_webhooks",
+    "start_webhooks": "forever start --watch webhook/hooks.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/issues"
+  },
+  "homepage": "https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker#readme",
+  "devDependencies": {
+    "docker-compose": "^0.24.8",
+    "dotenv": "^16.4.5",
+    "pg": "^8.11.5",
+    "sync-request": "^6.1.0",
+    "express": "^4.19.2",
+    "simple-git": "^3.24.0"
+  }
+}
