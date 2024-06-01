@@ -20,11 +20,11 @@ const options = {
 // when setting all options in a single object
 
 // smee --url https://smee.io/SHEfVsriuoRxq8AF --path /webhook --port 4000
-const git = simpleGit(options);
+
 
 function pull_data(){
-  git = simpleGit(path.resolve(__dirname, '../ci2027-db-data'), { binary: 'git' });
-  git.pull((err, update) => {
+  const dataGit = simpleGit(path.resolve(__dirname, '../ci2027-db-data'), { binary: 'git' });
+  dataGit.pull((err, update) => {
       if (err) {
           console.log('Error: ', err);
       } else {
@@ -34,8 +34,8 @@ function pull_data(){
   });
 }
 function pull_structure_and_data() {
-  let git = simpleGit(path.resolve(__dirname, '../ci2027-db-structure'), { binary: 'git' });
-  git.pull((err, update) => {
+  const scructureGit = simpleGit(path.resolve(__dirname, '../ci2027-db-structure'), { binary: 'git' });
+  scructureGit.pull((err, update) => {
       if (err) {
           console.log('Error: ', err);
       } else {
@@ -46,6 +46,7 @@ function pull_structure_and_data() {
   
 }
 function pull() {
+  const git = simpleGit(options);
   git.pull((err, update) => {
     if (err) {
       console.log('Error: ', err);
