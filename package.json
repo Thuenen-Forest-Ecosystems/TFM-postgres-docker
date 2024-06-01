@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "node test/basic.js",
-    "start": "npm run stop && docker compose up && forever start webhook/hooks.js",
-    "restart": "npm run stop && docker compose up && forever restart webhook/hooks.js",
+    "start": "npm run stop && docker compose up -d --build && forever start webhook/hooks.js",
+    "restart": "npm run stop && docker compose up -d --build && forever restart webhook/hooks.js",
     "stop": "docker compose down && forever stopall",
     "pull": "git submodule update --recursive --remote && npm install"
   },
