@@ -81,6 +81,17 @@ Next time you push to main, the webhook will be triggered and the docker contain
 ### Local Development
 You can use https://smee.io/ to create a webhook proxy to your local machine. [Full tutorial](https://docs.github.com/en/webhooks/using-webhooks/handling-webhook-deliveries)
 
+## Release
+
+To create a new release, create a new tag and push it to the repository.
+
+```bash
+git tag -a v0.0.1 -m "Initial Release"
+git push origin v0.0.1
+```
+
+
+
 ## Recurring Errors
 **If "The CSRF session token is missing." error occures**
 
