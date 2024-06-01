@@ -22,6 +22,17 @@ const options = {
 // smee --url https://smee.io/SHEfVsriuoRxq8AF --path /webhook --port 4000
 const git = simpleGit(options);
 
+function pull_data(){
+  git = simpleGit(path.resolve(__dirname, '../ci2027-db-data'), { binary: 'git' });
+  git.pull((err, update) => {
+      if (err) {
+          console.log('Error: ', err);
+      } else {
+          console.log('Update: ', update);
+          execSync('npm run restart');
+      }
+  });
+}
 function pull_structure_and_data() {
   let git = simpleGit(path.resolve(__dirname, '../ci2027-db-structure'), { binary: 'git' });
   git.pull((err, update) => {
@@ -29,16 +40,10 @@ function pull_structure_and_data() {
           console.log('Error: ', err);
       } else {
           console.log('Update: ', update);
+          pull_data();
       }
   });
-  git = simpleGit(path.resolve(__dirname, '../ci2027-db-data'), { binary: 'git' });
-  git.pull((err, update) => {
-      if (err) {
-          console.log('Error: ', err);
-      } else {
-          console.log('Update: ', update);
-      }
-  });
+  
 }
 function pull() {
   git.pull((err, update) => {
