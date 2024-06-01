@@ -22,15 +22,23 @@ const options = {
 // smee --url https://smee.io/SHEfVsriuoRxq8AF --path /webhook --port 4000
 const git = simpleGit(options);
 
-function docker_up() {
-  v2.upAll({ cwd: path.join(__dirname, '../'), log: true }).then(
-    () => {
-      console.log('done')
-    },
-    (err) => {
-      console.log('something went wrong:', err.message)
-    }
-  )
+function pull_structure_and_data() {
+  let git = simpleGit(path.resolve(__dirname, '../ci2027-db-structure'), { binary: 'git' });
+  git.pull((err, update) => {
+      if (err) {
+          console.log('Error: ', err);
+      } else {
+          console.log('Update: ', update);
+      }
+  });
+  git = simpleGit(path.resolve(__dirname, '../ci2027-db-data'), { binary: 'git' });
+  git.pull((err, update) => {
+      if (err) {
+          console.log('Error: ', err);
+      } else {
+          console.log('Update: ', update);
+      }
+  });
 }
 function pull() {
   git.pull((err, update) => {
@@ -38,11 +46,11 @@ function pull() {
       console.log('Error: ', err);
     } else {
       console.log('Update: ', update);
+      // Due to not supported recursive pull, we need to pull the submodules manually
+      pull_structure_and_data();
     }
   });
 }
-
-docker_up()
 
 // This defines a POST route at the `/webhook` path. This path matches the path that you specified for the smee.io forwarding. For more information, see "[Forward webhooks](#forward-webhooks)."
 //
