@@ -2,6 +2,8 @@
 
 const { Client } = require('pg');
 const result = require('dotenv').config({ path: `_.env` })
+
+// can be replaces with axios
 const request = require('sync-request')
 
 try {
