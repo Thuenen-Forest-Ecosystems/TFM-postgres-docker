@@ -47,18 +47,17 @@ services:
 
       - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest.sql
 
-      ### New Setup  --kann nur quatsch sein, weil ein Verzeichnis ???
+      ### New Setup  
       - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/80-structure.sql
 
 
       - ./schema/structure.sql:/docker-entrypoint-initdb.d/90-structure.sql
       - ./schema/view.sql:/docker-entrypoint-initdb.d/91-view.sql
       - ./schema/data.sql:/docker-entrypoint-initdb.d/92-data.sql
-     # - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
-
+      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
+      
     
-
-#      - ./pgdata:/docker-entrypoint-initdb.d
+      #- ./postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     restart: always
