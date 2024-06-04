@@ -57,8 +57,7 @@ services:
      # - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
 
     
-
-#      - ./pgdata:/docker-entrypoint-initdb.d
+      #- ./postgres-data:/var/lib/postgresql/data
 
   pgadmin:
     restart: always
