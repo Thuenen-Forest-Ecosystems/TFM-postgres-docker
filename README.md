@@ -65,12 +65,25 @@ Add a connection to postGres by register a new Server. Add Host name (```PGADMIN
 ![image](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/assets/11278402/a0d44a13-6dea-4071-928c-26f0c7ccc4fb)
 
 
+## git
+Fetch and merge (with submodules)
+```
+git pull --recurse-submodules
+```
+
+Push changes (with submodules)
+```
+git commit -am "commit message"
+git push --recurse-submodules
+```
+
+
 ## Setup Webhooks on Server
 Add a webhook to your repository to automatically build and deploy the docker container on push to ```main``` branch.
 
 ```
 npm install
-npm install forever -g
+npm install pm2 -g
 npm run start
 ```
 
@@ -81,8 +94,8 @@ Next time you push to main, the webhook will be triggered and the docker contain
 ### Local Development
 You can use https://smee.io/ to create a webhook proxy to your local machine. [Full tutorial](https://docs.github.com/en/webhooks/using-webhooks/handling-webhook-deliveries)
 
-## Release
 
+## Release
 To create a new release, create a new tag and push it to the repository.
 
 ```bash
