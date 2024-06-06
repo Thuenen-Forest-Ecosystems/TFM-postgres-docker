@@ -29,9 +29,9 @@ app.set('view engine', 'ejs');
  * @param {string} gitPath - The path to the git repository
  * @param {string} cb - The callback function
  * */
-function pullRepository(remote, gitPath, options, cb) {
+async function pullRepository(remote, gitPath, options, cb) {
   const git = simpleGit(path.resolve(__dirname, gitPath), { binary: 'git' });
-  const res = git.pull(remote, 'main', { '--rebase': 'true' });
+  await git.pull(remote, 'main', { '--rebase': 'true' });
   cb();
 }
 function pullAll(skipDocker){
