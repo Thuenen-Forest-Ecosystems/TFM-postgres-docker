@@ -57,7 +57,7 @@ function pullAll(skipDocker){
             if (err) {
               console.log('Error: ', err);
             } else {
-              console.log('Successfully pulled data');
+              console.log('Successfully pulled data', skipDocker);
               if(!skipDocker){
                 setTimeout(() => {
                   execSync('npm run restart');
