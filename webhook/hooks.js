@@ -56,7 +56,7 @@ function pullAll(skipDocker){
             } else {
               console.log('Successfully pulled data');
               if(!skipDocker)
-                execSync('npm run start')
+                execSync('npm run restart')
             }
           });
         }
