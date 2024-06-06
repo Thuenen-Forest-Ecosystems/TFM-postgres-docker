@@ -1,0 +1,6 @@
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/lint.dir
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/test.dir
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/forcetest.dir
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/docs.dir
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/edit_cache.dir
+/home/gerrit/sites/thuenen/postgrest-docker/build/CMakeFiles/rebuild_cache.dir
