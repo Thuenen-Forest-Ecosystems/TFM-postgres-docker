@@ -29,10 +29,40 @@ app.set('view engine', 'ejs');
  * @param {string} gitPath - The path to the git repository
  * @param {string} cb - The callback function
  * */
-function pullRepository(gitPath, options, cb) {
+function pullRepository(remote, gitPath, options, cb) {
   const git = simpleGit(path.resolve(__dirname, gitPath), { binary: 'git' });
-  git.submoduleUpdate(['--recursive']);
-  return git.pull(cb);
+  const res = git.pull(remote, 'main', { '--rebase': 'true' });
+  cb();
+}
+function pullAll(skipDocker){
+  console.log('start pulling repositories');
+  pullRepository('https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git', '../', {binary: 'git'}, (err, update) => {
+    if (err) {
+      console.log('Error: ', err);
+    } else {
+      console.log('Successfully pulled root');
+      pullRepository('https://ci_server:glpat-wfBR-FVC9EZsX6hxkWfe@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git', '../ci2027-db-structure', {
+        binary: 'git',
+      }, (err, update) => {
+        if (err) {
+          console.log('Error: ', err);
+        } else {
+          console.log('Successfully pulled structure');
+          pullRepository('https://ci_server:glpat-LtQLKmF3j9cQ6yAkuVZ1@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git', '../ci2027-db-data', {
+            binary: 'git'
+          }, (err, update) => {
+            if (err) {
+              console.log('Error: ', err);
+            } else {
+              console.log('Successfully pulled data');
+              if(!skipDocker)
+                execSync('npm run start')
+            }
+          });
+        }
+      });
+    }
+  });
 }
 
 // This defines a POST route at the `/webhook` path. This path matches the path that you specified for the smee.io forwarding. For more information, see "[Forward webhooks](#forward-webhooks)."
@@ -51,43 +81,8 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
   //if(!data.ref.endsWith('master'))
   if(!data.ref?.endsWith('/main') && githubEvent !== 'push') return;
 
-  pullRepository('../', {binary: 'git'}, (err, update) => {
-    if (err) {
-      console.log('Error: ', err);
-    }else{
-      console.log('Success: ');
-      execSync('npm run start')
-    }
-    return;
-
-    if (err) {
-      console.log('Error: ', err);
-    } else {
-      pullRepository('../ci2027-db-structure', {
-        binary: 'git',
-        config: [
-          `http.extraHeader=Authorization: Bearer ${process.env.gitlabStructureToken}`
-        ]
-      }, (err, update) => {
-        if (err) {
-          console.log('Error: ', err);
-        } else {
-          pullRepository('../ci2027-db-data', {
-            binary: 'git',
-            config: [
-              `http.extraHeader=Authorization: Bearer ${process.env.gitlabDataToken}`
-            ]
-          }, (err, update) => {
-            if (err) {
-              console.log('Error: ', err);
-            } else {
-              execSync('npm run start')
-            }
-          });
-        }
-      });
-    }
-  });
+  pullAll()
 });
 
+pullAll(true);
 app.listen(port);

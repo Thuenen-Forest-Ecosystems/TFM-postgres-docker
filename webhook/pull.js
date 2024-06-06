@@ -54,6 +54,6 @@ function pull_structure_and_data() {
 pull_structure_and_data();
 
 
-git clone https://project_599_bot_rand3dgfg:glpat-tw2GM3jSUGDs3XJPZZ2X@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git
+git clone https://ci_server:glpat-wfBR-FVC9EZsX6hxkWfe@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git
 
 project_635_bot_dfghshrefj5:glpat-LAC7y5crjAoE4t1MSox-
