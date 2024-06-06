@@ -11,8 +11,8 @@
     "patch": "npm version patch && git push && git push --tags",
     "minor": "npm version minor && git push && git push --tags",
     "major": "npm version major && git push && git push --tags",
-    "start": "npm run restart",
-    "restart": "pm2 stop webhook/ecosystem.config.js && pm2 start webhook/ecosystem.config.js && docker compose down && docker compose up -d --build",
+    "start": "pm2 start webhook/ecosystem.config.js &&npm run restart",
+    "restart": "docker compose down && docker compose up -d --build",
     "stop": "docker compose down && pm2 stop webhook/ecosystem.config.js",
     "pull": "git submodule update --recursive --remote && npm install"
   },
