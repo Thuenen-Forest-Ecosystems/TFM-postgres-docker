@@ -55,8 +55,12 @@ function pullAll(skipDocker){
               console.log('Error: ', err);
             } else {
               console.log('Successfully pulled data');
-              if(!skipDocker)
-                execSync('npm run restart')
+              if(!skipDocker){
+                setTimeout(() => {
+                  execSync('docker-compose up -d');
+                }, 2500);
+              }
+                
             }
           });
         }
@@ -79,7 +83,6 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
 
   
   //if(!data.ref.endsWith('master'))
-  console.log(data, githubEvent);
 
   if( data.action !== 'completed' || githubEvent !== 'check_suite') return;
 

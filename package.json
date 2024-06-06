@@ -13,7 +13,7 @@
     "major": "npm version major && git push && git push --tags",
     "start": "pm2 start webhook/ecosystem.config.js &&npm run restart",
     "restart": "docker compose down -v && docker compose up -d --build",
-    "stop": "docker compose down --renew-anon-volumes && pm2 stop webhook/ecosystem.config.js",
+    "stop": "docker compose down -v && pm2 stop webhook/ecosystem.config.js",
     "pull": "git submodule update --recursive --remote && npm install"
   },
   "repository": {
