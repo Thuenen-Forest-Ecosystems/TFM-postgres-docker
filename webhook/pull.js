@@ -6,10 +6,20 @@ const { v2 } = require('docker-compose');
 
 function pullRepository(gitPath, options, cb) {
     const git = simpleGit(path.resolve(__dirname, gitPath), { binary: 'git' });
+    git.submoduleUpdate(['--recursive']);
     return git.pull(cb);
 }
 
 function pull_structure_and_data() {
+  pullRepository('../', {binary: 'git'}, (err, update) => {
+    if (err) {
+      console.log('Error: ', err);
+    }else{
+      console.log('Success: ');
+      execSync('npm run start')
+    }
+    return;
+
     pullRepository('../', {binary: 'git'}, (err, update) => {
         if (err) {
           console.log('Error: ', err);
@@ -42,3 +52,8 @@ function pull_structure_and_data() {
 }
 
 pull_structure_and_data();
+
+
+git clone https://project_599_bot_rand3dgfg:glpat-tw2GM3jSUGDs3XJPZZ2X@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git
+
+project_635_bot_dfghshrefj5:glpat-LAC7y5crjAoE4t1MSox-
