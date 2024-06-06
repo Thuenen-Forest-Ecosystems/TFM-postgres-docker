@@ -60,7 +60,7 @@ function pullAll(skipDocker){
               console.log('Successfully pulled data');
               if(!skipDocker){
                 setTimeout(() => {
-                  execSync('docker-compose up -d');
+                  execSync('npm run restart');
                 }, 2500);
               }
                 
