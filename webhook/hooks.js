@@ -79,7 +79,7 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
 
   
   //if(!data.ref.endsWith('master'))
-  console.log(data.ref, githubEvent);
+  console.log(data, githubEvent);
 
   if( data.action !== 'completed' || githubEvent !== 'check_suite') return;
 
