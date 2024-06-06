@@ -31,6 +31,7 @@ app.set('view engine', 'ejs');
  * */
 function pullRepository(gitPath, options, cb) {
   const git = simpleGit(path.resolve(__dirname, gitPath), { binary: 'git' });
+  git.submoduleUpdate(['--recursive']);
   return git.pull(cb);
 }
 
@@ -51,6 +52,14 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
   if(!data.ref?.endsWith('/main') && githubEvent !== 'push') return;
 
   pullRepository('../', {binary: 'git'}, (err, update) => {
+    if (err) {
+      console.log('Error: ', err);
+    }else{
+      console.log('Success: ');
+      execSync('npm run start')
+    }
+    return;
+
     if (err) {
       console.log('Error: ', err);
     } else {
