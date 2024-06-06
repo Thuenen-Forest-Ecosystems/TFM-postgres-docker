@@ -80,7 +80,7 @@ app.post('/webhook', express.json({type: 'application/json'}), (request, respons
   
   //if(!data.ref.endsWith('master'))
   console.log(data.ref, githubEvent);
-  if(!data.ref?.endsWith('/main') && githubEvent !== 'push') return;
+  if(!data.ref?.endsWith('/main') || githubEvent !== 'push') return;
   console.log('-------pullAll-------');
   pullAll()
 });
