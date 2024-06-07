@@ -30,7 +30,7 @@ jobs:
           draft: true
           prerelease: false
         env:
-          GITHUB_TOKEN: '${{ secrets.GH_TOKEN }}' # This token is provided by Actions, you do not need to create your own token
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' # This token is provided by Actions, you do not need to create your own token
       
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
