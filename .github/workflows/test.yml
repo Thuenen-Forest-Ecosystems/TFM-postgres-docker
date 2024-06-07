@@ -31,15 +31,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      - name: Sleep for 30 seconds
+      - name: Sleep for 3 seconds
         uses: jakejarvis/wait-action@master
         with:
-          time: '10s'
+          time: '3s'
           
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data
-        run: node test/basic.js
+        run: npm test
         # Environment variables used by the `client.js` script to create
         # a new PostgreSQL table.
         env:
