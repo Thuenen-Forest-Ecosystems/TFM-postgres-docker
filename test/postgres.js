@@ -27,7 +27,7 @@ describe('openApi', function () {
     });
     it('should return 200', function () {
         const res = request('POST', 'http://localhost:3000/rpc/login', {
-            json: { email: 'web_anon@example.com', pass: 'vyui4yEEaEcBMwpaCl1idpx43d' }
+            json: { "email": "web_anon@example.com", "pass": "vyui4yEEaEcBMwpaCl1idpx43d" }
         });
         console.log(res.getBody('utf8'))
         assert.strictEqual(res.statusCode, 200);

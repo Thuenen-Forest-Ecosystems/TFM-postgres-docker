@@ -76,7 +76,7 @@ services:
         - postgres:${PGADMIN_HOST_NAME}
     depends_on:
       - postgrest
-    user: '$UID:$GID'
+    user: root
     volumes:
       - ./pgadmindata:/var/lib/pgadmin
 
