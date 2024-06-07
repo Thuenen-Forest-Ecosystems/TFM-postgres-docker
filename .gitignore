@@ -1,6 +1,6 @@
-postgres-data
-db-data
 pgdata
+pgadmindata
+
 credentials
 
 .env*
