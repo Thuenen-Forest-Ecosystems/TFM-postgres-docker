@@ -31,12 +31,15 @@ app.set('view engine', 'ejs');
  * */
 async function pullRepository(remote, gitPath, options, cb) {
   const git = simpleGit(path.resolve(__dirname, gitPath), { binary: 'git' });
-  await git.pull(remote, 'main', { '--rebase': 'true' });
+  if(remote)
+    await git.pull(remote, 'main', { '--rebase': 'true' });
+  else
+    await git.pull();
   cb();
 }
 function pullAll(skipDocker){
   console.log('start pulling repositories');
-  pullRepository('https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker.git', '../', {binary: 'git'}, (err, update) => {
+  pullRepository(null, '../', {binary: 'git'}, (err, update) => {
     if (err) {
       console.log('Error: ', err);
     } else {
@@ -54,10 +57,10 @@ function pullAll(skipDocker){
             if (err) {
               console.log('Error: ', err);
             } else {
-              console.log('Successfully pulled data');
+              console.log('Successfully pulled data', skipDocker);
               if(!skipDocker){
                 setTimeout(() => {
-                  execSync('docker-compose up -d');
+                  execSync('npm run restart');
                 }, 2500);
               }
                 
