@@ -25,9 +25,9 @@ jobs:
           version_format: "${major}.${minor}.${patch}-prerelease${increment}"
           # Optional path to check for changes. If any changes are detected in the path the
           # 'changed' output will true. Enter multiple paths separated by spaces.
-          change_path: "src/my-service"
+          #change_path: "src/my-service"
           # Named version, will be used as suffix for name version tag
-          namespace: my-service
+          namespace: TFM
           # If this is set to true, *every* commit will be treated as a new version.
           bump_each_commit: false
           # If bump_each_commit is also set to true, setting this value will cause the version to increment only if the pattern specified is matched.
@@ -40,9 +40,9 @@ jobs:
           # If enabled, when the major version is 0, major releases will be treated as minor and minor as patch. Note that the version_type output is unchanged.
           enable_prerelease_mode: true
           # If enabled, diagnostic information will be added to the action output.
-          debug: false
+          debug: true
           # If true, the branch will be used to select the maximum version.
-          version_from_branch: false
+          version_from_branch: true
       - uses: ChanTsune/release-with-commit@v2.8.0
         with:
           regexp: "Release ((\\d+([.]\\d+)*)-(alpha|beta|rc)\\d*)((\\s|\\S)*)"
