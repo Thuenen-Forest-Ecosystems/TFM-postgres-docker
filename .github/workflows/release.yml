@@ -20,17 +20,17 @@ jobs:
           tag_prefix: "v"
           debug: true
           bump_each_commit: true
-      - uses: ChanTsune/release-with-commit@v2.8.0
-        with:
-          regexp: "Release ((\\d+([.]\\d+)*)-(alpha|beta|rc)\\d*)((\\s|\\S)*)"
-          regexp_options: "us"
-          release_name: "version $1"
-          tag_name: "v$1"
-          body: "$5"
-          draft: true
-          prerelease: false
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' # This token is provided by Actions, you do not need to create your own token
+      #- uses: ChanTsune/release-with-commit@v2.8.0
+      #  with:
+      #    regexp: "Release ((\\d+([.]\\d+)*)-(alpha|beta|rc)\\d*)((\\s|\\S)*)"
+      #    regexp_options: "us"
+      #    release_name: "version $1"
+      #    tag_name: "v$1"
+      #    body: "$5"
+      #    draft: true
+      #    prerelease: false
+      #  env:
+      #    GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' # This token is provided by Actions, you do not need to create your own token
       
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v4
