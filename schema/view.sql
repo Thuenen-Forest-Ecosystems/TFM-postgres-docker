@@ -124,3 +124,5 @@ END;
 $$ LANGUAGE plpgsql;
 
 GRANT EXECUTE ON FUNCTION dev_automated_001.insert_or_update_b3(nested_json JSON) TO web_anon;
+
+--- HEARE WE NEED TO ADD THE FUNCTION TO WRITE THE DATA INTO THE DATABASE
