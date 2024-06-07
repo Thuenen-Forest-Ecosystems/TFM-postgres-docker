@@ -1,6 +1,6 @@
 {
   "name": "postgrest-docker",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Basic example of initialising ```PostGres``` ```pgAdmin```, ```PostgREST``` and ```Swagger``` with docker compose on ubuntu.",
   "main": "index.js",
   "directories": {
