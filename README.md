@@ -1,5 +1,4 @@
-[![Docker Compose Actions Workflow](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/actions/workflows/test.yml/badge.svg)](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/actions/workflows/test.yml)
-
+[![Test Database - Docker Compose Actions Workflow](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/actions/workflows/test.yml/badge.svg)](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgresdocker/actions/workflows/test.yml)
 # Postgres + Postgrest
 This repository containes required software to run the backend for the TFM project.
 
