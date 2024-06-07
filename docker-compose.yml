@@ -59,7 +59,7 @@ services:
       - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
       
     
-      #- ./postgres-data:/var/lib/postgresql/data
+      - ./pgdata:/var/lib/postgresql/data
 
   pgadmin:
     restart: always
@@ -76,6 +76,9 @@ services:
         - postgres:${PGADMIN_HOST_NAME}
     depends_on:
       - postgrest
+    user: '$UID:$GID'
+    volumes:
+      - ./pgadmindata:/var/lib/pgadmin
 
   swagger:
     restart: always
