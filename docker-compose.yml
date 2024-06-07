@@ -36,16 +36,18 @@ services:
       - ./pgjwt/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
       - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
 
-      - ./pgcrypto.sql:/docker-entrypoint-initdb.d/pgcrypto.sql
+      - ./pgcrypto.sql:/docker-entrypoint-initdb.d/30-pgcrypto.sql
 
       - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
+
+      - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest-config.sql
 
       - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
 
       - ./start_replication.sql:/docker-entrypoint-initdb.d/zy-start_replication.sql
       - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/zz-data.sql
 
-      - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest.sql
+      
 
       ### New Setup  
       - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/80-structure.sql
@@ -59,7 +61,7 @@ services:
       - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
       
     
-      - ./pgdata:/var/lib/postgresql/data
+      # - ./pgdata:/var/lib/postgresql/data
 
   pgadmin:
     restart: always

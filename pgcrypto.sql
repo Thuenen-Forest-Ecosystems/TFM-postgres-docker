@@ -6,9 +6,9 @@
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 
-create schema if not exists basic_auth;
+create schema IF NOT EXISTS basic_auth;
 
-create table if not exists
+create table IF NOT EXISTS
 basic_auth.users (
   email    text primary key check ( email ~* '^.+@.+\..+$' ),
   pass     text not null check (length(pass) < 512),
