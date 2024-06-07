@@ -12,6 +12,7 @@ jobs:
         with:
           tag_prefix: "v"
           debug: true
+          bump_each_commit: true
       - uses: ChanTsune/release-with-commit@v2.8.0
         with:
           regexp: "Release ((\\d+([.]\\d+)*)-(alpha|beta|rc)\\d*)((\\s|\\S)*)"
