@@ -1,8 +1,6 @@
 -- Test-Setup
 INSERT INTO basic_auth.users (email, pass, role) VALUES ('web_anon@example.com', 'vyui4yEEaEcBMwpaCl1idpx43d', 'web_anon');
 
-INSERT INTO basic_auth.users (email, pass, role) VALUES ('web_anon@example.com', '$2a$06$il3aj7qaASk1JdiIm/fQjOsTOdabvrzzjyiz/MWJRF/rDGc.C8ZIO', 'web_anon');
-
 -- dev_automated_001.b3_tnr
 
 INSERT INTO dev_automated_001.b3_tnr (intkey, datvon, datbis, ledituser, ledittime, dathoheit, datverwend, Tnr, Soll_RE, Soll_dRE, Soll_HO, Soll_dHO, Soll_RechtsT, Soll_HochT, TopKar, AufnBl, StandardBl, Laender, Netz, Netz64, Ktg) VALUES ('B4EW0008DQG5', 20200317125141, 88888888888888, 'sa', '2020-10-27T14:53:28+01:00', 'BA', 'BA,BB', 9999915, 5418, 200, 5852, 170, 5418200, 5852170, 3248, 32, 12, 'BB', 0, '-1', 4);
