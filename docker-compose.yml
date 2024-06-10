@@ -52,6 +52,7 @@ services:
       ### New Setup  
       - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/80-structure.sql
       - ./ci2027-db-structure/ci2027/lookup_tables.sql:/docker-entrypoint-initdb.d/92-lookup_tables.sql
+      - ./ci2027-db-structure/ci2027/plot.sql:/docker-entrypoint-initdb.d/93-plot.sql
       - ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
 
 
