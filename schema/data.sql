@@ -1,7 +1,7 @@
 -- Test-Setup
 INSERT INTO basic_auth.users (email, pass, role) VALUES ('web_anon@example.com', 'vyui4yEEaEcBMwpaCl1idpx43d', 'web_anon');
 
-INSERT INTO basic_auth.users (email, pass, role) VALUES ('web_anon@example.com', '$2a$06$il3aj7qaASk1JdiIm/fQjOsTOdabvrzzjyiz/MWJRF/rDGc.C8ZIO', 'web_anon')
+INSERT INTO basic_auth.users (email, pass, role) VALUES ('web_anon@example.com', '$2a$06$il3aj7qaASk1JdiIm/fQjOsTOdabvrzzjyiz/MWJRF/rDGc.C8ZIO', 'web_anon');
 
 -- dev_automated_001.b3_tnr
 
