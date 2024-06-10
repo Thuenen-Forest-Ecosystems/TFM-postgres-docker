@@ -33,35 +33,33 @@ services:
       POSTGRES_EXTENSIONS: pgcrypto, pgjwt
 
     volumes:
+
+      # pgjwt & pgcrypto Extension
       - ./pgjwt/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
       - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
-
       - ./pgcrypto.sql:/docker-entrypoint-initdb.d/30-pgcrypto.sql
-
-      - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
-
       - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest-config.sql
 
+      # Postgrest Permission Management
+      - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
+
+      ### Old Setup (deprecated)
       - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
-
-      - ./start_replication.sql:/docker-entrypoint-initdb.d/zy-start_replication.sql
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/zz-data.sql
-
+      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
       
+      ### New Setup (to be implemented) 
+      - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/930-structure.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables.sql:/docker-entrypoint-initdb.d/931-lookup_tables.sql
 
-      ### New Setup  
-      - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/80-structure.sql
-      - ./ci2027-db-structure/ci2027/lookup_tables.sql:/docker-entrypoint-initdb.d/92-lookup_tables.sql
-      - ./ci2027-db-structure/ci2027/plot.sql:/docker-entrypoint-initdb.d/93-plot.sql
-      - ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
-
-
-      - ./schema/structure.sql:/docker-entrypoint-initdb.d/90-structure.sql
-      - ./schema/view.sql:/docker-entrypoint-initdb.d/91-view.sql
-      - ./schema/data.sql:/docker-entrypoint-initdb.d/92-data.sql
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/93-data.sql
+      - ./ci2027-db-structure/ci2027/cluster.sql:/docker-entrypoint-initdb.d/932-cluster.sql
+      - ./ci2027-db-structure/ci2027/plot.sql:/docker-entrypoint-initdb.d/933-plot.sql
       
-    
+      ##### Example Data (to be replaced with actual data later on)
+      #- ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
+
+      ### Test Setup to be used by automated tests
+      - ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
+      
       # - ./pgdata:/var/lib/postgresql/data
 
   pgadmin:
