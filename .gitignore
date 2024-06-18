@@ -11,4 +11,7 @@ node_modules
 
 .DS_Store
 
+TFM.session.sql
+package-lock.json
 pgbackups
+
