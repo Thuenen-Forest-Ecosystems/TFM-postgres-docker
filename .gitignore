@@ -13,3 +13,5 @@ node_modules
 
 TFM.session.sql
 package-lock.json
+pgbackups
+
