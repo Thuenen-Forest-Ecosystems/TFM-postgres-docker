@@ -52,9 +52,9 @@ services:
       - ./ci2027-db-structure/ci2027/lookup_tables.sql:/docker-entrypoint-initdb.d/931-lookup_tables.sql
 
       - ./ci2027-db-structure/ci2027/cluster.sql:/docker-entrypoint-initdb.d/932-cluster.sql
-      - ./ci2027-db-structure/ci2027/func_get_enum_states.sql:/docker-entrypoint-initdb.d/933-func_get_enum_states.sql
-      - ./ci2027-db-structure/ci2027/lookup_grotharea.sql:/docker-entrypoint-initdb.d/934-lookup_grotharea.sql
-      - ./ci2027-db-structure/ci2027/lookup_growthdistrict.sql:/docker-entrypoint-initdb.d/935-lookup_growthdistrict.sql
+
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_area.sql:/docker-entrypoint-initdb.d/931-lookup_growth_area.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_district.sql:/docker-entrypoint-initdb.d/931-lookup_growth_district.sql
       - ./ci2027-db-structure/ci2027/plot.sql:/docker-entrypoint-initdb.d/936-plot.sql
       
       ##### Example Data (to be replaced with actual data later on)
