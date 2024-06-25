@@ -63,6 +63,11 @@ Add a connection to postGres by register a new Server. Add Host name (```PGADMIN
 
 ![image](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/assets/11278402/a0d44a13-6dea-4071-928c-26f0c7ccc4fb)
 
+## Setup QGIS
+Create "New Connection..." to your PostgreSQL server. Add Host name (```PGADMIN_HOST_NAME```), username (```POSTGRES_USER```) and password (```POSTGRES_PASSWORD```) defined in your ```.env``` file.
+
+![image](https://github.com/Thuenen-Forest-Ecosystems/TFM-postgres-docker/assets/11278402/70223eea-7067-47c4-a624-8866af757686)
+
 
 ## git
 Fetch and merge (with submodules)
