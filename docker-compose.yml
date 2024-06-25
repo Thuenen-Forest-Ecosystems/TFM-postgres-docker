@@ -1,4 +1,5 @@
 # docker-compose.yml
+# https://gis-ops.com/de/postgrest-tutorial-installation-and-setup/
  
 services:
 
@@ -10,7 +11,7 @@ services:
     links:
       - postgres:postgres
     environment:
-      PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgres"
+      PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/postgis"
       PGRST_DB_SCHEMA: api
       PGRST_DB_ANON_ROLE: web_anon
       PGRST_OPENAPI_SERVER_PROXY_URI: ${PGRST_OPENAPI_SERVER_PROXY_URI}
@@ -23,23 +24,19 @@ services:
 
   postgres:
     restart: always
-    image: "postgres:16.2"
+    image: "kartoza/postgis"
     ports:
         - "5432:5432"
     environment:
       - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_USER=${POSTGRES_USER}
-
-      - POSTGRES_EXTENSIONS= pgcrypto, pgjwt
-
-      - POSTGRES_MULTIPLE_EXTENSIONS=postgis,hstore,postgis_topology,postgis_raster,pgrouting
-      - RUN_AS_ROOT=true
+      - POSTGRES_DBNAME=postgis
   
     volumes:
 
       # pgjwt & pgcrypto Extension
-      - ./pgjwt/pgjwt.control:/usr/share/postgresql/16/extension/pgjwt.control
-      - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/16/extension/pgjwt--0.2.0.sql
+      - ./pgjwt/pgjwt.control:/usr/share/postgresql/13/extension/pgjwt.control
+      - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/13/extension/pgjwt--0.2.0.sql
       - ./pgcrypto.sql:/docker-entrypoint-initdb.d/30-pgcrypto.sql
       - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest-config.sql
 
@@ -64,9 +61,14 @@ services:
       #- ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
 
       ### Test Setup to be used by automated tests
+      - ./default/cluster.sql:/docker-entrypoint-initdb.d/99-cluster.sql
       - ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
+      - ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       
       # - ./pgdata:/var/lib/postgresql/data
+
+      # TMP
+      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
 
   # https://hub.docker.com/r/prodrigestivill/postgres-backup-local
   pgbackups:
@@ -80,15 +82,13 @@ services:
     depends_on:
         - postgres
     environment:
-        - POSTGRES_HOST=postgres
+        - POSTGRES_HOST=${PGADMIN_HOST_NAME}
         - POSTGRES_DB=postgres
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         # - POSTGRES_PASSWORD_FILE=/run/secrets/db_password <-- alternative for POSTGRES_PASSWORD (to use with docker secrets)
         # - POSTGRES_EXTRA_OPTS=-Z1 --schema=public --blobs
         - SCHEDULE=@daily
-        - BACKUP_KEEP_DAYS=7
-        - BACKUP_KEEP_WEEKS=4
         - BACKUP_KEEP_MONTHS=6
         - HEALTHCHECK_PORT=8080
 
