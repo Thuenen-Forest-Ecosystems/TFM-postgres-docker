@@ -24,6 +24,8 @@ services:
 
   postgres:
     restart: always
+    #name the container
+    container_name: postgis
     image: "kartoza/postgis"
     ports:
         - "5432:5432"
@@ -35,40 +37,79 @@ services:
     volumes:
 
       # pgjwt & pgcrypto Extension
-      - ./pgjwt/pgjwt.control:/usr/share/postgresql/13/extension/pgjwt.control
-      - ./pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/13/extension/pgjwt--0.2.0.sql
-      - ./pgcrypto.sql:/docker-entrypoint-initdb.d/30-pgcrypto.sql
-      - ./postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest-config.sql
+      - ./config/pgjwt/pgjwt.control:/usr/share/postgresql/13/extension/pgjwt.control
+      - ./config/pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/13/extension/pgjwt--0.2.0.sql
+      - ./config/10-pgcrypto.sql:/docker-entrypoint-initdb.d/10-pgcrypto.sql
+      - ./config/11-postgrest-config.sql:/docker-entrypoint-initdb.d/11-postgrest-config.sql
+
+      #- ./ci2027:/docker-entrypoint-initdb.d
+      #- ./config/sql/01-pgcrypto.sql:/docker-entrypoint-initdb.d/01-pgcrypto.sql
+      #- ./config/sql/02-postgrest-config.sql:/docker-entrypoint-initdb.d/02-postgrest-config.sql
 
       # Postgrest Permission Management
       - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
 
       ### Old Setup (deprecated)
-      - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
+      #- ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
+      #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
       
       ### New Setup (to be implemented) 
-      - ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/930-structure.sql
-      - ./ci2027-db-structure/ci2027/lookup_tables.sql:/docker-entrypoint-initdb.d/931-lookup_tables.sql
+      #- ./ci2027-db-structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/930-structure.sql
+      - ./ci2027-db-structure/ci2027/schema.sql:/docker-entrypoint-initdb.d/900-schema.sql
+      - ./ci2027-db-structure/ci2027/enum.sql:/docker-entrypoint-initdb.d/901-enum.sql
+      - ./ci2027-db-structure/ci2027/enum_overwrite.sql:/docker-entrypoint-initdb.d/902-enum_overwrite.sql
+      - ./ci2027-db-structure/ci2027/domains.sql:/docker-entrypoint-initdb.d/902-domains.sql
+      
+      
+      #- ./ci2027-db-structure/ci2027:/docker-entrypoint-initdb.d
+      #- ci2027-db-structure/ci2027/lookup_tables:/docker-entrypoint-initdb.d
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_area.sql:/docker-entrypoint-initdb.d/910-lookup_growth_area.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_district.sql:/docker-entrypoint-initdb.d/910-lookup_growth_district.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_state.sql:/docker-entrypoint-initdb.d/910-lookup_state.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_sampling_strata.sql:/docker-entrypoint-initdb.d/910-lookup_sampling_strata.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_layer_type.sql:/docker-entrypoint-initdb.d/910-lookup_layer_type.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_forest_decision.sql:/docker-entrypoint-initdb.d/910-lookup_forest_decision.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_property_type.sql:/docker-entrypoint-initdb.d/910-lookup_property_type.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_property_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_property_size_class.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_height_layer_class.sql:/docker-entrypoint-initdb.d/910-lookup_height_layer_class.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_forestry_department.sql:/docker-entrypoint-initdb.d/910-lookup_forestry_department.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_forest_type.sql:/docker-entrypoint-initdb.d/910-lookup_forest_type.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_habitat_type.sql:/docker-entrypoint-initdb.d/910-lookup_habitat_type.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_habitat_type_source.sql:/docker-entrypoint-initdb.d/910-lookup_habitat_type_source.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_land_use.sql:/docker-entrypoint-initdb.d/910-lookup_land_use.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_use_restriction.sql:/docker-entrypoint-initdb.d/910-lookup_use_restriction.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_marking_state.sql:/docker-entrypoint-initdb.d/910-lookup_marking_state.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_marking_profile.sql:/docker-entrypoint-initdb.d/910-lookup_marking_profile.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_terrain_form.sql:/docker-entrypoint-initdb.d/910-lookup_terrain_form.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_management_type.sql:/docker-entrypoint-initdb.d/910-lookup_management_type.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_harvesting_method.sql:/docker-entrypoint-initdb.d/910-lookup_harvesting_method.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_stand_phase.sql:/docker-entrypoint-initdb.d/910-lookup_stand_phase.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_stand_layer.sql:/docker-entrypoint-initdb.d/910-lookup_stand_layer.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_trees_less_4meter_count_factor.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_count_factor.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_trees_less_4meter_layer.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_layer.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_trees_less_4meter_mirrored.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_mirrored.sql
+      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_trees_less_4meter_origin.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_origin.sql
 
-      - ./ci2027-db-structure/ci2027/cluster.sql:/docker-entrypoint-initdb.d/932-cluster.sql
 
-      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_area.sql:/docker-entrypoint-initdb.d/931-lookup_growth_area.sql
-      - ./ci2027-db-structure/ci2027/lookup_tables/lookup_growth_district.sql:/docker-entrypoint-initdb.d/931-lookup_growth_district.sql
-      - ./ci2027-db-structure/ci2027/plot.sql:/docker-entrypoint-initdb.d/936-plot.sql
+      - ./ci2027-db-structure/ci2027/tables/cluster.sql:/docker-entrypoint-initdb.d/932-cluster.sql
+      - ./ci2027-db-structure/ci2027/tables/plot.sql:/docker-entrypoint-initdb.d/932-plot.sql
+      
+      
       
       ##### Example Data (to be replaced with actual data later on)
       #- ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
 
       ### Test Setup to be used by automated tests
-      - ./default/cluster.sql:/docker-entrypoint-initdb.d/99-cluster.sql
-      - ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
-      - ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
+      #- ./default/cluster.sql:/docker-entrypoint-initdb.d/99-cluster.sql
+      #- ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
+      #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       
-      # - ./pgdata:/var/lib/postgresql/data
+      
 
       # TMP
       - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
+
+      - ./pgdata:/var/lib/postgresql/data
 
   # https://hub.docker.com/r/prodrigestivill/postgres-backup-local
   pgbackups:
