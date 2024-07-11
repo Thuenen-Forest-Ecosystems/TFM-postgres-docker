@@ -114,20 +114,20 @@ services:
       - ./ci2027-db-structure/ci2027/tables/sapling_2m.sql:/docker-entrypoint-initdb.d/922-sapling_2m.sql
       - ./ci2027-db-structure/ci2027/tables/deadwood.sql:/docker-entrypoint-initdb.d/922-deadwood.sql
       
-      
-      ##### Example Data (to be replaced with actual data later on)
-      #- ./ci2027-db-structure/ci2027/data.sql:/docker-entrypoint-initdb.d/94-data.sql
+
+       # TMP
+      #- ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
+
+
 
       ### Test Setup to be used by automated tests
       - ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
+      - ./default/export-clusters.sql:/docker-entrypoint-initdb.d/99-export-clusters.sql
+      - ./default/import-clusters.sql:/docker-entrypoint-initdb.d/99-import-clusters.sql
+      - ./default/data.sql:/docker-entrypoint-initdb.d/99-default-data.sql
       
-      
-
-      # TMP
-      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
-
-      - ./pgdata:/var/lib/postgresql/data
+      #- ./pgdata:/var/lib/postgresql/data
 
       
 

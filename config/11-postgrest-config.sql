@@ -13,5 +13,5 @@ returns void as $$
     set_config('pgrst.jwt_secret', '7u8f0HLDi5S6NKzNuo69cDEl3abvDP8YVfW3egLNubvy7uJFrP', FALSE),
     set_config('pgrst.db_schemas', string_agg(nspname, ','), true)
     from pg_namespace
-    where nspname like 'bwi_%' OR nspname like 'public_%' OR nspname = 'api';
+    where nspname like 'public_%' OR nspname like 'private_%' OR nspname = 'api';
 $$ language sql;
