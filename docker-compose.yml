@@ -121,10 +121,17 @@ services:
 
 
       ### Test Setup to be used by automated tests
+      - ./default/grants.sql:/docker-entrypoint-initdb.d/99-grants.sql
       - ./default/user.sql:/docker-entrypoint-initdb.d/99-default-user.sql
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       - ./default/export-clusters.sql:/docker-entrypoint-initdb.d/99-export-clusters.sql
+
+      # IMPORT
+      - ./default/set/plot_location.sql:/docker-entrypoint-initdb.d/99-plot_location.sql
+      - ./default/set/wzp_tree.sql:/docker-entrypoint-initdb.d/99-wzp_tree.sql
+      - ./default/set/deadwood.sql:/docker-entrypoint-initdb.d/99-deadwood.sql
       - ./default/import-clusters.sql:/docker-entrypoint-initdb.d/99-import-clusters.sql
+      
       - ./default/data.sql:/docker-entrypoint-initdb.d/99-default-data.sql
       
       #- ./pgdata:/var/lib/postgresql/data

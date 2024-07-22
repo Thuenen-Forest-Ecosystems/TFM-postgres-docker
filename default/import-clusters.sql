@@ -24,6 +24,8 @@ BEGIN
     FOR clusters_object IN SELECT * FROM json_array_elements(clusters)
     LOOP
 
+
+        -- ADD CLUSTER
         cluster_object := clusters_object->'cluster';
 
         states_array := ARRAY(
@@ -31,9 +33,9 @@ BEGIN
             FROM json_array_elements_text(cluster_object->'states') AS elem
         );
         
-        INSERT INTO cluster (id, name, description, state_administration, state_location, states, sampling_strata, cluster_identifier)
+        INSERT INTO cluster (name, description, state_administration, state_location, states, sampling_strata, cluster_identifier)
         VALUES (
-            (cluster_object->>'id')::int, -- Assuming 'id' is an integer
+            --(cluster_object->>'id')::int, -- Assuming 'id' is an integer
             cluster_object->>'name',
             cluster_object->>'description',
             (cluster_object->>'state_administration')::enum_state,
@@ -55,8 +57,7 @@ BEGIN
         RETURNING id INTO new_cluster_id;
 
 
-        -- START: Insert plot - DATA
-        -- Step 1: Collect IDs
+        -- ADD PLOT
         CREATE TEMP TABLE IF NOT EXISTS temp_plot_ids (id INT);
         TRUNCATE temp_plot_ids;
 
@@ -71,9 +72,9 @@ BEGIN
             
             
 
-            INSERT INTO plot (id, cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
+            INSERT INTO plot (cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
             VALUES (
-                (plot_object->>'id')::int, -- Assuming 'id' is an integer
+                --(plot_object->>'id')::int, -- Assuming 'id' is an integer
                 new_cluster_id,
                 plot_object->>'name',
                 plot_object->>'description',
@@ -96,12 +97,16 @@ BEGIN
             WHERE plot.id = EXCLUDED.id
             RETURNING id INTO new_plot_id;
 
-            -- add wzp_tree
+            -- ADD wzp_tree
 
             -- if not null
             
             IF (plots_object->'wzp_tree')::text != 'null' THEN
                 PERFORM import_wzp_tree(new_plot_id, plots_object->'wzp_tree');
+            END IF;
+
+            IF (plots_object->'deadwood')::text != 'null' THEN
+                PERFORM import_deadwood(new_plot_id, plots_object->'deadwood');
             END IF;
             
         END LOOP;
@@ -117,145 +122,8 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
--- Function to import Plot Location
-CREATE OR REPLACE FUNCTION import_plot_location(plot_location json)
-RETURNS int AS
-$$
-DECLARE
-    new_plot_location_id int;
-BEGIN
-
-    INSERT INTO plot_location (id, azimuth, distance, radius, geometry, no_entities)
-    VALUES (
-        (plot_location->>'id')::int,
-        (plot_location->>'azimuth')::int,
-        (plot_location->>'distance')::int,
-        (plot_location->>'radius')::int,
-        ST_GeomFromGeoJSON((plot_location->>'geometry')::text),
-        (plot_location->>'no_entities')::boolean
-    )
-    ON CONFLICT (id) DO UPDATE
-    SET 
-        azimuth = EXCLUDED.azimuth,
-        distance = EXCLUDED.distance,
-        radius = EXCLUDED.radius,
-        geometry = EXCLUDED.geometry,
-        no_entities = EXCLUDED.no_entities
-    WHERE plot_location.id = EXCLUDED.id
-    RETURNING id INTO new_plot_location_id;
-
-    RETURN new_plot_location_id;
-END;
-$$ LANGUAGE plpgsql;
-
--- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION import_wzp_tree(plot_id_parent int, wzp_tree json)
-RETURNS json AS
-$$
-DECLARE
-    modified_wzp_tree_ids int[];
-    new_wzp_tree_id int;
-    wzp_trees_objects json;
-    wzp_trees_object json;
-    new_plot_location_id int;
-BEGIN
 
 
-    CREATE TEMP TABLE IF NOT EXISTS temp_wzp_tree_ids (id INT);
-    TRUNCATE temp_wzp_tree_ids;
-
-    FOR wzp_trees_objects IN SELECT * FROM json_array_elements(wzp_tree)
-    LOOP
-
-        wzp_trees_object := wzp_trees_objects->'wzp_tree';
-
-        INSERT INTO temp_wzp_tree_ids (id) VALUES ((wzp_trees_object->>'id')::int);
-
-        IF (wzp_trees_objects->'plot_location')::text != 'null' THEN
-            SELECT import_plot_location(wzp_trees_objects->'plot_location') INTO new_plot_location_id;
-            
-        ELSE
-            RAISE EXCEPTION 'Plot Location is required / DELETE';
-        END IF;
-        
-
-
-        INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
-        VALUES (
-            (wzp_trees_object->>'id')::int,
-            plot_id_parent,
-            new_plot_location_id,
-            (wzp_trees_object->>'azimuth')::int,
-            (wzp_trees_object->>'distance')::int,
-            (wzp_trees_object->>'tree_species')::int,
-            (wzp_trees_object->>'bhd')::int,
-            (wzp_trees_object->>'bhd_height')::int,
-            (wzp_trees_object->>'tree_number')::int,
-            (wzp_trees_object->>'tree_height')::int,
-            (wzp_trees_object->>'stem_height')::int,
-            (wzp_trees_object->>'tree_height_azimuth')::int,
-            (wzp_trees_object->>'tree_height_distance')::int,
-            (wzp_trees_object->>'tree_age')::int,
-            (wzp_trees_object->>'stem_breakage')::enum_stem_breakage,
-            (wzp_trees_object->>'stem_form')::enum_stem_form,
-            (wzp_trees_object->>'pruning')::enum_pruning,
-            (wzp_trees_object->>'pruning_height')::int,
-            (wzp_trees_object->>'stand_affiliation')::boolean,
-            (wzp_trees_object->>'inventory_layer')::enum_stand_layer,
-            (wzp_trees_object->>'damage_dead')::boolean,
-            (wzp_trees_object->>'damage_peel_new')::boolean,
-            (wzp_trees_object->>'damage_peel_old')::boolean,
-            (wzp_trees_object->>'damage_logging')::boolean,
-            (wzp_trees_object->>'damage_fungus')::boolean,
-            (wzp_trees_object->>'damage_resin')::boolean,
-            (wzp_trees_object->>'damage_beetle')::boolean,
-            (wzp_trees_object->>'damage_other')::boolean,
-            (wzp_trees_object->>'cave_tree')::boolean,
-            (wzp_trees_object->>'crown_clear')::boolean,
-            (wzp_trees_object->>'crown_dry')::boolean
-        )
-        ON CONFLICT (id) DO UPDATE
-        SET
-            plot_id = EXCLUDED.plot_id,
-            plot_location_id = EXCLUDED.plot_location_id,
-            azimuth = EXCLUDED.azimuth,
-            distance = EXCLUDED.distance,
-            tree_species = EXCLUDED.tree_species,
-            bhd = EXCLUDED.bhd,
-            bhd_height = EXCLUDED.bhd_height,
-            tree_number = EXCLUDED.tree_number,
-            tree_height = EXCLUDED.tree_height,
-            stem_height = EXCLUDED.stem_height,
-            tree_height_azimuth = EXCLUDED.tree_height_azimuth,
-            tree_height_distance = EXCLUDED.tree_height_distance,
-            tree_age = EXCLUDED.tree_age,
-            stem_breakage = EXCLUDED.stem_breakage,
-            stem_form = EXCLUDED.stem_form,
-            pruning = EXCLUDED.pruning,
-            pruning_height = EXCLUDED.pruning_height,
-            stand_affiliation = EXCLUDED.stand_affiliation,
-            inventory_layer = EXCLUDED.inventory_layer,
-            damage_dead = EXCLUDED.damage_dead,
-            damage_peel_new = EXCLUDED.damage_peel_new,
-            damage_peel_old = EXCLUDED.damage_peel_old,
-            damage_logging = EXCLUDED.damage_logging,
-            damage_fungus = EXCLUDED.damage_fungus,
-            damage_resin = EXCLUDED.damage_resin,
-            damage_beetle = EXCLUDED.damage_beetle,
-            damage_other = EXCLUDED.damage_other,
-            cave_tree = EXCLUDED.cave_tree,
-            crown_clear = EXCLUDED.crown_clear,
-            crown_dry = EXCLUDED.crown_dry
-        WHERE wzp_tree.id = EXCLUDED.id
-        RETURNING id INTO new_wzp_tree_id;
-
-    END LOOP;
-
-    DELETE FROM wzp_tree WHERE id NOT IN (SELECT id FROM temp_wzp_tree_ids) AND wzp_tree.plot_id = plot_id_parent;
-
-RETURN modified_wzp_tree_ids;
-END;
-$$ LANGUAGE plpgsql;
 
 
 
@@ -424,3 +292,6 @@ BEGIN
     RETURN is_allowed;
 END;
 $$ LANGUAGE plpgsql;
+
+-- allow webanon to use cluster_id_seq
+GRANT USAGE, SELECT ON SEQUENCE cluster_id_seq TO web_anon;

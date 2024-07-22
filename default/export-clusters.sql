@@ -7,60 +7,99 @@ RETURNS json AS
 $$
 DECLARE
 BEGIN
-
-    RETURN (
-        SELECT json_agg(
-            json_build_object(
-                'cluster', cluster.*,
-                'plots', (SELECT json_agg(
-                        json_build_object(
-                            'plot', plot.*,
-                            'wzp_tree', (SELECT json_agg(
+    
+        RETURN (
+            SELECT COALESCE(json_agg(
+                json_build_object(
+                    'cluster', cluster.*,
+                    'plots', (SELECT json_agg(
+                            json_build_object(
+                                'plot', plot.*,
+                                'wzp_tree', (
                                     json_build_object(
-                                        'wzp_tree', wzp_tree.*,
+                                        'wzp_tree', (
+                                            SELECT json_agg(row_to_json(wzp_tree))
+                                            FROM wzp_tree WHERE wzp_tree.plot_id = plot.id
+                                        ),
                                         'plot_location', (
-                                            SELECT json_agg(
-                                                json_build_object(
-                                                    'plot_location', plot_location.*
-                                                )
-                                            )
-                                            FROM plot_location WHERE plot_location.id = wzp_tree.plot_location_id
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'wzp_tree'
+                                        )
+                                    ) 
+                                ),
+                                'deadwood', (
+                                    json_build_object(
+                                        'deadwood', (
+                                            SELECT json_agg(row_to_json(deadwood))
+                                            FROM deadwood WHERE deadwood.plot_id = plot.id
+                                        ),
+                                        'plot_location', (
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'deadwood'
+                                        )
+                                    )
+                                ),
+                                'edges', (
+                                    json_build_object(
+                                        'edges', (
+                                            SELECT json_agg(row_to_json(edges))
+                                            FROM edges WHERE edges.plot_id = plot.id
+                                        ),
+                                        'plot_location', (
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'edge'
+                                        )
+                                    )
+                                ),
+                                'position', (
+                                    json_build_object(
+                                        'position', (
+                                            SELECT json_agg(row_to_json(position))
+                                            FROM position WHERE position.plot_id = plot.id
+                                        ),
+                                        'plot_location', (
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'position'
+                                        )
+                                    )
+                                ),
+                                'sapling_1m', (
+                                    json_build_object(
+                                        'sapling_1m', (
+                                            SELECT json_agg(row_to_json(sapling_1m))
+                                            FROM sapling_1m WHERE sapling_1m.plot_id = plot.id
+                                        ),
+                                        'plot_location', (
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'sapling_1m'
+                                        )
+                                    )
+                                ),
+                                'sapling_2m', (
+                                    json_build_object(
+                                        'sapling_2m', (
+                                            SELECT json_agg(row_to_json(sapling_2m))
+                                            FROM sapling_2m WHERE sapling_2m.plot_id = plot.id
+                                        ),
+                                        'plot_location', (
+                                            SELECT row_to_json(plot_location)
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'sapling_2m'
                                         )
                                     )
                                 )
-                                FROM wzp_tree WHERE wzp_tree.plot_id = plot.id
-                            ),
-                            'deadwood', (SELECT json_agg(
-                                    json_build_object(
-                                        'deadwood', deadwood.*,
-                                        'plot_location', (
-                                            SELECT json_agg(
-                                                json_build_object(
-                                                    'plot_location', plot_location.*
-                                                )
-                                            )
-                                            FROM plot_location WHERE plot_location.id = deadwood.plot_location_id
-                                        )
-                                    )
-                                )
-                                FROM deadwood WHERE deadwood.plot_id = plot.id
                             )
                         )
+                        FROM plot WHERE plot.cluster_id = cluster.id
                     )
-                    FROM plot WHERE plot.cluster_id = cluster.id
                 )
-            )
-        )
-        FROM cluster 
-        WHERE cluster.id = ANY(cluster_ids)
-    );
+            ) , '[]'::json)
+            FROM cluster 
+            WHERE cluster.id = ANY(cluster_ids) OR array_length(cluster_ids, 1) IS NULL
+            
+        );
 END;
 $$ LANGUAGE plpgsql;
 
 ALTER FUNCTION export_geojson(int[]) OWNER TO postgres;
 GRANT EXECUTE ON FUNCTION export_geojson(int[]) TO web_anon;
 
-GRANT SELECT ON TABLE cluster TO web_anon;
-GRANT SELECT ON TABLE plot TO web_anon;
-GRANT SELECT ON TABLE wzp_tree TO web_anon;
-GRANT SELECT ON TABLE plot_location TO web_anon;
