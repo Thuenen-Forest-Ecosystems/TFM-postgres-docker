@@ -1,0 +1,70 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "https://example.com/product.schema.json",
+    "title": "List of Clusters",
+    "description": "List of Clusters",
+    "type": "array",
+    "required": ["id", "name", "description", "plots", "state_administration", "state_location", "states"],
+    "items": {
+        "type": "object",
+        "title": "Cluster",
+        "description": "A single cluster",
+        "properties": {
+            "id": {
+                "description": "The unique identifier for a cluster of plots",
+                "type": "integer"
+            },
+            "name": {
+                "description": "Name of the cluster of plots",
+                "type": "string"
+            },
+            "description": {
+                "description": "Description of the cluster of plots",
+                "type": "string"
+            },
+            "state_administration": { "$ref": "#/$defs/state" },
+            "state_location": { "$ref": "#/$defs/state" },
+            "states": {
+                "description": "List of states",
+                "type": "array",
+                "items": { "$ref": "#/$defs/state" }
+            },
+            "plots":{
+                "description": "List of plots",
+                "type": "array",
+                "required": ["id", "name", "description", "state_administration", "state_collect"],
+                "items": {
+                    "type": "object",
+                    "title": "Plot",
+                    "description": "A plot",
+                    "properties": {
+                        "id": {
+                            "description": "The unique identifier for a plot",
+                            "type": "integer"
+                        },
+                        "name": {
+                            "description": "Name of the plot",
+                            "type": "string"
+                        },
+                        "description": {
+                            "description": "Description of the plot",
+                            "type": "string"
+                        },
+                        "state_administration": { "$ref": "#/$defs/state" },
+                        "state_collect": { "$ref": "#/$defs/state" }
+                    }
+                }
+            }
+        }
+    },
+    "additionalProperties": false,
+    "minItems": 1,
+    "uniqueItems": true,
+    "$defs": {
+        "state": {
+            "description": "State administration of the cluster",
+            "type": "string",
+            "pattern": "^[A-Z]{2}$"
+        }
+    }
+}
