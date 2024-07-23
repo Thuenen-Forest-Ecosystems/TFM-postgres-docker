@@ -33,9 +33,9 @@ BEGIN
             FROM json_array_elements_text(cluster_object->'states') AS elem
         );
         
-        INSERT INTO cluster (name, description, state_administration, state_location, states, sampling_strata, cluster_identifier)
+        INSERT INTO cluster (id, name, description, state_administration, state_location, states, sampling_strata, cluster_identifier)
         VALUES (
-            --(cluster_object->>'id')::int, -- Assuming 'id' is an integer
+            COALESCE(NULLIF((cluster_object->>'id')::text, 'null')::int, nextval('cluster_id_seq')),
             cluster_object->>'name',
             cluster_object->>'description',
             (cluster_object->>'state_administration')::enum_state,
@@ -46,6 +46,7 @@ BEGIN
         )
         ON CONFLICT (id) DO UPDATE
         SET 
+            id = EXCLUDED.id,
             name = EXCLUDED.name,
             description = EXCLUDED.description,
             state_administration = EXCLUDED.state_administration,
@@ -65,28 +66,34 @@ BEGIN
         LOOP
 
             plot_object := plots_object->'plot';
-            
 
-            INSERT INTO temp_plot_ids (id)
-                VALUES ((plot_object->>'id')::int);
-            
-            
+            -- if _deleted is true, delete plot
+            IF (plot_object->>'_deleted')::boolean THEN
+                DELETE FROM plot WHERE id = (plot_object->>'id')::int;
+                CONTINUE;
+            END IF;
 
-            INSERT INTO plot (cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
+            -- skip if plot_object->>'cluster_id' is not null and not equal to new_cluster_id
+            IF (plot_object->>'cluster_id')::text != 'null' AND (plot_object->>'cluster_id')::int != new_cluster_id THEN
+                CONTINUE;
+            END IF;
+            
+            INSERT INTO plot (id, cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
+
             VALUES (
-                --(plot_object->>'id')::int, -- Assuming 'id' is an integer
+                COALESCE(NULLIF((plot_object->>'id')::text, 'null')::int, nextval('plot_id_seq')),
                 new_cluster_id,
                 plot_object->>'name',
                 plot_object->>'description',
-                (cluster_object->>'sampling_strata')::enum_sampling_strata,
-                (cluster_object->>'state_administration')::enum_state,
-                ('BY')::enum_state,
+                (plot_object->>'sampling_strata')::enum_sampling_strata,
+                (plot_object->>'state_administration')::enum_state,
+                (plot_object->>'state_collect')::enum_state,
                 (plot_object->>'marking_state')::enum_marking_state,
                 (plot_object->>'harvesting_method')::enum_harvesting_method
             )
             ON CONFLICT (id) DO UPDATE
             SET 
-                cluster_id = EXCLUDED.cluster_id,
+                cluster_id = new_cluster_id,
                 name = EXCLUDED.name,
                 description = EXCLUDED.description,
                 sampling_strata = EXCLUDED.sampling_strata,
@@ -97,24 +104,29 @@ BEGIN
             WHERE plot.id = EXCLUDED.id
             RETURNING id INTO new_plot_id;
 
+            INSERT INTO temp_plot_ids (id)
+                VALUES (new_plot_id);
+
             -- ADD wzp_tree
 
             -- if not null
             
-            IF (plots_object->'wzp_tree')::text != 'null' THEN
-                PERFORM import_wzp_tree(new_plot_id, plots_object->'wzp_tree');
-            END IF;
+            --IF (plots_object->'wzp_tree')::text != 'null' THEN
+            --    PERFORM import_wzp_tree(new_plot_id, plots_object->'wzp_tree');
+            --END IF;
 
-            IF (plots_object->'deadwood')::text != 'null' THEN
-                PERFORM import_deadwood(new_plot_id, plots_object->'deadwood');
-            END IF;
+            --IF (plots_object->'deadwood')::text != 'null' THEN
+            --    PERFORM import_deadwood(new_plot_id, plots_object->'deadwood');
+            --END IF;
             
         END LOOP;
 
         -- Delete Plots Not in JSON Array
-        DELETE FROM plot
-        WHERE id NOT IN (SELECT id FROM temp_plot_ids)
-        AND cluster_id = new_cluster_id;
+        IF plots_object->'_force_delete' IS NOT NULL THEN
+            DELETE FROM plot
+            WHERE id NOT IN (SELECT id FROM temp_plot_ids)
+            AND cluster_id = new_cluster_id;
+        END IF;
 
     END LOOP;
 

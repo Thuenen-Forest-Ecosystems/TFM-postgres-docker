@@ -8,7 +8,12 @@ DECLARE
     new_plot_location_id int;
 BEGIN
 
-    INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, circle_geometry, no_entities)
+    INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, 
+        radius,
+        geometry,
+        --circle_geometry,
+        no_entities
+        )
     VALUES (
         plot_id,
         parent_table,
@@ -16,10 +21,10 @@ BEGIN
         (plot_location->>'distance')::int,
         (plot_location->>'radius')::int,
         ST_GeomFromGeoJSON((plot_location->>'geometry')::text),
-        ST_Buffer(
-            ST_GeomFromGeoJSON((plot_location->>'geometry')::text),
-            (plot_location->>'radius')::int, 'quad_segs=8'
-        ),
+        --ST_Buffer(
+        --    ST_GeomFromGeoJSON((plot_location->>'geometry')::text),
+        --    (plot_location->>'radius')::int, 'quad_segs=8'
+        --),
         (plot_location->>'no_entities')::boolean
     )
     ON CONFLICT (id) DO UPDATE
@@ -29,7 +34,7 @@ BEGIN
         azimuth = EXCLUDED.azimuth,
         distance = EXCLUDED.distance,
         radius = EXCLUDED.radius,
-        geometry = EXCLUDED.geometry,
+        --geometry = EXCLUDED.geometry,
         no_entities = EXCLUDED.no_entities
     WHERE plot_location.id = EXCLUDED.id
     RETURNING id INTO new_plot_location_id;

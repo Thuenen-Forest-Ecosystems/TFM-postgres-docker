@@ -48,8 +48,8 @@ services:
       - ./ci2027-db-structure/globals.sql:/docker-entrypoint-initdb.d/10-globals.sql
 
       ### Old Setup (deprecated)
-      - ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
+      #- ./ci2027-db-structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
+      #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
       
 
 

@@ -2,10 +2,10 @@ SET search_path TO private_ci2027_001, public;
 
 -- Function to import WZP Trees
 CREATE OR REPLACE FUNCTION import_wzp_tree(plot_id_parent int, wzp_tree json)
-RETURNS json AS
+RETURNS int[] AS
 $$
 DECLARE
-    modified_wzp_tree_ids int[];
+    modified_ids int[];
     new_wzp_tree_id int;
     wzp_trees_objects json;
     wzp_trees_object json;
@@ -13,22 +13,29 @@ DECLARE
 BEGIN
 
 
+    IF (wzp_tree->'wzp_tree')::text = 'null' THEN
+        RETURN modified_ids;
+        RAISE EXCEPTION 'wzp_tree: %', wzp_tree;
+        RAISE EXCEPTION 'WZP Tree is required / DELETE';
+    END IF;
+    IF (wzp_tree->'plot_location')::text != 'null' THEN
+        SELECT import_plot_location(wzp_tree->'plot_location', plot_id_parent, 'wzp_tree') INTO new_plot_location_id;
+    ELSE
+        RAISE EXCEPTION 'Plot Location is required / DELETE';
+    END IF;
+
+
     CREATE TEMP TABLE IF NOT EXISTS temp_wzp_tree_ids (id INT);
     TRUNCATE temp_wzp_tree_ids;
 
-    FOR wzp_trees_objects IN SELECT * FROM json_array_elements(wzp_tree)
+    FOR wzp_trees_object IN SELECT * FROM json_array_elements(wzp_tree->'wzp_tree')
     LOOP
 
-        wzp_trees_object := wzp_trees_objects->'wzp_tree';
+        --wzp_trees_object := wzp_trees_objects->'wzp_tree';
 
         INSERT INTO temp_wzp_tree_ids (id) VALUES ((wzp_trees_object->>'id')::int);
 
-        IF (wzp_trees_objects->'plot_location')::text != 'null' THEN
-            SELECT import_plot_location(wzp_trees_objects->'plot_location', plot_id_parent, 'wzp_tree') INTO new_plot_location_id;
-            
-        ELSE
-            RAISE EXCEPTION 'Plot Location is required / DELETE';
-        END IF;
+        
         
         INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
         VALUES (
@@ -103,6 +110,6 @@ BEGIN
 
     DELETE FROM wzp_tree WHERE id NOT IN (SELECT id FROM temp_wzp_tree_ids) AND wzp_tree.plot_id = plot_id_parent;
 
-RETURN modified_wzp_tree_ids;
+RETURN modified_ids;
 END;
 $$ LANGUAGE plpgsql;

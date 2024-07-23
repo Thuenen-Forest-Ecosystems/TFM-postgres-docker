@@ -12,13 +12,13 @@ BEGIN
             SELECT COALESCE(json_agg(
                 json_build_object(
                     'cluster', cluster.*,
-                    'plots', (SELECT json_agg(
+                    'plots', (SELECT COALESCE(json_agg(
                             json_build_object(
                                 'plot', plot.*,
                                 'wzp_tree', (
                                     json_build_object(
                                         'wzp_tree', (
-                                            SELECT json_agg(row_to_json(wzp_tree))
+                                            SELECT COALESCE(json_agg(row_to_json(wzp_tree)), '[]'::json)
                                             FROM wzp_tree WHERE wzp_tree.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -30,7 +30,7 @@ BEGIN
                                 'deadwood', (
                                     json_build_object(
                                         'deadwood', (
-                                            SELECT json_agg(row_to_json(deadwood))
+                                            SELECT COALESCE(json_agg(row_to_json(deadwood)), '[]'::json)
                                             FROM deadwood WHERE deadwood.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -42,7 +42,7 @@ BEGIN
                                 'edges', (
                                     json_build_object(
                                         'edges', (
-                                            SELECT json_agg(row_to_json(edges))
+                                            SELECT COALESCE(json_agg(row_to_json(edges)), '[]'::json)
                                             FROM edges WHERE edges.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -54,7 +54,7 @@ BEGIN
                                 'position', (
                                     json_build_object(
                                         'position', (
-                                            SELECT json_agg(row_to_json(position))
+                                            SELECT COALESCE(json_agg(row_to_json(position)), '[]'::json)
                                             FROM position WHERE position.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -66,7 +66,7 @@ BEGIN
                                 'sapling_1m', (
                                     json_build_object(
                                         'sapling_1m', (
-                                            SELECT json_agg(row_to_json(sapling_1m))
+                                            SELECT COALESCE(json_agg(row_to_json(sapling_1m)), '[]'::json)
                                             FROM sapling_1m WHERE sapling_1m.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -78,7 +78,7 @@ BEGIN
                                 'sapling_2m', (
                                     json_build_object(
                                         'sapling_2m', (
-                                            SELECT json_agg(row_to_json(sapling_2m))
+                                            SELECT COALESCE(json_agg(row_to_json(sapling_2m)), '[]'::json)
                                             FROM sapling_2m WHERE sapling_2m.plot_id = plot.id
                                         ),
                                         'plot_location', (
@@ -88,7 +88,7 @@ BEGIN
                                     )
                                 )
                             )
-                        )
+                        ), '[]'::json)
                         FROM plot WHERE plot.cluster_id = cluster.id
                     )
                 )
