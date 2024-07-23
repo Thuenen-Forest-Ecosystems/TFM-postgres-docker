@@ -23,12 +23,12 @@ describe('openApi + postgres + authentication', function () {
         assert.strictEqual(res.statusCode, 200);
     });
     it('http://localhost:3000/my_schemata: -> return 200', function () {
-        const res = request('GET', 'http://localhost:3000/my_schemata');
+        const res = request('GET', 'http://localhost:3000/schemata');
         assert.strictEqual(res.statusCode, 200);
     });
     it('http://localhost:3000/rpc/login -> return 200', function () {
         const res = request('POST', 'http://localhost:3000/rpc/login', {
-            json: { "email": "web_anon@example.com", "pass": "vyui4yEEaEcBMwpaCl1idpx43d" }
+            json: { "email": "anonymous@example.com", "pass": "anonymous" }
         });
         if (res.statusCode === 200){
             token = JSON.parse(res.getBody('utf8')).token;

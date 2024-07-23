@@ -1,12 +1,20 @@
 -- https://postgrest.org/en/v12/references/configuration.html
 
 -- create a dedicated schema, hidden from the API
-create schema postgrest;
+--create schema postgrest;
 -- grant usage on this schema to the authenticator
-grant usage on schema postgrest to authenticator;
+
+CREATE ROLE authenticator LOGIN NOINHERIT NOCREATEDB NOCREATEROLE NOSUPERUSER;
+CREATE ROLE anonymous NOLOGIN;
+CREATE ROLE web_anon NOLOGIN;
+CREATE ROLE web_user NOLOGIN;
+GRANT web_anon TO authenticator;
+GRANT web_user TO authenticator;
+
+grant usage on schema basic_auth to authenticator;
 
 -- the function can configure postgREST by using set_config
-create or replace function postgrest.pre_config()
+create or replace function basic_auth.pre_config()
 returns void as $$
   select
     -- set_config('pgrst.db_schemas', 'api', true),

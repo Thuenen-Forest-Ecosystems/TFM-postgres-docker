@@ -68,7 +68,7 @@ BEGIN
             plot_object := plots_object->'plot';
 
             -- if _deleted is true, delete plot
-            IF (plot_object->>'_deleted')::boolean THEN
+            IF (clusters_object->>'_deleted')::boolean THEN
                 DELETE FROM plot WHERE id = (plot_object->>'id')::int;
                 CONTINUE;
             END IF;
@@ -307,3 +307,4 @@ $$ LANGUAGE plpgsql;
 
 -- allow webanon to use cluster_id_seq
 GRANT USAGE, SELECT ON SEQUENCE cluster_id_seq TO web_anon;
+GRANT USAGE, SELECT ON SEQUENCE plot_id_seq TO web_anon;
