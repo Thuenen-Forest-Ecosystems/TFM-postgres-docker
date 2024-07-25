@@ -1,39 +1,33 @@
 SET search_path TO private_ci2027_001, public;
 
 -- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION import_deadwood(plot_id_parent int, deadwood json)
+CREATE OR REPLACE FUNCTION set_deadwood(parent_id int, json_object json, plot_location_id int)
 RETURNS json AS
 $$
 DECLARE
-    modified_deadwood_ids int[];
-    new_deadwood_id int;
-    deadwood_objects json;
-    deadwood_object json;
-    new_plot_location_id int;
+    child_object json;
+
+    modified jsonb := '[]'::jsonb;
+    modified_element jsonb;
+
+    changed_values RECORD;
 BEGIN
     
+    IF json_object IS NULL THEN
+        RETURN modified;
+    END IF;
 
-    CREATE TEMP TABLE IF NOT EXISTS temp_deadwood_ids (id INT);
-    TRUNCATE temp_deadwood_ids;
+    CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
+    TRUNCATE temp_child_ids;
 
-    FOR deadwood_objects IN SELECT * FROM json_array_elements(deadwood)
+    FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-        deadwood_object := deadwood_objects->'deadwood';
-
-        INSERT INTO temp_deadwood_ids (id) VALUES ((deadwood_object->>'id')::int);
-
-        IF (deadwood_objects->'plot_location')::text != 'null' THEN
-            SELECT import_plot_location(deadwood_objects->'plot_location', plot_id_parent, 'deadwood') INTO new_plot_location_id;
-            
-        ELSE
-            RAISE EXCEPTION 'Plot Location is required / DELETE';
-        END IF;
-        
-        INSERT INTO deadwood (plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
+        INSERT INTO deadwood (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
         VALUES (
-            plot_id_parent,
-            new_plot_location_id,
+            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('deadwood_id_seq')),
+            parent_id,
+            plot_location_id,
             (deadwood_object->>'azimuth')::int,
             (deadwood_object->>'distance')::int,
             (deadwood_object->>'tree_species')::int,
@@ -96,12 +90,20 @@ BEGIN
             crown_clear = EXCLUDED.crown_clear,
             crown_dry = EXCLUDED.crown_dry
         WHERE deadwood.id = EXCLUDED.id
-        RETURNING id INTO new_deadwood_id;
+        RETURNING * INTO changed_values;
+
+        INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
+
+        modified_element := json_build_object(
+            'deadwood', changed_values
+        );
+
+        modified := modified || modified_element;
 
     END LOOP;
 
-    DELETE FROM deadwood WHERE id NOT IN (SELECT id FROM temp_deadwood_ids) AND deadwood.plot_id = plot_id_parent;
+    DELETE FROM deadwood WHERE id NOT IN (SELECT id FROM temp_deadwood_ids) AND deadwood.plot_id = parent_id;
 
-RETURN modified_deadwood_ids;
+RETURN modified;
 END;
 $$ LANGUAGE plpgsql;

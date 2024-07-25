@@ -13,22 +13,15 @@ DECLARE
     changed_values RECORD;
 BEGIN
 
-    -- return if json_object is null
     IF json_object IS NULL THEN
         RETURN modified;
     END IF;
-
-    --IF (wzp_tree->'plot_location')::text != 'null' THEN
-    --    SELECT import_plot_location(wzp_tree->'plot_location', parent_id, 'wzp_tree') INTO new_plot_location_id;
-    --END IF;
-
 
     CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
     TRUNCATE temp_child_ids;
 
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-        
         
         INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
         VALUES (
