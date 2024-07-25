@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001, public;
 
-CREATE OR REPLACE FUNCTION set_geojson(clusters json)
+CREATE OR REPLACE FUNCTION set_cluster(clusters json)
 RETURNS json AS
 $$
 DECLARE
@@ -8,13 +8,18 @@ DECLARE
     new_cluster_id int;
     new_plot_id int;
 
-    modified_cluster_ids int[];
+    modified jsonb := '{"clusters": []}'::jsonb;
+    new_cluster jsonb;
+    new_plots jsonb;
+
     clusters_object json;
     cluster_object json;
     states_array enum_state[];
 
     plots_object json;
     plot_object json;
+
+    changed_values RECORD;
 
     wzp_trees_object json;
 BEGIN
@@ -53,82 +58,33 @@ BEGIN
             sampling_strata = EXCLUDED.sampling_strata,
             cluster_identifier = EXCLUDED.cluster_identifier
         WHERE cluster.id = EXCLUDED.id
-        RETURNING id INTO new_cluster_id;
+        RETURNING * INTO changed_values;
 
+        new_cluster := json_build_object(
+            'cluster', changed_values,
+            'plots', '[]'::json
+        );
 
-        -- ADD PLOT
-        CREATE TEMP TABLE IF NOT EXISTS temp_plot_ids (id INT);
-        TRUNCATE temp_plot_ids;
-
-        FOR plots_object IN SELECT * FROM json_array_elements(clusters_object->'plots')
-        LOOP
-
-            plot_object := plots_object->'plot';
-
-            -- if _deleted is true, delete plot
-            IF (clusters_object->>'_deleted')::boolean THEN
-                DELETE FROM plot WHERE id = (plot_object->>'id')::int;
-                CONTINUE;
-            END IF;
-
-            -- skip if plot_object->>'cluster_id' is not null and not equal to new_cluster_id
-            IF (plot_object->>'cluster_id')::text != 'null' AND (plot_object->>'cluster_id')::int != new_cluster_id THEN
-                CONTINUE;
-            END IF;
+        IF (clusters_object->'plots')::text != 'null' THEN
+            SELECT(set_plot(changed_values.id, clusters_object->'plots')) INTO new_plots;
+            new_cluster := jsonb_set(
+                new_cluster,
+                '{plots}',
+                new_plots
+            );
             
-            INSERT INTO plot (id, cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
-
-            VALUES (
-                COALESCE(NULLIF((plot_object->>'id')::text, 'null')::int, nextval('plot_id_seq')),
-                new_cluster_id,
-                plot_object->>'name',
-                plot_object->>'description',
-                (plot_object->>'sampling_strata')::enum_sampling_strata,
-                (plot_object->>'state_administration')::enum_state,
-                (plot_object->>'state_collect')::enum_state,
-                (plot_object->>'marking_state')::enum_marking_state,
-                (plot_object->>'harvesting_method')::enum_harvesting_method
-            )
-            ON CONFLICT (id) DO UPDATE
-            SET 
-                cluster_id = new_cluster_id,
-                name = EXCLUDED.name,
-                description = EXCLUDED.description,
-                sampling_strata = EXCLUDED.sampling_strata,
-                state_administration = EXCLUDED.state_administration,
-                state_collect = EXCLUDED.state_collect,
-                marking_state = EXCLUDED.marking_state,
-                harvesting_method = EXCLUDED.harvesting_method
-            WHERE plot.id = EXCLUDED.id
-            RETURNING id INTO new_plot_id;
-
-            INSERT INTO temp_plot_ids (id)
-                VALUES (new_plot_id);
-
-            -- ADD wzp_tree
-
-            -- if not null
-            
-            --IF (plots_object->'wzp_tree')::text != 'null' THEN
-            --    PERFORM import_wzp_tree(new_plot_id, plots_object->'wzp_tree');
-            --END IF;
-
-            --IF (plots_object->'deadwood')::text != 'null' THEN
-            --    PERFORM import_deadwood(new_plot_id, plots_object->'deadwood');
-            --END IF;
-            
-        END LOOP;
-
-        -- Delete Plots Not in JSON Array
-        IF plots_object->'_force_delete' IS NOT NULL THEN
-            DELETE FROM plot
-            WHERE id NOT IN (SELECT id FROM temp_plot_ids)
-            AND cluster_id = new_cluster_id;
         END IF;
 
+        modified := jsonb_set(
+            modified,
+            '{clusters}',
+            (modified->'clusters')::jsonb || jsonb_build_array(new_cluster)
+        );
+        
     END LOOP;
 
-    RETURN modified_cluster_ids;
+
+    RETURN modified;
 END;
 $$ LANGUAGE plpgsql;
 
@@ -137,7 +93,7 @@ $$ LANGUAGE plpgsql;
 --
 --GRANT SELECT ON TABLE plot_location (id, updated_at, azimuth, distance, radius, geometry, no_entities) TO web_anon;
 --REVOKE UPDATE(updated_at) ON table_name FROM target_user;
-ALTER TABLE plot_location ENABLE ROW LEVEL SECURITY;
+--ALTER TABLE plot_location ENABLE ROW LEVEL SECURITY;
 
 --CREATE POLICY allow_update_except_radius ON plot_location FOR UPDATE TO web_anon USING (true);
 

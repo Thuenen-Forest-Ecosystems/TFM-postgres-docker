@@ -153,7 +153,7 @@ GRANT SELECT, UPDATE, DELETE, INSERT ON TABLE deadwood TO web_anon;
 --
 --GRANT SELECT ON TABLE plot_location (id, updated_at, azimuth, distance, radius, geometry, no_entities) TO web_anon;
 --REVOKE UPDATE(updated_at) ON table_name FROM target_user;
-ALTER TABLE plot_location ENABLE ROW LEVEL SECURITY;
+--ALTER TABLE plot_location ENABLE ROW LEVEL SECURITY;
 
 --CREATE POLICY allow_update_except_radius ON plot_location FOR UPDATE TO web_anon USING (true);
 

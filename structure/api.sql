@@ -25,7 +25,7 @@ begin
     ) as token
     from (
       select _role as role, login.email as email,
-         extract(epoch from now())::integer + 60*60 as exp
+         extract(epoch from now())::integer + 60 * 60 * 24 as exp
     ) r
     into result;
   return result;
