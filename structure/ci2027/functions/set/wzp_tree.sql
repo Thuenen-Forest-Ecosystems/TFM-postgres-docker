@@ -1,75 +1,68 @@
 SET search_path TO private_ci2027_001, public;
 
 -- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION import_wzp_tree(plot_id_parent int, wzp_tree json)
-RETURNS int[] AS
+CREATE OR REPLACE FUNCTION set_wzp_tree(parent_id int, json_object json, plot_location_id int)
+RETURNS json AS
 $$
 DECLARE
-    modified_ids int[];
-    new_wzp_tree_id int;
-    wzp_trees_objects json;
-    wzp_trees_object json;
-    new_plot_location_id int;
+    child_object json;
+
+    modified jsonb := '[]'::jsonb;
+    modified_element jsonb;
+
+    changed_values RECORD;
 BEGIN
 
-
-    IF (wzp_tree->'wzp_tree')::text = 'null' THEN
-        RETURN modified_ids;
-        RAISE EXCEPTION 'wzp_tree: %', wzp_tree;
-        RAISE EXCEPTION 'WZP Tree is required / DELETE';
-    END IF;
-    IF (wzp_tree->'plot_location')::text != 'null' THEN
-        SELECT import_plot_location(wzp_tree->'plot_location', plot_id_parent, 'wzp_tree') INTO new_plot_location_id;
-    ELSE
-        RAISE EXCEPTION 'Plot Location is required / DELETE';
+    -- return if json_object is null
+    IF json_object IS NULL THEN
+        RETURN modified;
     END IF;
 
+    --IF (wzp_tree->'plot_location')::text != 'null' THEN
+    --    SELECT import_plot_location(wzp_tree->'plot_location', parent_id, 'wzp_tree') INTO new_plot_location_id;
+    --END IF;
 
-    CREATE TEMP TABLE IF NOT EXISTS temp_wzp_tree_ids (id INT);
-    TRUNCATE temp_wzp_tree_ids;
 
-    FOR wzp_trees_object IN SELECT * FROM json_array_elements(wzp_tree->'wzp_tree')
+    CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
+    TRUNCATE temp_child_ids;
+
+    FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-
-        --wzp_trees_object := wzp_trees_objects->'wzp_tree';
-
-        INSERT INTO temp_wzp_tree_ids (id) VALUES ((wzp_trees_object->>'id')::int);
-
         
         
         INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
         VALUES (
-            (wzp_trees_object->>'id')::int,
-            plot_id_parent,
-            new_plot_location_id,
-            (wzp_trees_object->>'azimuth')::int,
-            (wzp_trees_object->>'distance')::int,
-            (wzp_trees_object->>'tree_species')::int,
-            (wzp_trees_object->>'bhd')::int,
-            (wzp_trees_object->>'bhd_height')::int,
-            (wzp_trees_object->>'tree_number')::int,
-            (wzp_trees_object->>'tree_height')::int,
-            (wzp_trees_object->>'stem_height')::int,
-            (wzp_trees_object->>'tree_height_azimuth')::int,
-            (wzp_trees_object->>'tree_height_distance')::int,
-            (wzp_trees_object->>'tree_age')::int,
-            (wzp_trees_object->>'stem_breakage')::enum_stem_breakage,
-            (wzp_trees_object->>'stem_form')::enum_stem_form,
-            (wzp_trees_object->>'pruning')::enum_pruning,
-            (wzp_trees_object->>'pruning_height')::int,
-            (wzp_trees_object->>'stand_affiliation')::boolean,
-            (wzp_trees_object->>'inventory_layer')::enum_stand_layer,
-            (wzp_trees_object->>'damage_dead')::boolean,
-            (wzp_trees_object->>'damage_peel_new')::boolean,
-            (wzp_trees_object->>'damage_peel_old')::boolean,
-            (wzp_trees_object->>'damage_logging')::boolean,
-            (wzp_trees_object->>'damage_fungus')::boolean,
-            (wzp_trees_object->>'damage_resin')::boolean,
-            (wzp_trees_object->>'damage_beetle')::boolean,
-            (wzp_trees_object->>'damage_other')::boolean,
-            (wzp_trees_object->>'cave_tree')::boolean,
-            (wzp_trees_object->>'crown_clear')::boolean,
-            (wzp_trees_object->>'crown_dry')::boolean
+            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('wzp_tree_id_seq')),
+            parent_id,
+            plot_location_id,
+            (child_object->>'azimuth')::int,
+            (child_object->>'distance')::int,
+            (child_object->>'tree_species')::int,
+            (child_object->>'bhd')::int,
+            (child_object->>'bhd_height')::int,
+            (child_object->>'tree_number')::int,
+            (child_object->>'tree_height')::int,
+            (child_object->>'stem_height')::int,
+            (child_object->>'tree_height_azimuth')::int,
+            (child_object->>'tree_height_distance')::int,
+            (child_object->>'tree_age')::int,
+            (child_object->>'stem_breakage')::enum_stem_breakage,
+            (child_object->>'stem_form')::enum_stem_form,
+            (child_object->>'pruning')::enum_pruning,
+            (child_object->>'pruning_height')::int,
+            (child_object->>'stand_affiliation')::boolean,
+            (child_object->>'inventory_layer')::enum_stand_layer,
+            (child_object->>'damage_dead')::boolean,
+            (child_object->>'damage_peel_new')::boolean,
+            (child_object->>'damage_peel_old')::boolean,
+            (child_object->>'damage_logging')::boolean,
+            (child_object->>'damage_fungus')::boolean,
+            (child_object->>'damage_resin')::boolean,
+            (child_object->>'damage_beetle')::boolean,
+            (child_object->>'damage_other')::boolean,
+            (child_object->>'cave_tree')::boolean,
+            (child_object->>'crown_clear')::boolean,
+            (child_object->>'crown_dry')::boolean
         )
         ON CONFLICT (id) DO UPDATE
         SET
@@ -104,12 +97,20 @@ BEGIN
             crown_clear = EXCLUDED.crown_clear,
             crown_dry = EXCLUDED.crown_dry
         WHERE wzp_tree.id = EXCLUDED.id
-        RETURNING id INTO new_wzp_tree_id;
+        RETURNING * INTO changed_values;
+
+        INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
+
+        modified_element := json_build_object(
+            'wzp_tree', changed_values
+        );
+
+        modified := modified || modified_element;
 
     END LOOP;
 
-    DELETE FROM wzp_tree WHERE id NOT IN (SELECT id FROM temp_wzp_tree_ids) AND wzp_tree.plot_id = plot_id_parent;
+    DELETE FROM wzp_tree WHERE id NOT IN (SELECT id FROM temp_child_ids) AND wzp_tree.plot_id = parent_id;
 
-RETURN modified_ids;
+RETURN modified;
 END;
 $$ LANGUAGE plpgsql;

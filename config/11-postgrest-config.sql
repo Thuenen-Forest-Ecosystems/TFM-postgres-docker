@@ -5,7 +5,7 @@
 -- grant usage on this schema to the authenticator
 
 CREATE ROLE authenticator LOGIN NOINHERIT NOCREATEDB NOCREATEROLE NOSUPERUSER;
-CREATE ROLE anonymous NOLOGIN;
+--CREATE ROLE anonymous NOLOGIN;
 CREATE ROLE web_anon NOLOGIN;
 CREATE ROLE web_user NOLOGIN;
 GRANT web_anon TO authenticator;
@@ -21,5 +21,5 @@ returns void as $$
     set_config('pgrst.jwt_secret', '7u8f0HLDi5S6NKzNuo69cDEl3abvDP8YVfW3egLNubvy7uJFrP', FALSE),
     set_config('pgrst.db_schemas', string_agg(nspname, ','), true)
     from pg_namespace
-    where nspname like 'public_%' OR nspname like 'private_%' OR nspname = 'api';
+    where nspname like '%_api' OR nspname like 'private_%';
 $$ language sql;

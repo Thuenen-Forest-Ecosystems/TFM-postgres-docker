@@ -5,11 +5,11 @@ SET search_path TO private_ci2027_001, public;
 CREATE TABLE IF NOT EXISTS plot (
     id SERIAL PRIMARY KEY,
     cluster_id SERIAL,
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	modified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	name varchar(255) UNIQUE NOT NULL, -- Unique human readable name
+	name varchar(255) NOT NULL, -- Unique human readable name
 	description TEXT, -- Description of the plot
 
     

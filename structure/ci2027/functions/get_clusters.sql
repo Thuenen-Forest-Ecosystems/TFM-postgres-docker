@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001, public;
 
-CREATE OR REPLACE FUNCTION get_geojson(cluster_ids int[])
+CREATE OR REPLACE FUNCTION get_cluster(cluster_ids int[])
 RETURNS json AS
 $$
 DECLARE
@@ -97,6 +97,6 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-ALTER FUNCTION get_geojson(int[]) OWNER TO postgres;
+--ALTER FUNCTION get_cluster(int[]) OWNER TO postgres;
 --GRANT EXECUTE ON FUNCTION export_geojson(int[]) TO web_user;
 

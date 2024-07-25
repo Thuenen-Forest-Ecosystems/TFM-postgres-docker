@@ -5,10 +5,13 @@ CREATE TABLE wzp_tree (
 	
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-    plot_location_id SERIAL NOT NULL,
+    plot_location_id INTEGER NULL,
 
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- https://stackoverflow.com/questions/1035980/update-timestamp-when-row-is-updated-in-postgresql
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
+	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
+
+	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
 	tree_number smallint NOT NULL, -- Bnr
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 
