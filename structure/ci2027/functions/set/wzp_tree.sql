@@ -94,9 +94,7 @@ BEGIN
 
         INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
 
-        modified_element := json_build_object(
-            'wzp_tree', changed_values
-        );
+        modified_element := row_to_json(changed_values);
 
         modified := modified || modified_element;
 

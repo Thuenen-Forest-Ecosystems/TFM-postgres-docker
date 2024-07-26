@@ -52,8 +52,10 @@ BEGIN
         radius = EXCLUDED.radius,
         --geometry = EXCLUDED.geometry,
         no_entities = EXCLUDED.no_entities
-    WHERE plot_location.id = EXCLUDED.id AND plot_location.parent_table = parent_table_name
+    WHERE plot_location.id = EXCLUDED.id AND plot_location.plot_id = parent_id AND plot_location.parent_table = parent_table_name
     RETURNING * INTO changed_values;
+
+    
 
     RETURN row_to_json(changed_values);
 

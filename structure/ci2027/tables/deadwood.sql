@@ -5,7 +5,9 @@ CREATE TABLE deadwood (
     id SERIAL PRIMARY KEY,
     plot_id SERIAL NOT NULL,
 	plot_location_id SERIAL NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
+    modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	tree_species_group enum_tree_species_group NULL, -- Tbagr
 	dead_wood_type enum_dead_wood_type NULL, -- Tart

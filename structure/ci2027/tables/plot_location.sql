@@ -21,7 +21,7 @@ CREATE TABLE plot_location (
 
 );
 
-ALTER TABLE plot_location ADD UNIQUE (plot_id, parent_table)
+ALTER TABLE plot_location ADD UNIQUE (plot_id, parent_table);
 
 COMMENT ON TABLE plot_location IS 'Sub Plots';
 COMMENT ON COLUMN plot_location.id IS 'Primary Key';
