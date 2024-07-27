@@ -16,8 +16,6 @@ jobs:
 
       - name: Clone data
         run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
-      - name: Clone data
-        run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure.git" ci2027-db-structure'
 
       - name: List root
         run: ls -la
@@ -47,3 +45,14 @@ jobs:
           POSTGRES_HOST: localhost
           # The default PostgreSQL port
           POSTGRES_PORT: 5432
+
+      - name: Run SchemaSpy
+        uses: tj-actions/schemaspy@v2
+        with:
+          host: postgres
+          port: 5432
+          database_name: TFM
+          database_type: pgsql
+          user: postgres
+          password: SecretSecretSecretSecret
+          all: true

@@ -4,8 +4,9 @@ CREATE TABLE sapling_2m (
     id SERIAL PRIMARY KEY,
     plot_id SERIAL NOT NULL,
 	plot_location_id SERIAL NOT NULL,
-
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
+    modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	stand_affiliation BOOLEAN NULL DEFAULT false, --Bz: https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure/-/issues/4#note_24311	
 

@@ -67,8 +67,3 @@ ALTER TABLE position ADD CONSTRAINT CK_Position_Geometry CHECK (ST_IsValid(geome
 
 ALTER TABLE position ADD CONSTRAINT FK_Position_LookupGnssQuality FOREIGN KEY (quality)
 	REFERENCES lookup_gnss_quality (abbreviation);
-
-
--- INSERT EXAMPLE
-INSERT INTO position (plot_id, plot_location_id, geometry, longitude_median, longitude_mean, latitude_median, latitude_mean, altitude_median, altitude_mean, hdop_mean, pdop_mean, satellites_count_mean, measurement_count, rtcm_age, start_measurement, stop_measurement, device_gps, quality)
-VALUES (1, 1, ST_GeomFromText('POINT(13.123456 52.123456)', 4326), 13.123456, 13.123456, 52.123456, 52.123456, 100, 100, 1, 1, 1, 1, 1, '2021-01-01 00:00:00', '2021-01-01 00:00:00', 'GPS', 'RTK');

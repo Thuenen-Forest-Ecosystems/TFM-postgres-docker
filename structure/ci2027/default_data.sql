@@ -25,10 +25,6 @@ BEGIN
         VALUES (temp_cluster_id, 'Test Plot 2', 'Test Description 2', '8', 'BY', 'BY', ST_GeomFromText('POINT(20 20)', 4326), '3', '1')
         RETURNING id INTO temp_plot_id;
 
-    -- INSERT EXAMPLE
-INSERT INTO position (plot_id, plot_location_id, geometry, longitude_median, longitude_mean, latitude_median, latitude_mean, altitude_median, altitude_mean, hdop_mean, pdop_mean, satellites_count_mean, measurement_count, rtcm_age, start_measurement, stop_measurement, device_gps, quality)
-VALUES (1, 1, ST_GeomFromText('POINT(13.123456 52.123456)', 4326), 13.123456, 13.123456, 52.123456, 52.123456, 100, 100, 1, 1, 1, 1, 1, '2021-01-01 00:00:00', '2021-01-01 00:00:00', 'GPS', '4');
-
     -- Insert Plot Location
     INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
         VALUES (temp_plot_id, 'wzp_tree',100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
@@ -152,6 +148,41 @@ VALUES (1, 1, ST_GeomFromText('POINT(13.123456 52.123456)', 4326), 13.123456, 13
         VALUES (temp_plot_id, 'deadwood', 100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
          RETURNING id INTO temp_deadwood_location_id;
 
-    INSERT INTO deadwood (plot_id, tree_species_group, dead_wood_type, decomposition, length_height, diameter_butt, diameter_top, count, bark_pocket) VALUES (temp_plot_id, '2', '2', '2', 10, 160, 100, 10, 10);
+    INSERT INTO deadwood (plot_id, plot_location_id, tree_species_group, dead_wood_type, decomposition, length_height, diameter_butt, diameter_top, count, bark_pocket)
+    VALUES (temp_plot_id, temp_deadwood_location_id, '2', '2', '2', 10, 160, 100, 10, 10);
+
+
+    -- INSERT SAPLING 1M
+    INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
+        VALUES (temp_plot_id, 'sapling_1m', 100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
+         RETURNING id INTO temp_deadwood_location_id;
+
+    INSERT INTO sapling_1m (plot_id, plot_location_id, tree_species, bitten, protection_individual, quantity)
+    VALUES (temp_plot_id, temp_deadwood_location_id, 10, '1', true, 1);
+
+    -- INSERT SAPLING 1M
+    INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
+        VALUES (temp_plot_id, 'sapling_2m', 100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
+         RETURNING id INTO temp_deadwood_location_id;
+
+    INSERT INTO sapling_2m (plot_id, plot_location_id, tree_species, bitten, protection_individual, quantity)
+        VALUES (temp_plot_id, temp_deadwood_location_id, 10, '1', true, 1);
+
+    -- INSERT Position 2M
+     INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
+        VALUES (temp_plot_id, 'position', 100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
+         RETURNING id INTO temp_deadwood_location_id;
+
+    INSERT INTO position (plot_id, plot_location_id, geometry, longitude_median, longitude_mean, latitude_median, latitude_mean, altitude_median, altitude_mean, hdop_mean, pdop_mean, satellites_count_mean, measurement_count, rtcm_age, start_measurement, stop_measurement, device_gps, quality)
+        VALUES (temp_plot_id, temp_deadwood_location_id, ST_GeomFromText('POINT(13.123456 52.123456)', 4326), 13.123456, 13.123456, 52.123456, 52.123456, 100, 100, 1, 1, 1, 1, 1, '2021-01-01 00:00:00', '2021-01-01 00:00:00', 'GPS', '2');
+
+    -- INSERT edges
+    INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
+        VALUES (temp_plot_id, 'edges', 100, 500, 100, ST_GeomFromText('POINT(20 20)', 4326), FALSE)
+         RETURNING id INTO temp_deadwood_location_id;
+    
+    INSERT INTO edges (plot_id, plot_location_id, edge_state, edge_type, terrain)
+        VALUES (temp_plot_id, temp_deadwood_location_id, '2008', '2', '2');
+
 END $$
 

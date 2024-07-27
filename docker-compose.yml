@@ -142,6 +142,8 @@ services:
       - ./structure/ci2027/functions/set/deadwood.sql:/docker-entrypoint-initdb.d/99-deadwood.sql
       - ./structure/ci2027/functions/set/plot.sql:/docker-entrypoint-initdb.d/99-plot.sql
       - ./structure/ci2027/functions/set/position.sql:/docker-entrypoint-initdb.d/99-position.sql
+      - ./structure/ci2027/functions/set/sapling_1m.sql:/docker-entrypoint-initdb.d/99-sapling_1m.sql
+      - ./structure/ci2027/functions/set/sapling_2m.sql:/docker-entrypoint-initdb.d/99-sapling_2m.sql
 
       - ./structure/ci2027/functions/set_clusters.sql:/docker-entrypoint-initdb.d/99-set_clusters.sql
       
