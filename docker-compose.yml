@@ -162,11 +162,11 @@ services:
     volumes:
         - /var/opt/pgbackups:/backups
     links:
-        - postgres # :${PGADMIN_HOST_NAME}
+        - postgres # :${POSTGRES_HOST}
     depends_on:
         - postgres
     environment:
-        - POSTGRES_HOST=${PGADMIN_HOST_NAME}
+        - POSTGRES_HOST=${POSTGRES_HOST}
         - POSTGRES_DB=postgres
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -188,7 +188,7 @@ services:
     ports:
         - "5050:5050"
     links:
-        - postgres:${PGADMIN_HOST_NAME}
+        - postgres:${POSTGRES_HOST}
     depends_on:
       - postgrest
     user: root

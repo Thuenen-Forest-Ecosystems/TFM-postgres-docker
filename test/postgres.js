@@ -9,7 +9,7 @@ const request = require('sync-request')
 const pgclient = new Client({
     host: process.env.POSTGRES_HOST || 'TFM',
     port: process.env.POSTGRES_PORT || "5432",
-    user: process.env.POSTGRES_USER,
+    user: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD,
     database: 'TFM'
 });
