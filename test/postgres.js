@@ -21,7 +21,6 @@ let token = null;
 describe('openApi + postgres + authentication', function () {
     it('localhost:3000 -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/');
-        console.log(res.getBody('utf8'));
         assert.strictEqual(res.statusCode, 200);
     });
     it('http://localhost:3000/schemata: -> return 200', function () {
@@ -34,7 +33,6 @@ describe('openApi + postgres + authentication', function () {
         });
         if (res.statusCode === 200){
             token = JSON.parse(res.getBody('utf8')).token;
-            console.log('TOKEN:', token);
         }else{
             console.log(res.statusCode);
         }
