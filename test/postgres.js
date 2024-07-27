@@ -17,9 +17,11 @@ const pgclient = new Client({
 var assert = require('assert');
 let token = null;
 
+
 describe('openApi + postgres + authentication', function () {
     it('localhost:3000 -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/');
+        console.log(res.getBody('utf8'));
         assert.strictEqual(res.statusCode, 200);
     });
     it('http://localhost:3000/schemata: -> return 200', function () {
