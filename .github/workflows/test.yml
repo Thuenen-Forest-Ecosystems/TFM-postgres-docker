@@ -44,7 +44,7 @@ jobs:
           host: postgres
           port: 5432
           database_name: TFM
-          database_type: pgsql
+          database_type: pgsql11
           user: postgres
           password: SecretSecretSecretSecret
           all: true
