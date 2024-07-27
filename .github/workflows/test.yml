@@ -20,19 +20,16 @@ jobs:
       - name: List root
         run: ls -la
 
-      - name: List
-        run: ls -la ci2027-db-structure/
-
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
 
       - name: Install dependencies
         run: npm ci
         
-      - name: Sleep for 3 seconds
-        uses: jakejarvis/wait-action@master
-        with:
-          time: '3s'
+      #- name: Sleep for 3 seconds
+      #  uses: jakejarvis/wait-action@master
+      #  with:
+      #    time: '3s'
           
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
