@@ -16,3 +16,5 @@ package-lock.json
 pgbackups
 
 .entry_point.lock
+
+docs

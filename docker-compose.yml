@@ -207,19 +207,19 @@ services:
     depends_on:
       - postgrest
 
-  #schemaspy:
-  #  restart: always
-  #  image: schemaspy/schemaspy:snapshot
-  #  volumes:
-  #    - ./schemaspy/output:/output
-  #    - ./schemaspy/config:/config
-  #  container_name: "schemaspy_local"
-  #  command: [
-  #    "-configFile",
-  #    "/config/schemaspy.properties", 
-  #    "-imageformat",
-  #    "svg"
-  #  ]
-  #  depends_on:
-  #    - postgres
-  #  #network_mode: "service:postgres"
+  schemaspy:
+    restart: always
+    image: schemaspy/schemaspy:snapshot
+    volumes:
+      - ./docs:/output
+      - ./schemaspy/config:/config
+    container_name: "schemaspy_local"
+    command: [
+      "-configFile",
+      "/config/schemaspy.properties", 
+      "-imageformat",
+      "svg"
+    ]
+    depends_on:
+      - postgres
+    network_mode: "service:postgres"
