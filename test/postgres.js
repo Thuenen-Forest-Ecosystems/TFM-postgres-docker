@@ -11,7 +11,7 @@ const pgclient = new Client({
     port: process.env.POSTGRES_PORT || "5432",
     user: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    database: 'postgres'
+    database: 'TFM'
 });
 
 var assert = require('assert');
