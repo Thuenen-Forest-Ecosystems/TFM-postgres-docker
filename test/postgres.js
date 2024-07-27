@@ -6,13 +6,13 @@ const result = require('dotenv').config({ path: `_.env` })
 // can be replaces with axios
 const request = require('sync-request')
 
-const pgclient = new Client({
-    host: process.env.POSTGRES_HOST || 'TFM',
-    port: process.env.POSTGRES_PORT || "5432",
-    user: process.env.POSTGRES_USER || 'postgres',
-    password: process.env.POSTGRES_PASSWORD,
-    database: 'TFM'
-});
+//const pgclient = new Client({
+//    host: process.env.POSTGRES_HOST || 'TFM',
+//    port: process.env.POSTGRES_PORT || "5432",
+//    user: process.env.POSTGRES_USER || 'postgres',
+//    password: process.env.POSTGRES_PASSWORD,
+//    database: 'TFM'
+//});
 
 var assert = require('assert');
 let token = null;

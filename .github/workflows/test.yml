@@ -41,7 +41,7 @@ jobs:
       - name: Run SchemaSpy
         uses: tj-actions/schemaspy@v2
         with:
-          host: localhost
+          host: TFM
           port: 5432
           database_name: TFM
           database_type: pgsql
