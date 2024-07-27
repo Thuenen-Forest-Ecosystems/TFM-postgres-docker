@@ -6,20 +6,29 @@ const result = require('dotenv').config({ path: `_.env` })
 // can be replaces with axios
 const request = require('sync-request')
 
-//const pgclient = new Client({
-//    host: process.env.POSTGRES_HOST || 'TFM',
-//    port: process.env.POSTGRES_PORT || "5432",
-//    user: process.env.POSTGRES_USER || 'postgres',
-//    password: process.env.POSTGRES_PASSWORD,
-//    database: 'TFM'
-//});
+const pgclient = new Client({
+    host: 'localhost',
+    port: process.env.POSTGRES_PORT || "5432",
+    user: process.env.POSTGRES_USER || 'postgres',
+    password: process.env.POSTGRES_PASSWORD,
+    database: 'TFM'
+});
 
 var assert = require('assert');
 let token = null;
 
-console.log(process.env);
-
 describe('openApi + postgres + authentication', function () {
+    
+    it('connect to postgres', async function () {
+        var connection = await pgclient.connect();
+        console.log('connected to postgres', connection);
+    });
+    it('SELECT NOW()', async function () {
+        const result = await pgclient.query('SELECT NOW()');
+        assert.strictEqual(result.rows.length, 1);
+    });
+
+
     it('localhost:3000 -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/');
         assert.strictEqual(res.statusCode, 200);
