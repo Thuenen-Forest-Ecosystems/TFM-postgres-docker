@@ -17,6 +17,7 @@ const pgclient = new Client({
 var assert = require('assert');
 let token = null;
 
+console.log(process.env);
 
 describe('openApi + postgres + authentication', function () {
     it('localhost:3000 -> return 200', function () {

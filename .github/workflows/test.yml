@@ -33,15 +33,15 @@ jobs:
           
       - name: Connect to PostgreSQL
         run: npm test
-        env:
-          POSTGRES_HOST: localhost
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
+        #env:
+        #  POSTGRES_HOST: localhost
+        #  # The default PostgreSQL port
+        #  POSTGRES_PORT: 5432
 
       - name: Run SchemaSpy
         uses: tj-actions/schemaspy@v2
         with:
-          host: TFM
+          host: localhost
           port: 5432
           database_name: TFM
           database_type: pgsql
