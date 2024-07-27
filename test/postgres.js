@@ -18,17 +18,14 @@ var assert = require('assert');
 let token = null;
 
 describe('openApi + postgres + authentication', function () {
-    
-    it('connect to postgres', async function () {
-        var connection = await pgclient.connect();
-        console.log('connected to postgres', connection);
+    before(async function () {
+        await pgclient.connect();
     });
+    
     it('SELECT NOW()', async function () {
         const result = await pgclient.query('SELECT NOW()');
         assert.strictEqual(result.rows.length, 1);
     });
-
-
     it('localhost:3000 -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/');
         assert.strictEqual(res.statusCode, 200);
