@@ -14,11 +14,11 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Clone data
-        run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
-
-      - name: List root
-        run: ls -la
+      #- name: Clone data
+      #  run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
+#
+      #- name: List root
+      #  run: ls -la
 
       - name: Build the stack
         run: docker-compose --env-file _.env up -d
@@ -26,10 +26,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
-      #- name: Sleep for 3 seconds
-      #  uses: jakejarvis/wait-action@master
-      #  with:
-      #    time: '3s'
+      - name: Sleep for 3 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '10s'
           
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
