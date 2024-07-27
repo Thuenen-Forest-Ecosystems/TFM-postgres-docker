@@ -1,7 +1,7 @@
 SET search_path TO private_ci2027_001, public;
 
--- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION set_deadwood(parent_id int, json_object json, plot_location_id int)
+-- Function to import sapling_1m
+CREATE OR REPLACE FUNCTION set_sapling_1m(parent_id int, json_object json, plot_location_id int)
 RETURNS json AS
 $$
 DECLARE
@@ -23,9 +23,9 @@ BEGIN
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-        INSERT INTO deadwood (id, plot_id, plot_location_id)
+        INSERT INTO sapling_1m (id, plot_id, plot_location_id)
         VALUES (
-            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('deadwood_id_seq')),
+            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('sapling_1m_id_seq')),
             parent_id,
             plot_location_id
             
@@ -35,7 +35,7 @@ BEGIN
             plot_id = EXCLUDED.plot_id,
             plot_location_id = EXCLUDED.plot_location_id
             
-        WHERE deadwood.id = EXCLUDED.id AND deadwood.plot_id = parent_id
+        WHERE sapling_1m.id = EXCLUDED.id AND sapling_1m.plot_id = parent_id
         RETURNING * INTO changed_values;
 
         INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
@@ -46,7 +46,7 @@ BEGIN
 
     END LOOP;
 
-    DELETE FROM deadwood WHERE id NOT IN (SELECT id FROM temp_child_ids) AND deadwood.plot_id = parent_id;
+    DELETE FROM sapling_1m WHERE id NOT IN (SELECT id FROM temp_child_ids) AND sapling_1m.plot_id = parent_id;
 
 RETURN modified;
 END;

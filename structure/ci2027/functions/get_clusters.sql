@@ -44,7 +44,7 @@ BEGIN
                                         ),
                                         'plot_location', (
                                             SELECT row_to_json(plot_location)
-                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'edge'
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'edges'
                                         )
                                     )
                                 ),

@@ -1,7 +1,7 @@
 SET search_path TO private_ci2027_001, public;
 
--- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION set_deadwood(parent_id int, json_object json, plot_location_id int)
+-- Function to import edges
+CREATE OR REPLACE FUNCTION set_edges(parent_id int, json_object json, plot_location_id int)
 RETURNS json AS
 $$
 DECLARE
@@ -23,19 +23,25 @@ BEGIN
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-        INSERT INTO deadwood (id, plot_id, plot_location_id)
+        INSERT INTO edges (id, plot_id, plot_location_id, edge_state, edge_type, terrain)
         VALUES (
-            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('deadwood_id_seq')),
+            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('edges_id_seq')),
             parent_id,
-            plot_location_id
+            plot_location_id,
+            child_object->>'edge_state',
+            child_object->>'edge_type',
+            child_object->>'terrain'
             
         )
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
-            plot_location_id = EXCLUDED.plot_location_id
+            plot_location_id = EXCLUDED.plot_location_id,
+            edge_state = EXCLUDED.edge_state,
+            edge_type = EXCLUDED.edge_type,
+            terrain = EXCLUDED.terrain
             
-        WHERE deadwood.id = EXCLUDED.id AND deadwood.plot_id = parent_id
+        WHERE edges.id = EXCLUDED.id AND edges.plot_id = parent_id
         RETURNING * INTO changed_values;
 
         INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
@@ -46,8 +52,11 @@ BEGIN
 
     END LOOP;
 
-    DELETE FROM deadwood WHERE id NOT IN (SELECT id FROM temp_child_ids) AND deadwood.plot_id = parent_id;
+    DELETE FROM edges WHERE id NOT IN (SELECT id FROM temp_child_ids) AND edges.plot_id = parent_id;
 
 RETURN modified;
 END;
 $$ LANGUAGE plpgsql;
+
+
+-- Example Insert data

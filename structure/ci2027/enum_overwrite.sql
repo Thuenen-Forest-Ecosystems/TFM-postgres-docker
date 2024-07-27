@@ -17,7 +17,7 @@ DROP TYPE IF EXISTS enum_harvesting_method;
 CREATE TYPE enum_harvesting_method AS ENUM('0', '1', '2', '3', '4'); -- x3_ernte
 
 DROP TYPE IF EXISTS enum_plot_location_parent_table;
-CREATE TYPE enum_plot_location_parent_table AS ENUM('wzp_tree', 'deadwood', 'edge', 'position', 'sapling_1m', 'sapling_2m'); -- x3_plot
+CREATE TYPE enum_plot_location_parent_table AS ENUM('wzp_tree', 'deadwood', 'edges', 'position', 'sapling_1m', 'sapling_2m'); -- x3_plot
 
 DROP TYPE IF EXISTS enum_interval_name;
 CREATE TYPE enum_interval_name AS ENUM('ci2022', 'ci2027');

@@ -12,9 +12,11 @@ DECLARE
     modified_element jsonb;
 
     child_wzp_tree jsonb;
-    child_wzp_tree_plot_location jsonb;
+    child_plot_location json;
 
     changed_values RECORD;
+
+    locationId int;
 BEGIN
 
     -- return if json_object is null
@@ -65,21 +67,87 @@ BEGIN
 
         modified_element := json_build_object(
             'plot', changed_values,
-            'wzp_tree', '[]'::json
+            'wzp_tree', '{
+                "wzp_tree": [],
+                "plot_location": null
+            }'::json,
+            'deadwood', '{
+                "deadwood": [],
+                "plot_location": null
+            }'::json,
+            'position', '{
+                "position": [],
+                "plot_location": null
+            }'::json
         );
 
         IF (parent_object->'wzp_tree')::text != 'null' THEN
-            -- plot_location
-            SELECT(set_plot_location(changed_values.id, parent_object->'wzp_tree'->'plot_location', 'wzp_tree')) INTO child_wzp_tree_plot_location;
 
-            -- 
-            -- child_wzp_tree_plot_location->>'id'::int;
-            SELECT(set_wzp_tree(changed_values.id, parent_object->'wzp_tree'->'wzp_tree', NULL)) INTO child_wzp_tree;
+            SELECT(set_plot_location(changed_values.id, parent_object->'wzp_tree'->'plot_location', 'wzp_tree')) INTO child_plot_location;
+
+            locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
+
+            SELECT(set_wzp_tree(changed_values.id, parent_object->'wzp_tree'->'wzp_tree', locationId)) INTO child_wzp_tree;
             modified_element := jsonb_set(
                 modified_element,
-                '{wzp_tree}',
+                '{wzp_tree, wzp_tree}',
                 child_wzp_tree
             );
+            IF child_plot_location IS NOT NULL THEN
+                modified_element := jsonb_set(
+                    modified_element,
+                    '{wzp_tree, plot_location}',
+                    child_plot_location::jsonb
+                );
+            END IF;
+
+        END IF;
+
+        IF (parent_object->'deadwood')::text != 'null' AND (parent_object->'deadwood'->'plot_location')::text != 'null' THEN
+
+            SELECT( set_plot_location(changed_values.id, parent_object->'deadwood'->'plot_location', 'deadwood') ) INTO child_plot_location;
+
+            locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
+            
+            SELECT(set_deadwood(changed_values.id, parent_object->'deadwood'->'deadwood',locationId)) INTO child_wzp_tree;
+            
+            modified_element := jsonb_set(
+                modified_element,
+                '{deadwood, deadwood}',
+                child_wzp_tree
+            );
+
+            IF child_plot_location IS NOT NULL THEN
+                modified_element := jsonb_set(
+                    modified_element,
+                    '{deadwood, plot_location}',
+                    child_plot_location::jsonb
+                );
+            END IF;
+            
+        END IF;
+
+        IF (parent_object->'position')::text != 'null' AND (parent_object->'position'->'plot_location')::text != 'null' THEN
+
+            SELECT( set_plot_location(changed_values.id, parent_object->'position'->'plot_location', 'position') ) INTO child_plot_location;
+
+            locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
+            
+            SELECT(set_position(changed_values.id, parent_object->'position'->'position',locationId)) INTO child_wzp_tree;
+            
+            modified_element := jsonb_set(
+                modified_element,
+                '{position, position}',
+                child_wzp_tree
+            );
+
+            IF child_plot_location IS NOT NULL THEN
+                modified_element := jsonb_set(
+                    modified_element,
+                    '{position, plot_location}',
+                    child_plot_location::jsonb
+                );
+            END IF;
             
         END IF;
 
@@ -89,5 +157,11 @@ BEGIN
     DELETE FROM plot WHERE id NOT IN (SELECT id FROM temp_child_ids) AND plot.cluster_id = parent_id;
 
     RETURN modified;
+
+EXCEPTION WHEN others THEN
+        RAISE EXCEPTION 'Error set_plot: %', SQLERRM; --SQLERRM;
+        RETURN '{}'::json;
+
+
 END;
 $$ LANGUAGE plpgsql;

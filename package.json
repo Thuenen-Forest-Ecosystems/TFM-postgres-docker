@@ -15,7 +15,8 @@
     "restart": "docker compose down && docker compose up -d --build",
     "stop": "docker compose down -v && pm2 stop webhook/ecosystem.config.js",
     "pull": "git submodule update --recursive --remote && npm install",
-    "flush": "docker compose down && docker volume prune"
+    "flush": "docker compose down && docker volume prune",
+    "act": "act -P macos-latest=-self-hosted"
   },
   "repository": {
     "type": "git",

@@ -4,8 +4,10 @@ SET search_path TO private_ci2027_001, public;
 CREATE TABLE position (
     id SERIAL PRIMARY KEY,
     plot_id SERIAL NOT NULL,
-
-	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	plot_location_id SERIAL NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
+    modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
     geometry GEOMETRY(Point, 4326),
 

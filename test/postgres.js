@@ -22,7 +22,7 @@ describe('openApi + postgres + authentication', function () {
         const res = request('GET', 'http://localhost:3000/');
         assert.strictEqual(res.statusCode, 200);
     });
-    it('http://localhost:3000/my_schemata: -> return 200', function () {
+    it('http://localhost:3000/schemata: -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/schemata');
         assert.strictEqual(res.statusCode, 200);
     });
