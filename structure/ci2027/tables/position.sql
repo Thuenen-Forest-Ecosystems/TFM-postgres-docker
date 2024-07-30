@@ -9,13 +9,16 @@ CREATE TABLE position (
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-    geometry GEOMETRY(Point, 4326),
+	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
-	longitude_median float NULL, -- LON_MED
-	longitude_mean float NULL, -- LON_MEAN
+    geometry_median GEOMETRY(Point, 4326),
+	geometry_mean GEOMETRY(Point, 4326),
 
-	latitude_median float NULL, -- LAT_MED
-	latitude_mean float NULL, -- LAT_MEAN
+	--longitude_median float NULL, -- LON_MED
+	--longitude_mean float NULL, -- LON_MEAN
+--
+	--latitude_median float NULL, -- LAT_MED
+	--latitude_mean float NULL, -- LAT_MEAN
 
 	altitude_median float NULL, -- NEU
 	altitude_mean float NULL, -- Hoehe_MEAN

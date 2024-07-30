@@ -4,14 +4,14 @@
 --create schema postgrest;
 -- grant usage on this schema to the authenticator
 
-CREATE ROLE authenticator LOGIN NOINHERIT NOCREATEDB NOCREATEROLE NOSUPERUSER;
---CREATE ROLE anonymous NOLOGIN;
-CREATE ROLE web_anon NOLOGIN;
-CREATE ROLE web_user NOLOGIN;
-GRANT web_anon TO authenticator;
-GRANT web_user TO authenticator;
+CREATE ROLE authenticator NOLOGIN NOINHERIT NOCREATEDB NOCREATEROLE NOSUPERUSER;
 
-grant usage on schema basic_auth to authenticator;
+CREATE ROLE web_anon NOLOGIN;
+GRANT web_anon TO authenticator;
+
+----
+
+GRANT usage ON schema basic_auth TO authenticator;
 
 -- the function can configure postgREST by using set_config
 create or replace function basic_auth.pre_config()

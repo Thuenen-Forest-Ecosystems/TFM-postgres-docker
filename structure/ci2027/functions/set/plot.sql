@@ -15,8 +15,12 @@ DECLARE
     child_plot_location json;
 
     changed_values RECORD;
+    changed_id INTEGER;
 
     locationId int;
+
+    id_array INTEGER[];
+    row_count INTEGER;
 BEGIN
 
     -- return if json_object is null
@@ -25,8 +29,7 @@ BEGIN
     END IF;
 
     -- ADD PLOT
-    CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
-    TRUNCATE temp_child_ids;
+    --id_array := '[]'::INTEGER[];
     
     FOR parent_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
@@ -63,7 +66,10 @@ BEGIN
         WHERE plot.id = EXCLUDED.id AND plot.cluster_id = parent_id
         RETURNING * INTO changed_values;
 
-        INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
+        -- push new id to id_array
+        id_array := id_array || changed_values.id;
+
+        changed_id := changed_values.id;
 
         modified_element := json_build_object(
             'plot', changed_values,
@@ -154,8 +160,11 @@ BEGIN
         modified := modified || modified_element;
     END LOOP;
 
-    DELETE FROM plot WHERE id NOT IN (SELECT id FROM temp_child_ids) AND plot.cluster_id = parent_id;
-
+        
+    
+    -- DELETE PLOTS not in id_array
+    DELETE FROM plot WHERE cluster_id = parent_id AND id NOT IN (SELECT unnest(id_array));
+    
     RETURN modified;
 
 EXCEPTION WHEN others THEN

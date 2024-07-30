@@ -1,4 +1,4 @@
-CREATE SCHEMA public_api;
+CREATE SCHEMA IF NOT EXISTS public_api;
 COMMENT ON SCHEMA public_api IS 'Public API schema';
 
 ALTER SCHEMA public_api OWNER TO postgres;

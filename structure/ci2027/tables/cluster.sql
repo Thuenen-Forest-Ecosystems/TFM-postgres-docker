@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS cluster (
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	name varchar(255) NOT NULL, -- Unique human readable name
+	cluster_name UNIQUE varchar(255) NOT NULL, -- Unique human readable name
 	description TEXT,
 
 	topographic_map_number CK_TopographicMapNumber NULL,
