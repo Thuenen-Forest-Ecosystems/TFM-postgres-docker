@@ -132,7 +132,7 @@ services:
       #- ./structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
 
       ### Test Setup to be used by automated tests
-      #- ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
+      - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       
 

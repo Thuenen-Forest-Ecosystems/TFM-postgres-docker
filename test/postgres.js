@@ -17,6 +17,8 @@ const pgclient = new Client({
 var assert = require('assert');
 let token = null;
 
+console.log('process.env.POSTGRES_PASSWORD', process.env.POSTGRES_PASSWORD);
+
 describe('openApi + postgres + authentication', function () {
     before(async function () {
         await pgclient.connect();
