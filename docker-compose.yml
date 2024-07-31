@@ -29,6 +29,8 @@ services:
     #name the container
     container_name: postgis
     image: "kartoza/postgis"
+    command: -c logging_collector=on -c log_statement=all -c client_min_messages=notice
+
     ports:
         - "5432:5432"
     environment:
@@ -63,7 +65,10 @@ services:
       - ./structure/ci2027/domains.sql:/docker-entrypoint-initdb.d/902-domains.sql
       
       ## SET DEFAULT GRANTS
-      - ./structure/ci2027/grants.sql:/docker-entrypoint-initdb.d/905-grants.sql
+      - ./structure/ci2027/grants.sql:/docker-entrypoint-initdb.d/904-grants.sql
+
+      ## Thünen intern data
+      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/905-data.sql
 
       #- ./structure/ci2027:/docker-entrypoint-initdb.d
       #- ci2027-db-structure/ci2027/lookup_tables:/docker-entrypoint-initdb.d
@@ -126,11 +131,10 @@ services:
        # TMP
       #- ./structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-coder_bwineu.sql
 
-
-
       ### Test Setup to be used by automated tests
       - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
+      
 
       # GET
       - ./structure/ci2027/functions/get_clusters.sql:/docker-entrypoint-initdb.d/99-get_clusters.sql
@@ -149,6 +153,8 @@ services:
       
 
       - ./structure/ci2027/default_data.sql:/docker-entrypoint-initdb.d/999-default_data.sql
+
+      
       
       #- ./pgdata:/var/lib/postgresql/data
 
@@ -162,11 +168,11 @@ services:
     volumes:
         - /var/opt/pgbackups:/backups
     links:
-        - postgres # :${PGADMIN_HOST_NAME}
+        - postgres # :${POSTGRES_HOST}
     depends_on:
         - postgres
     environment:
-        - POSTGRES_HOST=${PGADMIN_HOST_NAME}
+        - POSTGRES_HOST=${POSTGRES_HOST}
         - POSTGRES_DB=postgres
         - POSTGRES_USER=${POSTGRES_USER}
         - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
@@ -188,7 +194,7 @@ services:
     ports:
         - "5050:5050"
     links:
-        - postgres:${PGADMIN_HOST_NAME}
+        - postgres:${POSTGRES_HOST}
     depends_on:
       - postgrest
     user: root
@@ -211,7 +217,7 @@ services:
   #  restart: always
   #  image: schemaspy/schemaspy:snapshot
   #  volumes:
-  #    - ./schemaspy/output:/output
+  #    - ./docs:/output
   #    - ./schemaspy/config:/config
   #  container_name: "schemaspy_local"
   #  command: [
@@ -222,4 +228,4 @@ services:
   #  ]
   #  depends_on:
   #    - postgres
-  #  #network_mode: "service:postgres"
+  #  network_mode: "service:postgres"

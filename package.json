@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "mocha",
+    "test": "mocha --timeout 3000 --exit",
     "patch": "npm version patch && git push && git push --tags",
     "minor": "npm version minor && git push && git push --tags",
     "major": "npm version major && git push && git push --tags",
@@ -36,7 +36,7 @@
     "express": "^4.19.2",
     "helmet": "^7.1.0",
     "mocha": "^10.4.0",
-    "pg": "^8.11.5",
+    "pg": "^8.12.0",
     "simple-git": "^3.24.0",
     "sync-request": "^6.1.0"
   }

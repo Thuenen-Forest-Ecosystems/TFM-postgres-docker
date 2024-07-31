@@ -14,42 +14,37 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Clone data
-        run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
-
-      - name: List root
-        run: ls -la
+      #- name: Clone data
+      #  run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
+#
+      #- name: List root
+      #  run: ls -la
 
       - name: Build the stack
-        run: docker-compose --env-file _.env up -d
+        run: docker-compose --env-file _.env up -d postgres postgrest
 
       - name: Install dependencies
         run: npm ci
         
-      #- name: Sleep for 3 seconds
-      #  uses: jakejarvis/wait-action@master
-      #  with:
-      #    time: '3s'
+      - name: Sleep for 30 seconds
+        uses: jakejarvis/wait-action@master
+        with:
+          time: '30s'
           
       - name: Connect to PostgreSQL
-        # Runs a script that creates a PostgreSQL table, populates
-        # the table with data, and then retrieves the data
         run: npm test
-        # Environment variables used by the `client.js` script to create
-        # a new PostgreSQL table.
-        env:
-          # The hostname used to communicate with the PostgreSQL service container
-          POSTGRES_HOST: localhost
-          # The default PostgreSQL port
-          POSTGRES_PORT: 5432
+        #env:
+        #  POSTGRES_HOST: localhost
+        #  # The default PostgreSQL port
+        #  POSTGRES_PORT: 5432
 
-      - name: Run SchemaSpy
-        uses: tj-actions/schemaspy@v2
-        with:
-          host: postgres
-          port: 5432
-          database_name: TFM
-          database_type: pgsql
-          user: postgres
-          password: SecretSecretSecretSecret
-          all: true
+      #- name: Run SchemaSpy
+      #  uses: tj-actions/schemaspy@v2
+      #  with:
+      #    host: postgres
+      #    port: 5432
+      #    database_name: TFM
+      #    database_type: pgsql11
+      #    user: postgres
+      #    password: SecretSecretSecretSecret
+      #    all: true

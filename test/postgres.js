@@ -7,17 +7,27 @@ const result = require('dotenv').config({ path: `_.env` })
 const request = require('sync-request')
 
 const pgclient = new Client({
-    host: process.env.POSTGRES_HOST || 'TFM',
+    host: 'localhost',
     port: process.env.POSTGRES_PORT || "5432",
-    user: process.env.POSTGRES_USER,
+    user: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD,
-    database: 'postgres'
+    database: 'TFM'
 });
 
 var assert = require('assert');
 let token = null;
 
+console.log('process.env.POSTGRES_PASSWORD', process.env.POSTGRES_PASSWORD);
+
 describe('openApi + postgres + authentication', function () {
+    before(async function () {
+        await pgclient.connect();
+    });
+    
+    it('SELECT NOW()', async function () {
+        const result = await pgclient.query('SELECT NOW()');
+        assert.strictEqual(result.rows.length, 1);
+    });
     it('localhost:3000 -> return 200', function () {
         const res = request('GET', 'http://localhost:3000/');
         assert.strictEqual(res.statusCode, 200);
@@ -32,7 +42,6 @@ describe('openApi + postgres + authentication', function () {
         });
         if (res.statusCode === 200){
             token = JSON.parse(res.getBody('utf8')).token;
-            console.log('TOKEN:', token);
         }else{
             console.log(res.statusCode);
         }
