@@ -1,13 +1,13 @@
 SET search_path TO private_ci2027_001;
 
 CREATE TABLE IF NOT EXISTS cluster (
-	
+
     id SERIAL PRIMARY KEY,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	cluster_name UNIQUE varchar(255) NOT NULL, -- Unique human readable name
+	cluster_name INTEGER NOT NULL UNIQUE, -- Unique human readable name
 
 	topographic_map_number CK_TopographicMapNumber NULL,
 	state_administration enum_state NOT NULL,
@@ -23,8 +23,7 @@ COMMENT ON TABLE private_ci2027_001.cluster IS 'Deine Trakte';
 COMMENT ON COLUMN private_ci2027_001.cluster.id IS 'Unique ID des Traktes';
 COMMENT ON COLUMN private_ci2027_001.cluster.created_at IS 'Erstellungsdatum';
 
-COMMENT ON COLUMN private_ci2027_001.cluster.name IS 'Name des Traktes';
-COMMENT ON COLUMN private_ci2027_001.cluster.description IS 'Beschreibung des Traktes';
+COMMENT ON COLUMN private_ci2027_001.cluster.cluster_name IS 'Eindeutige Bezeichung des Traktes';
 
 COMMENT ON COLUMN private_ci2027_001.cluster.topographic_map_number IS 'Nummer der topgraphischen Karte 1:25.000';
 COMMENT ON COLUMN private_ci2027_001.cluster.state_administration IS 'Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale';

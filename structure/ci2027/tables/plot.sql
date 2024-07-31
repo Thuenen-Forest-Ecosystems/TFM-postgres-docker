@@ -11,11 +11,7 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
-	plot_name UNIQUE varchar(255) NOT NULL, -- Unique human readable name
-
-
-	name varchar(255) NOT NULL, -- Unique human readable name
-	description TEXT, -- Description of the plot
+	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
 
     
 	sampling_strata enum_sampling_strata NOT NULL,
@@ -269,3 +265,5 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupTreesLess4meterLayer FOREIGN KEY (
 --        REFERENCES lookup_states (abbreviation) MATCH SIMPLE
 --        ON UPDATE NO ACTION
 --        ON DELETE NO ACTION,
+
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster_Unique UNIQUE (cluster_id, plot_name);

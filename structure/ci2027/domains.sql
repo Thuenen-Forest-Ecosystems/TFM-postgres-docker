@@ -10,3 +10,5 @@ CREATE DOMAIN CK_TopographicMapNumber as integer check(value between 999 and 100
 CREATE DOMAIN CK_FORESTRY_DEPARTMENT as smallint check(value between 999 and 99999);
 
 CREATE DOMAIN CK_BIOTOPE as smallint check(value between 0 and 9999);
+
+CREATE DOMAIN CK_PLOT_NAME as smallint check(value >= 1 AND value <= 4);
