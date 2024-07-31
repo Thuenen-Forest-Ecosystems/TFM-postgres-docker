@@ -1,15 +1,14 @@
 SET search_path TO private_ci2027_001, public;
 
-
 CREATE TABLE position (
+
     id SERIAL PRIMARY KEY,
-    plot_id SERIAL NOT NULL,
-	plot_location_id SERIAL NOT NULL,
+    plot_id INTEGER NOT NULL,
+	plot_location_id INTEGER NULL,
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
-
-	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
     geometry_median GEOMETRY(Point, 4326),
 	geometry_mean GEOMETRY(Point, 4326),

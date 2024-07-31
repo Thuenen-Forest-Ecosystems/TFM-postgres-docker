@@ -1,7 +1,7 @@
 SET search_path TO private_ci2027_001, public;
 
-
 CREATE TABLE plot_location (
+
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL, -- Foreign Key to parent table
     parent_table enum_plot_location_parent_table NOT NULL, -- Parent Table Name

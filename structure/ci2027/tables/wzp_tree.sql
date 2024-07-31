@@ -1,6 +1,5 @@
 SET search_path TO private_ci2027_001, public;
 
-
 CREATE TABLE wzp_tree (
 	
     id SERIAL PRIMARY KEY,
@@ -10,8 +9,6 @@ CREATE TABLE wzp_tree (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
-
-	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
 	tree_number smallint NOT NULL, -- Bnr
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 

@@ -1,9 +1,11 @@
 SET search_path TO private_ci2027_001;
 
 CREATE TABLE sapling_1m (
+
     id SERIAL PRIMARY KEY,
-    plot_id SERIAL NOT NULL,
-	plot_location_id SERIAL NOT NULL,
+    plot_id INTEGER NOT NULL,
+	plot_location_id INTEGER NULL,
+
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,

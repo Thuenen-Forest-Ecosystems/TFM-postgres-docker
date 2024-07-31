@@ -1,13 +1,13 @@
 SET search_path TO private_ci2027_001;
 
 CREATE TABLE IF NOT EXISTS cluster (
+	
     id SERIAL PRIMARY KEY,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	cluster_name UNIQUE varchar(255) NOT NULL, -- Unique human readable name
-	description TEXT,
 
 	topographic_map_number CK_TopographicMapNumber NULL,
 	state_administration enum_state NOT NULL,
