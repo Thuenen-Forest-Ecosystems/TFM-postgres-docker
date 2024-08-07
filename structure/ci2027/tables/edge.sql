@@ -30,6 +30,11 @@ COMMENT ON COLUMN edges.geometry IS 'Geometrie der Kante';
 ALTER TABLE edges ADD CONSTRAINT FK_Edges_Plot FOREIGN KEY (plot_id) REFERENCES plot(id)
 	ON DELETE CASCADE;
 
+--- plot_location_id
+ALTER TABLE edges ADD CONSTRAINT FK_Edges_PlotLocation FOREIGN KEY (plot_location_id)
+	REFERENCES plot_location (id)
+	ON DELETE CASCADE;
+
 ALTER TABLE edges ADD CONSTRAINT CK_Edges_Geometry CHECK (ST_IsValid(geometry));
 
 ALTER TABLE edges ADD CONSTRAINT FK_Edge_LookupEdgeState FOREIGN KEY (edge_state)

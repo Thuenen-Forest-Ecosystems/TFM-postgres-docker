@@ -5,7 +5,6 @@ RETURNS json AS
 $$
 DECLARE
 
-    parent_object json;
     child_object json;
 
     modified jsonb := '[]'::jsonb;
@@ -31,22 +30,19 @@ BEGIN
     -- ADD PLOT
     --id_array := '[]'::INTEGER[];
     
-    FOR parent_object IN SELECT * FROM json_array_elements(json_object)
+    FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-
-        child_object := parent_object->'plot';
 
         IF (child_object->>'cluster_id')::text != 'null' AND (child_object->>'cluster_id')::int != parent_id THEN
             CONTINUE;
         END IF;
         
-        INSERT INTO plot (id, cluster_id, name, description, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
+        INSERT INTO plot (id, cluster_id, plot_name, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('plot_id_seq')),
             parent_id,
-            child_object->>'name',
-            child_object->>'description',
+            (child_object->>'plot_name')::int,
             (child_object->>'sampling_strata')::enum_sampling_strata,
             (child_object->>'state_administration')::enum_state,
             (child_object->>'state_collect')::enum_state,
@@ -56,8 +52,7 @@ BEGIN
         ON CONFLICT (id) DO UPDATE
         SET 
             cluster_id = parent_id,
-            name = EXCLUDED.name,
-            description = EXCLUDED.description,
+            plot_name = EXCLUDED.plot_name,
             sampling_strata = EXCLUDED.sampling_strata,
             state_administration = EXCLUDED.state_administration,
             state_collect = EXCLUDED.state_collect,
@@ -73,10 +68,7 @@ BEGIN
 
         modified_element := json_build_object(
             'plot', changed_values,
-            'wzp_tree', '{
-                "wzp_tree": [],
-                "plot_location": null
-            }'::json,
+            'wzp_tree', '{}'::json,
             'deadwood', '{
                 "deadwood": [],
                 "plot_location": null
@@ -87,35 +79,35 @@ BEGIN
             }'::json
         );
 
-        IF (parent_object->'wzp_tree')::text != 'null' THEN
+        IF (child_object->'wzp_tree')::text != 'null' THEN
 
-            SELECT(set_plot_location(changed_values.id, parent_object->'wzp_tree'->'plot_location', 'wzp_tree')) INTO child_plot_location;
+            SELECT(set_plot_location(changed_values.id, child_object->'wzp_tree'->'plot_location', 'wzp_tree')) INTO child_plot_location;
 
             locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
 
-            SELECT(set_wzp_tree(changed_values.id, parent_object->'wzp_tree'->'wzp_tree', locationId)) INTO child_wzp_tree;
+            SELECT(set_wzp_tree(changed_values.id, child_object->'wzp_tree', locationId)) INTO child_wzp_tree;
             modified_element := jsonb_set(
                 modified_element,
-                '{wzp_tree, wzp_tree}',
+                '{wzp_tree}',
                 child_wzp_tree
             );
             IF child_plot_location IS NOT NULL THEN
                 modified_element := jsonb_set(
                     modified_element,
-                    '{wzp_tree, plot_location}',
+                    '{wzp_tree}',
                     child_plot_location::jsonb
                 );
             END IF;
 
         END IF;
 
-        IF (parent_object->'deadwood')::text != 'null' AND (parent_object->'deadwood'->'plot_location')::text != 'null' THEN
+        IF (child_object->'deadwood')::text != 'null' AND (child_object->'deadwood'->'plot_location')::text != 'null' THEN
 
-            SELECT( set_plot_location(changed_values.id, parent_object->'deadwood'->'plot_location', 'deadwood') ) INTO child_plot_location;
+            SELECT( set_plot_location(changed_values.id, child_object->'deadwood'->'plot_location', 'deadwood') ) INTO child_plot_location;
 
             locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
             
-            SELECT(set_deadwood(changed_values.id, parent_object->'deadwood'->'deadwood',locationId)) INTO child_wzp_tree;
+            SELECT(set_deadwood(changed_values.id, child_object->'deadwood'->'deadwood',locationId)) INTO child_wzp_tree;
             
             modified_element := jsonb_set(
                 modified_element,
@@ -133,13 +125,13 @@ BEGIN
             
         END IF;
 
-        IF (parent_object->'position')::text != 'null' AND (parent_object->'position'->'plot_location')::text != 'null' THEN
+        IF (child_object->'position')::text != 'null' AND (child_object->'position'->'plot_location')::text != 'null' THEN
 
-            SELECT( set_plot_location(changed_values.id, parent_object->'position'->'plot_location', 'position') ) INTO child_plot_location;
+            SELECT( set_plot_location(changed_values.id, child_object->'position'->'plot_location', 'position') ) INTO child_plot_location;
 
             locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
             
-            SELECT(set_position(changed_values.id, parent_object->'position'->'position',locationId)) INTO child_wzp_tree;
+            SELECT(set_position(changed_values.id, child_object->'position'->'position',locationId)) INTO child_wzp_tree;
             
             modified_element := jsonb_set(
                 modified_element,

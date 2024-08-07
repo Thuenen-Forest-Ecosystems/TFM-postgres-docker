@@ -35,13 +35,19 @@ COMMENT ON COLUMN sapling_2m.damage_peel IS 'Schälschaden';
 COMMENT ON COLUMN sapling_2m.protection_individual IS 'Einzelschutz der Bäume';
 COMMENT ON COLUMN sapling_2m.quantity IS 'Anzahl gleichartiger Bäume';
 
-ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings1m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id);
+ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings2m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id) MATCH SIMPLE
+	ON DELETE CASCADE;
 
-ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings1m_LookupTreeSpecies FOREIGN KEY (tree_species)
+ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings2m_LookupTreeSpecies FOREIGN KEY (tree_species)
     REFERENCES lookup_tree_species (abbreviation);
 
-ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings1m_LookupBitten FOREIGN KEY (bitten)
+--- plot_location_id
+ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings2m_PlotLocation FOREIGN KEY (plot_location_id)
+	REFERENCES plot_location (id)
+	ON DELETE CASCADE;
+
+ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings2m_LookupBitten FOREIGN KEY (bitten)
     REFERENCES lookup_bitten (abbreviation);
 
-ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings1m_LookupTreeSizeClass FOREIGN KEY (tree_size_class)
+ALTER TABLE sapling_2m ADD CONSTRAINT FK_Saplings2m_LookupTreeSizeClass FOREIGN KEY (tree_size_class)
     REFERENCES lookup_tree_size_class (abbreviation);

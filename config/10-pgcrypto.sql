@@ -10,10 +10,15 @@ create schema IF NOT EXISTS basic_auth;
 
 create table IF NOT EXISTS
 basic_auth.users (
-  email    text primary key check ( email ~* '^.+@.+\..+$' ),
-  pass     text not null check (length(pass) < 512),
-  role     name not null check (length(role) < 512)
+  id                        SERIAL UNIQUE,
+  email                     text primary key check ( email ~* '^.+@.+\..+$' ),
+  pass                      text not null check (length(pass) < 512),
+  role                      name not null check (length(role) < 512),
+  administrator_user_id     INTEGER NULL,
+  states                    private_ci2027_001.enum_state[] NULL -- zugehörige Ländernummer(n) falls die Berechtigung eingeschränkt ist, auch mehrere
 );
+-- Create Foreign Key to administrator_user_id
+ALTER TABLE basic_auth.users ADD CONSTRAINT fk_administrator_user_id FOREIGN KEY (administrator_user_id) REFERENCES basic_auth.users(id);
 
 create or replace function
 basic_auth.check_role_exists() returns trigger as $$
