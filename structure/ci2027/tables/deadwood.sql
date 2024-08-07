@@ -40,6 +40,11 @@ ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_Plot FOREIGN KEY (plot_id)
 	REFERENCES plot (id)
 	ON DELETE CASCADE;
 
+--- plot_location_id
+ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_PlotLocation FOREIGN KEY (plot_location_id)
+	REFERENCES plot_location (id);
+
+
 ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_LookupTreeSpeciesGroup FOREIGN KEY (tree_species_group)
 	REFERENCES lookup_tree_species_group (abbreviation);
 
@@ -48,4 +53,3 @@ ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_LookupDeadWoodType FOREIGN KEY (
 
 ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_LookupDecomposition FOREIGN KEY (decomposition)
 	REFERENCES lookup_decomposition (abbreviation);
-

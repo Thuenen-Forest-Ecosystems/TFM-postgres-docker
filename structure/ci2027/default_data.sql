@@ -10,8 +10,8 @@ DECLARE
 BEGIN
 
     -- Insert into cluster and return the generated id
-    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier) 
-        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5')
+    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, email) 
+        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{gerrit.balindt@gruenecho.de, landesinventurleiter@thuenen.de}')
         RETURNING id INTO temp_cluster_id;
     INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier) 
         VALUES (23456, 'BY', 'BY', '{"BY", "BE"}', '8', '5')
@@ -185,4 +185,3 @@ BEGIN
         VALUES (temp_plot_id, temp_deadwood_location_id, '2008', '2', '2');
 
 END $$
-

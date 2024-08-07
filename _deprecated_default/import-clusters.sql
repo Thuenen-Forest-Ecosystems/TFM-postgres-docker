@@ -255,17 +255,15 @@ RETURNS void AS
 $$
 DECLARE
 BEGIN
-    
-    
     --GRANT web_anon TO current_user;
 
     PERFORM apply_rls_policy_and_trigger(
-        'plot_location',
+        'cluster',
         'allow_update_except_radius',
-        'web_anon',
+        'readonly_everything',
         'true',
         NULL,
-        'radius'
+        'state_administration'
     );
 END;
 $$ LANGUAGE plpgsql;

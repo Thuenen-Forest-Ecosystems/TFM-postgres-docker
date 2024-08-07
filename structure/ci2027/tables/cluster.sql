@@ -8,6 +8,9 @@ CREATE TABLE IF NOT EXISTS cluster (
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	cluster_name INTEGER NOT NULL UNIQUE, -- Unique human readable name
+	email TEXT[] NOT NULL DEFAULT array[]::text[], -- Email of the user who created the cluster
+
+	supervisor_id INTEGER NULL, -- Supervisor of the cluster
 
 	topographic_map_number CK_TopographicMapNumber NULL,
 	state_administration enum_state NOT NULL,
@@ -16,6 +19,8 @@ CREATE TABLE IF NOT EXISTS cluster (
 	sampling_strata enum_sampling_strata NOT NULL,
 	cluster_identifier enum_cluster_identifier NULL
 );
+
+ALTER TABLE cluster ADD CONSTRAINT fk_Cluster_user_id FOREIGN KEY (supervisor_id) REFERENCES basic_auth.users(id);
 
 
 
@@ -52,6 +57,7 @@ ALTER TABLE cluster
 	REFERENCES lookup_state (abbreviation);
 
 
+
 --ALTER TABLE cluster
 --	ADD CONSTRAINT FK_Tract_LookupSamplingStrata
 --	FOREIGN KEY (sampling_strata)
@@ -61,3 +67,85 @@ ALTER TABLE cluster
 --	ADD CONSTRAINT FK_Tract_LookupTractIdentifier
 --	FOREIGN KEY (cluster_identifier)
 --	REFERENCES lookup_cluster_identifier (abbreviation);
+
+
+
+
+-- MOVE TO SOMEWHERE ELSE ???
+
+-- Enable Row-Level Security
+ALTER TABLE cluster ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for SELECT
+CREATE POLICY select_own_cluster ON cluster
+	FOR SELECT
+	TO ci2027_user
+	USING (true);
+	--WITH CHECK (true);
+    --USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(cluster.email));
+
+CREATE POLICY insert_own_cluster ON cluster
+	FOR INSERT
+	TO ci2027_user
+	WITH CHECK (true);
+
+CREATE POLICY update_own_cluster ON cluster
+	FOR UPDATE
+	TO ci2027_user
+	USING (true)
+	WITH CHECK (true);
+
+-- Create policy for UPDATE
+--CREATE POLICY update_own_cluster ON cluster
+--    FOR UPDATE
+--	USING (true);
+--	--WITH CHECK (true);
+--    --USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(cluster.email));
+--
+--CREATE POLICY insert_own_cluster ON cluster
+--    FOR INSERT
+--	USING (true);
+--    --WITH CHECK (true);
+
+--CREATE POLICY insert_cluster_policy ON cluster
+--    FOR INSERT
+--    WITH CHECK (current_setting('request.jwt.claims', true)::json->>'email' = email);
+
+-----------------------------------------------------------------------------------------------------------------------
+
+-- Step 1: Add a lock column to the table
+ALTER TABLE cluster ADD COLUMN is_locked BOOLEAN DEFAULT FALSE;
+
+-- Step 2: Create a trigger function to prevent updates if the row is locked
+CREATE OR REPLACE FUNCTION prevent_update_if_locked() RETURNS TRIGGER AS $$
+BEGIN
+    IF OLD.is_locked THEN
+        RAISE EXCEPTION 'Row is locked and cannot be updated';
+    END IF;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Step 3: Create a trigger to enforce the lock
+CREATE TRIGGER prevent_update_if_locked_trigger
+BEFORE UPDATE ON cluster
+FOR EACH ROW
+EXECUTE FUNCTION prevent_update_if_locked();
+
+-- Function to lock a row
+CREATE OR REPLACE FUNCTION lock_row(cluster_id int) RETURNS void AS $$
+BEGIN
+    UPDATE cluster SET is_locked = TRUE WHERE id = cluster_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Function to unlock a row (if needed)
+CREATE OR REPLACE FUNCTION unlock_row(cluster_id int) RETURNS void AS $$
+BEGIN
+    UPDATE cluster SET is_locked = FALSE WHERE id = cluster_id;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Grant execute permissions to the necessary role
+GRANT EXECUTE ON FUNCTION lock_row(int) TO web_anon;
+GRANT EXECUTE ON FUNCTION unlock_row(int) TO web_anon;

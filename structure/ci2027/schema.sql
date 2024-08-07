@@ -1,3 +1,4 @@
+SET default_transaction_read_only = OFF;
 
 -- SCHEMA DEFINITION
 CREATE SCHEMA private_ci2027_001;
