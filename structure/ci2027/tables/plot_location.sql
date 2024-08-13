@@ -23,6 +23,8 @@ CREATE TABLE plot_location (
 
 ALTER TABLE plot_location ADD UNIQUE (plot_id, parent_table);
 
+ALTER TABLE plot_location ADD CONSTRAINT fk_plot_location_plot_id FOREIGN KEY (plot_id) REFERENCES plot(id) ON DELETE CASCADE;
+
 COMMENT ON TABLE plot_location IS 'Sub Plots';
 COMMENT ON COLUMN plot_location.id IS 'Primary Key';
 COMMENT ON COLUMN plot_location.azimuth IS 'Azimuth (Gon)';

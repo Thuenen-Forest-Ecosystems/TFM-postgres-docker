@@ -29,7 +29,13 @@ COMMENT ON COLUMN sapling_1m.bitten IS 'Einfacher oder mehrfacher Verbiss der Te
 COMMENT ON COLUMN sapling_1m.protection_individual IS 'Einzelschutz der Bäume';
 COMMENT ON COLUMN sapling_1m.quantity IS 'Anzahl gleichartiger Bäume';
 
-ALTER TABLE sapling_1m ADD CONSTRAINT FK_Saplings1m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id);
+ALTER TABLE sapling_1m ADD CONSTRAINT FK_Saplings1m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id) MATCH SIMPLE
+	ON DELETE CASCADE;
+
+--- plot_location_id
+ALTER TABLE sapling_1m ADD CONSTRAINT FK_Saplings1m_PlotLocation FOREIGN KEY (plot_location_id)
+	REFERENCES plot_location (id)
+	ON DELETE CASCADE;
 
 ALTER TABLE sapling_1m ADD CONSTRAINT FK_Saplings1m_LookupTreeSpecies FOREIGN KEY (tree_species)
     REFERENCES lookup_tree_species (abbreviation);

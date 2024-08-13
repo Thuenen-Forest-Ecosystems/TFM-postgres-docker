@@ -28,6 +28,7 @@ begin
          extract(epoch from now())::integer + 60 * 60 * 24 as exp
     ) r
     into result;
+  
   return result;
 end;
 $$;

@@ -55,5 +55,13 @@ ALTER TABLE position ADD CONSTRAINT FK_Position_Plot FOREIGN KEY (plot_id)
 --ALTER TABLE position ADD CONSTRAINT CK_Position_Geometry CHECK (ST_IsValid(geometry));
 --CREATE INDEX idx_position_geometry ON position USING GIST (geometry);
 
+--- plot_location_id
+ALTER TABLE position ADD CONSTRAINT FK_Position_PlotLocation FOREIGN KEY (plot_location_id)
+	REFERENCES plot_location (id)
+	ON DELETE CASCADE;
+
 ALTER TABLE position ADD CONSTRAINT FK_Position_LookupGnssQuality FOREIGN KEY (quality)
 	REFERENCES lookup_gnss_quality (abbreviation);
+
+
+-- Example data

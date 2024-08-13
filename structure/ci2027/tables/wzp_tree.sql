@@ -14,8 +14,11 @@ CREATE TABLE wzp_tree (
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 
 	tree_state enum_tree_state NULL, -- Pk
 
+
 	azimuth CK_GON NOT NULL, -- Azi
 	distance smallint NOT NULL, -- Hori
+	geometry GEOMETRY(POINT, 4326) NULL, -- Geometry (Point) NEU
+
 
 	tree_species smallint NULL, -- Ba
 
@@ -62,9 +65,9 @@ ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_Plot FOREIGN KEY (plot_id)
 	REFERENCES plot (id) MATCH SIMPLE
 	ON DELETE CASCADE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_PlotLocation FOREIGN KEY (plot_location_id)
-    REFERENCES plot_location (id) MATCH SIMPLE
-    ON DELETE CASCADE;
+--ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_PlotLocation FOREIGN KEY (plot_location_id)
+--    REFERENCES plot_location (id) MATCH SIMPLE
+--    ON DELETE CASCADE;
 
 ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeState FOREIGN KEY (tree_state)
 	REFERENCES lookup_tree_state (abbreviation) MATCH SIMPLE;

@@ -23,13 +23,14 @@ BEGIN
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
         
-        INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
+        INSERT INTO wzp_tree (id, plot_id, plot_location_id, azimuth, distance, geometry, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('wzp_tree_id_seq')),
             parent_id,
             plot_location_id,
             (child_object->>'azimuth')::int,
             (child_object->>'distance')::int,
+            ST_GeomFromGeoJSON((json_object->>'geometry')::text),
             (child_object->>'tree_species')::int,
             (child_object->>'bhd')::int,
             (child_object->>'bhd_height')::int,
@@ -63,6 +64,7 @@ BEGIN
             plot_location_id = EXCLUDED.plot_location_id,
             azimuth = EXCLUDED.azimuth,
             distance = EXCLUDED.distance,
+            geometry = EXCLUDED.geometry,
             tree_species = EXCLUDED.tree_species,
             bhd = EXCLUDED.bhd,
             bhd_height = EXCLUDED.bhd_height,

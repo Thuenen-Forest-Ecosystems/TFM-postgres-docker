@@ -22,18 +22,15 @@ BEGIN
 
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-
-        INSERT INTO deadwood (id, plot_id, plot_location_id)
+        INSERT INTO deadwood (id, plot_id)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('deadwood_id_seq')),
-            parent_id,
-            plot_location_id
+            parent_id
             
         )
         ON CONFLICT (id) DO UPDATE
         SET
-            plot_id = EXCLUDED.plot_id,
-            plot_location_id = EXCLUDED.plot_location_id
+            plot_id = EXCLUDED.plot_id
             
         WHERE deadwood.id = EXCLUDED.id AND deadwood.plot_id = parent_id
         RETURNING * INTO changed_values;

@@ -11,17 +11,17 @@ const pgclient = new Client({
     port: process.env.POSTGRES_PORT || "5432",
     user: process.env.POSTGRES_USER || 'postgres',
     password: process.env.POSTGRES_PASSWORD,
-    database: 'TFM'
+    database: 'postgres'
 });
 
 var assert = require('assert');
 let token = null;
 
-console.log('process.env.POSTGRES_PASSWORD', process.env.POSTGRES_PASSWORD);
-
 describe('openApi + postgres + authentication', function () {
     before(async function () {
-        await pgclient.connect();
+        console.log(process.env.POSTGRES_PORT, process.env.POSTGRES_USER, process.env.POSTGRES_PASSWORD);
+        const rest = await pgclient.connect();
+        console.log(rest);
     });
     
     it('SELECT NOW()', async function () {
