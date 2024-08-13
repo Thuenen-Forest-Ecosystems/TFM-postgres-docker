@@ -150,5 +150,9 @@ BEGIN
          RETURNING id INTO temp_deadwood_location_id;
 
     INSERT INTO deadwood (plot_id, tree_species_group, dead_wood_type, decomposition, length_height, diameter_butt, diameter_top, count, bark_pocket) VALUES (temp_plot_id, '2', '2', '2', 10, 160, 100, 10, 10);
+
+    INSERT INTO position (plot_id, position_median, position_mean, hdop_mean, pdop_mean, satellites_count_mean, measurement_count, rtcm_age, start_measurement, stop_measurement, device_gps, quality) VALUES
+        (1, ST_SetSRID(ST_MakePoint(13.123456, 52.123456), 4326), ST_SetSRID(ST_MakePoint(13.123456, 52.123456), 4326), 1.0, 1.0, 1.0, 1, 1.0, '2020-01-01 00:00:00', '2020-01-01 00:00:00', 'Test', 'RTK');
+
 END $$
 

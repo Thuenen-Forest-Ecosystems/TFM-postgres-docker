@@ -62,3 +62,6 @@ ALTER TABLE position ADD CONSTRAINT FK_Position_PlotLocation FOREIGN KEY (plot_l
 
 ALTER TABLE position ADD CONSTRAINT FK_Position_LookupGnssQuality FOREIGN KEY (quality)
 	REFERENCES lookup_gnss_quality (abbreviation);
+
+
+-- Example data

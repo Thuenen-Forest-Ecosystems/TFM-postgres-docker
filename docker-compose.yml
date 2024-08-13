@@ -119,9 +119,11 @@ services:
       - ./structure/ci2027/lookup_tables/lookup_tree_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_tree_size_class.sql
 
 
+      - ./structure/ci2027/tables/cluster.sql:/docker-entrypoint-initdb.d/919-cluster.sql
+      - ./structure/ci2027/tables/plot.sql:/docker-entrypoint-initdb.d/919-plot.sql
       - ./structure/ci2027/tables/plot_location.sql:/docker-entrypoint-initdb.d/920-plot_location.sql
-      - ./structure/ci2027/tables/cluster.sql:/docker-entrypoint-initdb.d/920-cluster.sql
-      - ./structure/ci2027/tables/plot.sql:/docker-entrypoint-initdb.d/921-plot.sql
+      
+      
       - ./structure/ci2027/tables/wzp_tree.sql:/docker-entrypoint-initdb.d/922-wzp_tree.sql
       - ./structure/ci2027/tables/position.sql:/docker-entrypoint-initdb.d/922-position.sql
       - ./structure/ci2027/tables/edge.sql:/docker-entrypoint-initdb.d/922-edge.sql
@@ -134,6 +136,10 @@ services:
       - ./structure/ci2027/trigger.sql:/docker-entrypoint-initdb.d/930-trigger.sql
       
 
+      # Views
+      - ./structure/ci2027/view/qgis.sql:/docker-entrypoint-initdb.d/923-qgis.sql
+
+
        # TMP
       - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
       - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
@@ -143,8 +149,8 @@ services:
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       
 
-      # GET
-      - ./structure/ci2027/functions/get_clusters.sql:/docker-entrypoint-initdb.d/99-get_clusters.sql
+      # GET DEPRECATED
+      #- ./structure/ci2027/functions/get_clusters.sql:/docker-entrypoint-initdb.d/99-get_clusters.sql
       
       # SET
       - ./structure/ci2027/functions/set/plot_location.sql:/docker-entrypoint-initdb.d/99-plot_location.sql
@@ -155,6 +161,7 @@ services:
       - ./structure/ci2027/functions/set/position.sql:/docker-entrypoint-initdb.d/99-position.sql
       - ./structure/ci2027/functions/set/sapling_1m.sql:/docker-entrypoint-initdb.d/99-sapling_1m.sql
       - ./structure/ci2027/functions/set/sapling_2m.sql:/docker-entrypoint-initdb.d/99-sapling_2m.sql
+      - ./structure/ci2027/functions/set/edges.sql:/docker-entrypoint-initdb.d/99-xedges.sql
 
       - ./structure/ci2027/functions/set_clusters.sql:/docker-entrypoint-initdb.d/99-set_clusters.sql
       

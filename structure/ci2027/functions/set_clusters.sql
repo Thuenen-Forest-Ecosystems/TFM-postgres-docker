@@ -24,12 +24,12 @@ DECLARE
     wzp_trees_object json;
 BEGIN
     -- Loop through each feature in the GeoJSON
-    FOR clusters_object IN SELECT * FROM json_array_elements(clusters)
+    FOR cluster_object IN SELECT * FROM json_array_elements(clusters)
     LOOP
 
 
         -- ADD CLUSTER
-        cluster_object := clusters_object->'cluster';
+        --cluster_object := clusters_object->'cluster';
 
         states_array := ARRAY(
             SELECT elem::enum_state
@@ -49,11 +49,11 @@ BEGIN
         )
         ON CONFLICT (id) DO UPDATE
         SET 
-            cluster_name = EXCLUDED.cluster_name,
-            state_administration = EXCLUDED.state_administration,
-            state_location = EXCLUDED.state_location,
+            cluster_name = COALESCE(EXCLUDED.cluster_name, cluster.cluster_name),
+            state_administration = COALESCE(EXCLUDED.state_administration, cluster.state_administration),
+            state_location = COALESCE(EXCLUDED.state_location, cluster.state_location),
             states = COALESCE(EXCLUDED.states, cluster.states),
-            sampling_strata = EXCLUDED.sampling_strata,
+            sampling_strata = COALESCE(EXCLUDED.sampling_strata, cluster.sampling_strata),
             cluster_identifier = COALESCE(EXCLUDED.cluster_identifier, cluster.cluster_identifier),
             email = EXCLUDED.email
         WHERE cluster.id = EXCLUDED.id
@@ -64,8 +64,10 @@ BEGIN
             'plot', '[]'::json
         );
 
-        IF (clusters_object->'plot')::text != 'null' THEN
-            SELECT(set_plot(changed_values.id, clusters_object->'plot')) INTO new_plots;
+       
+        IF (cluster_object->'plot')::text != 'null' THEN
+            
+            SELECT(set_plot(changed_values.id, cluster_object->'plot')) INTO new_plots;
             new_cluster := jsonb_set(
                 new_cluster,
                 '{plot}',

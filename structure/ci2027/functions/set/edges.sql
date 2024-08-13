@@ -22,22 +22,19 @@ BEGIN
 
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-
-        INSERT INTO edges (id, plot_id, plot_location_id, edge_state, edge_type, terrain)
+        INSERT INTO edges (id, plot_id, edge_state, edge_type, terrain)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('edges_id_seq')),
             parent_id,
-            plot_location_id,
-            child_object->>'edge_state',
-            child_object->>'edge_type',
-            child_object->>'terrain'
+            (child_object->>'edge_state')::enum_edge_state,
+            (child_object->>'edge_type')::enum_edge_type,
+            (child_object->>'terrain')::enum_terrain
             
         )
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
-            plot_location_id = EXCLUDED.plot_location_id,
-            edge_state = EXCLUDED.edge_state,
+            edge_state = '2008', --COALESCE(EXCLUDED.edge_state, edges.edge_state),
             edge_type = EXCLUDED.edge_type,
             terrain = EXCLUDED.terrain
             
@@ -55,6 +52,11 @@ BEGIN
     DELETE FROM edges WHERE id NOT IN (SELECT id FROM temp_child_ids) AND edges.plot_id = parent_id;
 
 RETURN modified;
+
+EXCEPTION WHEN others THEN
+    RAISE EXCEPTION 'Error set_edges: %', SQLERRM; --SQLERRM;
+    RETURN '{}'::json;
+
 END;
 $$ LANGUAGE plpgsql;
 

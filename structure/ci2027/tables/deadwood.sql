@@ -4,7 +4,7 @@ CREATE TABLE deadwood (
 
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-	plot_location_id INTEGER NULL,
+	--plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -41,8 +41,8 @@ ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_Plot FOREIGN KEY (plot_id)
 	ON DELETE CASCADE;
 
 --- plot_location_id
-ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_PlotLocation FOREIGN KEY (plot_location_id)
-	REFERENCES plot_location (id);
+--ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_PlotLocation FOREIGN KEY (plot_location_id)
+--	REFERENCES plot_location (id);
 
 
 ALTER TABLE deadwood ADD CONSTRAINT FK_Deadwood_LookupTreeSpeciesGroup FOREIGN KEY (tree_species_group)
