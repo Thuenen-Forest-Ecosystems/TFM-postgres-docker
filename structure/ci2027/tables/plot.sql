@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS plot (
 	-- biosphaere smallint NULL, -- biosphaere (vgl. ffh)
 	-- natursg smallint NULL, -- natursg (vgl. ffh)
 
-	forestry_department CK_FORESTRY_DEPARTMENT NULL, -- fa
+	forestry_department smallint NULL, -- fa
 	height_layer_class enum_height_layer_class NULL, -- nathoe
 	property_type enum_property_type NULL, -- eg
 	property_size_class enum_property_size_class NULL, -- eggrkl

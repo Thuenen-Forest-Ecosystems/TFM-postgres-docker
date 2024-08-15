@@ -31,12 +31,14 @@ BEGIN
         -- ADD CLUSTER
         --cluster_object := clusters_object->'cluster';
 
+        -- REPLACE EMAIL BY USER ID
+
         states_array := ARRAY(
             SELECT elem::enum_state
             FROM json_array_elements_text(cluster_object->'states') AS elem
         );
         
-        INSERT INTO cluster (id, cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, email)
+        INSERT INTO cluster (id, cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier)
         VALUES (
             COALESCE(NULLIF((cluster_object->>'id')::text, 'null')::int, nextval('cluster_id_seq')),
             (cluster_object->>'cluster_name')::int,
@@ -44,8 +46,8 @@ BEGIN
             (cluster_object->>'state_location')::enum_state,
             states_array,
             (cluster_object->>'sampling_strata')::enum_sampling_strata,
-            (cluster_object->>'cluster_identifier')::enum_cluster_identifier,
-            ARRAY[(cluster_object->>'email')::text] 
+            (cluster_object->>'cluster_identifier')::enum_cluster_identifier
+            --ARRAY[(cluster_object->>'email')::text] 
         )
         ON CONFLICT (id) DO UPDATE
         SET 
@@ -54,8 +56,8 @@ BEGIN
             state_location = COALESCE(EXCLUDED.state_location, cluster.state_location),
             states = COALESCE(EXCLUDED.states, cluster.states),
             sampling_strata = COALESCE(EXCLUDED.sampling_strata, cluster.sampling_strata),
-            cluster_identifier = COALESCE(EXCLUDED.cluster_identifier, cluster.cluster_identifier),
-            email = EXCLUDED.email
+            cluster_identifier = COALESCE(EXCLUDED.cluster_identifier, cluster.cluster_identifier)
+            --email = EXCLUDED.email
         WHERE cluster.id = EXCLUDED.id
         RETURNING * INTO changed_values;
 

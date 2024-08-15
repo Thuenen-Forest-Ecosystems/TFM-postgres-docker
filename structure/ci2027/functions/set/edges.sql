@@ -34,9 +34,9 @@ BEGIN
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
-            edge_state = '2008', --COALESCE(EXCLUDED.edge_state, edges.edge_state),
-            edge_type = EXCLUDED.edge_type,
-            terrain = EXCLUDED.terrain
+            edge_state = COALESCE(EXCLUDED.edge_state, edges.edge_state),
+            edge_type = COALESCE(EXCLUDED.edge_type, edges.edge_type),
+            terrain = COALESCE(EXCLUDED.terrain, edges.terrain)
             
         WHERE edges.id = EXCLUDED.id AND edges.plot_id = parent_id
         RETURNING * INTO changed_values;

@@ -11,7 +11,7 @@ DECLARE
     modified_element jsonb;
 
     child_wzp_tree jsonb;
-    child_plot_location json;
+    child_plot_location jsonb;
 
     changed_values RECORD;
     changed_id INTEGER;
@@ -33,15 +33,20 @@ BEGIN
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-        
-
         IF (child_object->>'cluster_id')::text != 'null' AND (child_object->>'cluster_id')::int != parent_id THEN
             CONTINUE;
         END IF;
 
-        
-        
-        INSERT INTO plot (id, cluster_id, plot_name, sampling_strata, state_administration, state_collect, marking_state, harvesting_method)
+        INSERT INTO plot (id, cluster_id, plot_name, sampling_strata, state_administration, state_collect, marking_state, harvesting_method,
+            geometry,
+            growth_district,
+            forest_decision,
+            accessibility,
+            forestry_department,
+            height_layer_class,
+            property_type,
+            property_size_class
+        )
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('plot_id_seq')),
             parent_id,
@@ -50,17 +55,34 @@ BEGIN
             (child_object->>'state_administration')::enum_state,
             (child_object->>'state_collect')::enum_state,
             (child_object->>'marking_state')::enum_marking_state,
-            (child_object->>'harvesting_method')::enum_harvesting_method
+            (child_object->>'harvesting_method')::enum_harvesting_method,
+            ST_GeomFromGeoJSON((child_object->>'geometry')::text),
+            (child_object->>'growth_district')::int,
+            (child_object->>'forest_decision')::enum_forest_decision,
+            (child_object->>'accessibility')::int,
+            (child_object->>'forestry_department')::int,
+            (child_object->>'height_layer_class')::enum_height_layer_class,
+            (child_object->>'property_type')::enum_property_type,
+            (child_object->>'property_size_class')::enum_property_size_class
         )
         ON CONFLICT (id) DO UPDATE
         SET 
-            cluster_id = parent_id,
-            plot_name = EXCLUDED.plot_name,
-            sampling_strata = EXCLUDED.sampling_strata,
-            state_administration = EXCLUDED.state_administration,
-            state_collect = EXCLUDED.state_collect,
-            marking_state = EXCLUDED.marking_state,
-            harvesting_method = EXCLUDED.harvesting_method
+            --cluster_id = parent_id,
+            plot_name = COALESCE(EXCLUDED.plot_name, plot.plot_name),
+            sampling_strata = COALESCE(EXCLUDED.sampling_strata, plot.sampling_strata),
+            state_administration = COALESCE(EXCLUDED.state_administration, plot.state_administration),
+            state_collect = COALESCE(EXCLUDED.state_collect, plot.state_collect),
+            marking_state = COALESCE(EXCLUDED.marking_state, plot.marking_state),
+            harvesting_method = COALESCE(EXCLUDED.harvesting_method, plot.harvesting_method),
+            geometry = COALESCE(ST_GeomFromGeoJSON((child_object->>'geometry')::text), plot.geometry),
+            growth_district = COALESCE(EXCLUDED.growth_district, plot.growth_district),
+            forest_decision = COALESCE(EXCLUDED.forest_decision, plot.forest_decision),
+            accessibility = COALESCE(EXCLUDED.accessibility, plot.accessibility),
+            forestry_department = COALESCE(EXCLUDED.forestry_department, plot.forestry_department),
+            height_layer_class = COALESCE(EXCLUDED.height_layer_class, plot.height_layer_class),
+            property_type = COALESCE(EXCLUDED.property_type, plot.property_type),
+            property_size_class = COALESCE(EXCLUDED.property_size_class, plot.property_size_class)
+
         WHERE plot.id = EXCLUDED.id AND plot.cluster_id = parent_id
         RETURNING * INTO changed_values;
 
@@ -73,13 +95,35 @@ BEGIN
             'plot', changed_values,
             'wzp_tree', '[]'::json,
             'deadwood', '[]'::json,
-            'position', '[]'::json
+            'position', '[]'::json,
+            'plot_location', '[]'::json
         );
+
+        IF (child_object->'plot_location')::text != 'null' THEN
+
+            --FOR child_object IN SELECT * FROM json_array_elements(child_object->'plot_location')
+            --LOOP
+            --    
+            --END LOOP;
+
+            SELECT(set_plot_location(changed_values.id, child_object->'plot_location', changed_values.geometry)) INTO child_plot_location;
+            --locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
+            modified_element := jsonb_set(
+                modified_element,
+                '{plot_location}',
+                child_plot_location
+            );
+
+            
+            
+        END IF;
+
+        
 
         IF (child_object->'wzp_tree')::text != 'null' THEN
 
             -- REPLACE WITH REFERENCE POSITION
-            --SELECT(set_plot_location(changed_values.id, child_object->'wzp_tree'->'plot_location', 'wzp_tree')) INTO child_plot_location;
+            --SELECT(set_plot_location(changed_values.id, child_object->'wzp_tree'->'plot_location', 'wzp_tree', changed_values.geometry)) INTO child_plot_location;
             --locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
 
             SELECT(set_wzp_tree(changed_values.id, child_object->'wzp_tree', NULL)) INTO child_wzp_tree;
