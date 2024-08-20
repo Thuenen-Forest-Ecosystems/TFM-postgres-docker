@@ -8,7 +8,8 @@ CREATE TABLE IF NOT EXISTS cluster (
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	cluster_name INTEGER NOT NULL UNIQUE, -- Unique human readable name
-	email TEXT[] NOT NULL DEFAULT array[]::text[], -- Email of the user who created the cluster
+	--email TEXT[] NOT NULL DEFAULT array[]::text[], -- Email of the user who created the cluster
+	select_access_by TEXT[] NOT NULL DEFAULT array[]::TEXT[], -- Roles that can access the cluster
 
 	supervisor_id INTEGER NULL, -- Supervisor of the cluster
 
@@ -76,13 +77,21 @@ ALTER TABLE cluster
 -- Enable Row-Level Security
 ALTER TABLE cluster ENABLE ROW LEVEL SECURITY;
 
+
+-- current_setting('request.jwt.claims', true)::json->>'email'
+CREATE POLICY user_policy ON cluster
+FOR SELECT
+USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(select_access_by));
+
+
+
 -- Create policy for SELECT
-CREATE POLICY select_own_cluster ON cluster
-	FOR SELECT
-	TO ci2027_user
-	USING (true);
-	--WITH CHECK (true);
-    --USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(cluster.email));
+--CREATE POLICY select_own_cluster ON cluster
+--	FOR SELECT
+--	TO ci2027_user
+--	USING (true);
+--	--WITH CHECK (true);
+--    --USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(cluster.email));
 
 CREATE POLICY insert_own_cluster ON cluster
 	FOR INSERT

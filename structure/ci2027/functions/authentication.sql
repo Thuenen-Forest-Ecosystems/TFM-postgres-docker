@@ -1,6 +1,10 @@
 
 SET search_path TO private_ci2027_001, public;
 
+
+
+
+
 --
 --GRANT SELECT ON TABLE plot_location (id, updated_at, azimuth, distance, radius, geometry, no_entities) TO web_anon;
 --REVOKE UPDATE(updated_at) ON table_name FROM target_user;

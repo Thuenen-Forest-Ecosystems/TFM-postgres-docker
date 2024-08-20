@@ -56,7 +56,9 @@ BEGIN
             (child_object->>'state_collect')::enum_state,
             (child_object->>'marking_state')::enum_marking_state,
             (child_object->>'harvesting_method')::enum_harvesting_method,
+            
             ST_GeomFromGeoJSON((child_object->>'geometry')::text),
+
             (child_object->>'growth_district')::int,
             (child_object->>'forest_decision')::enum_forest_decision,
             (child_object->>'accessibility')::int,
@@ -126,7 +128,7 @@ BEGIN
             --SELECT(set_plot_location(changed_values.id, child_object->'wzp_tree'->'plot_location', 'wzp_tree', changed_values.geometry)) INTO child_plot_location;
             --locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
 
-            SELECT(set_wzp_tree(changed_values.id, child_object->'wzp_tree', NULL)) INTO child_wzp_tree;
+            SELECT(set_wzp_tree(changed_values.id, child_object->'wzp_tree')) INTO child_wzp_tree;
             modified_element := jsonb_set(
                 modified_element,
                 '{wzp_tree}',
