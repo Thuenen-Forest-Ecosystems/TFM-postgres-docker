@@ -5,7 +5,7 @@ services:
 
   postgrest:
     restart: always
-    image: "postgrest/postgrest:v12.0.2"
+    image: "postgrest/postgrest:v12.2.3"
     ports:
       - "3000:3000"
     links:
@@ -218,7 +218,7 @@ services:
 
   swagger:
     restart: always
-    image: swaggerapi/swagger-ui
+    image: "swaggerapi/swagger-ui:v5.17.14"
     ports:
         - "4080:8080"
     expose:
@@ -229,7 +229,7 @@ services:
       - postgrest
 
   #schemaspy:
-  #  restart: always
+  #  restart: never
   #  image: schemaspy/schemaspy:snapshot
   #  volumes:
   #    - ./docs:/output

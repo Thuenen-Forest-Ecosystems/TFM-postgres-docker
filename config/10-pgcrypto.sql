@@ -11,7 +11,8 @@ create schema IF NOT EXISTS basic_auth;
 create table IF NOT EXISTS
 basic_auth.users (
   id                        SERIAL UNIQUE,
-  email                     text primary key check ( email ~* '^.+@.+\..+$' ),
+  --email                     text primary key check ( email ~* '^.+@.+\..+$' ),
+  email                     text primary key CHECK ((length(email) > 5) AND (length(email) < 512)),
   pass                      text not null check (length(pass) < 512),
   role                      name not null check (length(role) < 512),
   administrator_user_id     INTEGER NULL,

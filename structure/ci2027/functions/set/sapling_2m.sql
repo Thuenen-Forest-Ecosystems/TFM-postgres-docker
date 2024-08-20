@@ -23,17 +23,38 @@ BEGIN
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
 
-        INSERT INTO sapling_2m (id, plot_id, plot_location_id)
+        INSERT INTO sapling_2m (
+            id,
+            plot_id,
+            stand_affiliation,
+            tree_species,
+            bitten,
+            tree_size_class,
+            damage_peel,
+            protection_individual,
+            quantity
+        )
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('sapling_2m_id_seq')),
             parent_id,
-            plot_location_id
-            
+            (child_object->>'stand_affiliation')::int,
+            (child_object->>'tree_species')::int,
+            (child_object->>'bitten')::int,
+            (child_object->>'tree_size_class')::int,
+            (child_object->>'damage_peel')::int,
+            (child_object->>'protection_individual')::int,
+            (child_object->>'quantity')::int
         )
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
-            plot_location_id = EXCLUDED.plot_location_id
+            stand_affiliation = COALESCE(EXCLUDED.stand_affiliation, sapling_2m.stand_affiliation),
+            tree_species = COALESCE(EXCLUDED.tree_species, sapling_2m.tree_species),
+            bitten = COALESCE(EXCLUDED.bitten, sapling_2m.bitten),
+            tree_size_class = COALESCE(EXCLUDED.tree_size_class, sapling_2m.tree_size_class),
+            damage_peel = COALESCE(EXCLUDED.damage_peel, sapling_2m.damage_peel),
+            protection_individual = COALESCE(EXCLUDED.protection_individual, sapling_2m.protection_individual),
+            quantity = COALESCE(EXCLUDED.quantity, sapling_2m.quantity)
             
         WHERE sapling_2m.id = EXCLUDED.id AND sapling_2m.plot_id = parent_id
         RETURNING * INTO changed_values;
@@ -49,5 +70,10 @@ BEGIN
     DELETE FROM sapling_2m WHERE id NOT IN (SELECT id FROM temp_child_ids) AND sapling_2m.plot_id = parent_id;
 
 RETURN modified;
+
+EXCEPTION WHEN others THEN
+        RAISE EXCEPTION 'Error set_sapling_2m: %', SQLERRM; --SQLERRM;
+        RETURN '{}'::json;
+
 END;
 $$ LANGUAGE plpgsql;

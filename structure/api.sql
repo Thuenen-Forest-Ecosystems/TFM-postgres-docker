@@ -63,3 +63,11 @@ $$;
 CREATE EVENT TRIGGER pgrst_watch
   ON ddl_command_end
   EXECUTE PROCEDURE pgrst_watch();
+
+
+-- Function to return the current user's email
+CREATE OR REPLACE FUNCTION public_api.get_current_user() RETURNS json AS $$
+BEGIN
+	RETURN current_setting('request.jwt.claims', true)::json;
+END;
+$$ LANGUAGE plpgsql;

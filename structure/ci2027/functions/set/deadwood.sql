@@ -20,19 +20,50 @@ BEGIN
     CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
     TRUNCATE temp_child_ids;
 
+    
+
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-        INSERT INTO deadwood (id, plot_id)
+
+        
+        INSERT INTO deadwood (
+            id,
+            plot_id,
+            tree_species_group,
+            dead_wood_type,
+            decomposition,
+            length_height,
+            diameter_butt,
+            diameter_top,
+            count,
+            bark_pocket
+        )
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('deadwood_id_seq')),
-            parent_id
+            parent_id,
+            (child_object->>'tree_species_group')::enum_tree_species_group,
+            (child_object->>'dead_wood_type')::enum_dead_wood_type,
+            (child_object->>'decomposition')::enum_decomposition,
+            (child_object->>'length_height')::smallint,
+            (child_object->>'diameter_butt')::CK_BHD,
+            (child_object->>'diameter_top')::CK_BHD,
+            (child_object->>'count')::smallint,
+            (child_object->>'bark_pocket')::smallint
             
         )
         ON CONFLICT (id) DO UPDATE
         SET
-            plot_id = EXCLUDED.plot_id
+            plot_id = EXCLUDED.plot_id,
+            tree_species_group = EXCLUDED.tree_species_group,
+            dead_wood_type = EXCLUDED.dead_wood_type,
+            decomposition = EXCLUDED.decomposition,
+            length_height = EXCLUDED.length_height,
+            diameter_butt = EXCLUDED.diameter_butt,
+            diameter_top = EXCLUDED.diameter_top,
+            count = EXCLUDED.count,
+            bark_pocket = EXCLUDED.bark_pocket
             
-        WHERE deadwood.id = EXCLUDED.id AND deadwood.plot_id = parent_id
+        WHERE deadwood.id = EXCLUDED.id
         RETURNING * INTO changed_values;
 
         INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
@@ -46,5 +77,10 @@ BEGIN
     DELETE FROM deadwood WHERE id NOT IN (SELECT id FROM temp_child_ids) AND deadwood.plot_id = parent_id;
 
 RETURN modified;
+
+EXCEPTION WHEN others THEN
+        RAISE EXCEPTION 'Error deadwood: %', SQLERRM; --SQLERRM;
+        RETURN '{}'::json;
+
 END;
 $$ LANGUAGE plpgsql;
