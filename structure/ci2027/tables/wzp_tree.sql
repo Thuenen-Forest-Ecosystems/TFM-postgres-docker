@@ -4,7 +4,7 @@ CREATE TABLE wzp_tree (
 	
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-    plot_location_id INTEGER NULL,
+    --plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -18,11 +18,12 @@ CREATE TABLE wzp_tree (
 	azimuth CK_GON NOT NULL, -- Azi
 	distance smallint NOT NULL, -- Hori
 	geometry GEOMETRY(POINT, 4326) NULL, -- Geometry (Point) NEU
+	--geometry_dbh GEOMETRY(POLYGON, 4326) NULL, -- Geometry (Point) NEU
 
 
 	tree_species smallint NULL, -- Ba
 
-	bhd CK_BHD NOT NULL, -- M_Bhd
+	bhd CK_BHD NOT NULL, -- M_Bhd in mm
 	bhd_height smallint NOT NULL DEFAULT 130, -- M_hBhd
 
 	tree_height smallint NULL, -- M_Hoe

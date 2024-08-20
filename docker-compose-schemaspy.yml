@@ -1,0 +1,18 @@
+# docker-compose.yml
+# https://gis-ops.com/de/postgrest-tutorial-installation-and-setup/
+ 
+services:
+  schemaspy:
+    restart: no
+    image: schemaspy/schemaspy:snapshot
+    volumes:
+      - ./docs:/output
+      - ./schemaspy/config:/config
+    container_name: "schemaspy_local"
+    command: [
+      "-configFile",
+      "/config/schemaspy.properties", 
+      "-imageformat",
+      "svg"
+    ]
+    #network_mode: "service:postgres"

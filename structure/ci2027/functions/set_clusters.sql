@@ -22,7 +22,11 @@ DECLARE
     changed_values RECORD;
 
     wzp_trees_object json;
+    username text;
 BEGIN
+
+    username := current_setting('request.jwt.claims', true)::json->>'email';
+
     -- Loop through each feature in the GeoJSON
     FOR cluster_object IN SELECT * FROM json_array_elements(clusters)
     LOOP
@@ -38,7 +42,7 @@ BEGIN
             FROM json_array_elements_text(cluster_object->'states') AS elem
         );
         
-        INSERT INTO cluster (id, cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier)
+        INSERT INTO cluster (id, cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by)
         VALUES (
             COALESCE(NULLIF((cluster_object->>'id')::text, 'null')::int, nextval('cluster_id_seq')),
             (cluster_object->>'cluster_name')::int,
@@ -46,8 +50,9 @@ BEGIN
             (cluster_object->>'state_location')::enum_state,
             states_array,
             (cluster_object->>'sampling_strata')::enum_sampling_strata,
-            (cluster_object->>'cluster_identifier')::enum_cluster_identifier
+            (cluster_object->>'cluster_identifier')::enum_cluster_identifier,
             --ARRAY[(cluster_object->>'email')::text] 
+            ARRAY[username]::text[]
         )
         ON CONFLICT (id) DO UPDATE
         SET 
@@ -75,6 +80,7 @@ BEGIN
                 '{plot}',
                 new_plots
             );
+            
             
         END IF;
 

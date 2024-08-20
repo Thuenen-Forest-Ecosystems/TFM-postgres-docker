@@ -31,7 +31,6 @@ BEGIN
             radius,
             geometry,
             --geometry_buffer,
-            --circle_geometry,
             no_entities
             )
         VALUES (
@@ -41,11 +40,25 @@ BEGIN
             (child_object->>'azimuth')::int,
             (child_object->>'distance')::int,
             (child_object->>'radius')::int,
-            parent_geometry, --TODO: CREATE NEW POSITION
+            ST_Transform(
+                ST_PROJECT( --https://postgis.net/docs/ST_Project.html
+                    parent_geometry::geometry,
+                    (child_object->>'distance')::int,
+                    radians((child_object->>'azimuth')::int)
+                )::geometry,
+                4326
+            )::geometry,
             --ST_Buffer(
-            --    parent_geometry,
-            --    (json_object->>'radius')::int, 'quad_segs=8'
-            --),
+            --    ST_Transform(
+            --        ST_PROJECT( --https://postgis.net/docs/ST_Project.html
+            --            parent_geometry::geometry,
+            --            (child_object->>'distance')::int,
+            --            radians((child_object->>'azimuth')::int)
+            --        )::geometry,
+            --        4326
+            --    )::geography,
+            --    (child_object->>'radius')::int
+            --)::geometry,
             (child_object->>'no_entities')::boolean
         )
         ON CONFLICT (id) DO UPDATE

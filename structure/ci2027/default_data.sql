@@ -10,11 +10,11 @@ DECLARE
 BEGIN
 
     -- Insert into cluster and return the generated id
-    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, email) 
-        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{gerrit.balindt@gruenecho.de, landesinventurleiter@thuenen.de}')
+    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
+        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{landesinventurleiter,recording-troop}')
         RETURNING id INTO temp_cluster_id;
-    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier) 
-        VALUES (23456, 'BY', 'BY', '{"BY", "BE"}', '8', '5')
+    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
+        VALUES (23456, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{}')
         RETURNING id INTO temp_cluster_id2;
 
     -- Insert into plot 
@@ -87,7 +87,6 @@ BEGIN
      -- Insert into wzp
     INSERT INTO wzp_tree (
         plot_id,
-        plot_location_id,
         azimuth,
         distance, 
         tree_species, 
@@ -114,7 +113,6 @@ BEGIN
         damage_beetle
     ) VALUES (
         temp_plot_id, -- plot_id
-        temp_location_id, -- location id
         100, -- azimuth
         200, -- distance
         10, -- tree_species (assuming smallint references a lookup table)
