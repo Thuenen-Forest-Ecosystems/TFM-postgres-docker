@@ -38,14 +38,14 @@
 <text text-anchor="start" x="637" y="-128.2" font-family="Helvetica,sans-Serif" font-size="11.00">...</text>
 <polygon fill="#ffffff" stroke="transparent" points="634,-104 634,-122 796,-122 796,-104 634,-104"/>
 <polygon fill="none" stroke="black" points="634,-104 634,-122 796,-122 796,-104 634,-104"/>
-<polygon fill="#ffffff" stroke="transparent" points="635,-105 635,-121 685,-121 685,-105 635,-105"/>
+<polygon fill="#ffffff" stroke="transparent" points="635,-105 635,-121 687,-121 687,-105 635,-105"/>
 <text text-anchor="start" x="637" y="-110.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 4</text>
-<polygon fill="#ffffff" stroke="transparent" points="685,-105 685,-121 758,-121 758,-105 685,-105"/>
-<text text-anchor="start" x="699.5" y="-110.2" font-family="Helvetica,sans-Serif" font-size="11.00">81 rows</text>
-<polygon fill="#ffffff" stroke="transparent" points="758,-105 758,-121 795,-121 795,-105 758,-105"/>
+<polygon fill="#ffffff" stroke="transparent" points="687,-105 687,-121 756,-121 756,-105 687,-105"/>
+<text text-anchor="start" x="703" y="-110.2" font-family="Helvetica,sans-Serif" font-size="11.00">0 rows</text>
+<polygon fill="#ffffff" stroke="transparent" points="756,-105 756,-121 795,-121 795,-105 756,-105"/>
 <text text-anchor="start" x="785" y="-110.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
-<polygon fill="black" stroke="black" points="685,-105 685,-121 685,-121 685,-105 685,-105"/>
-<polygon fill="black" stroke="black" points="758,-105 758,-121 758,-121 758,-105 758,-105"/>
+<polygon fill="black" stroke="black" points="687,-105 687,-121 687,-121 687,-105 687,-105"/>
+<polygon fill="black" stroke="black" points="756,-105 756,-121 756,-121 756,-105 756,-105"/>
 </a>
 </g>
 </g>
@@ -115,30 +115,30 @@
 <g id="node4" class="node">
 <title>plot</title>
 <g id="a_node4"><a xlink:href="../../tables/plot.html" xlink:title="plot" target="_top">
-<polygon fill="#ffffff" stroke="transparent" points="244,-348 244,-406 349,-406 349,-348 244,-348"/>
-<polygon fill="#f5f5f5" stroke="transparent" points="244.5,-384 244.5,-406 349.5,-406 349.5,-384 244.5,-384"/>
-<polygon fill="none" stroke="black" points="244.5,-384 244.5,-406 349.5,-406 349.5,-384 244.5,-384"/>
-<text text-anchor="start" x="249" y="-393.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="11.00">plot</text>
-<text text-anchor="start" x="307.5" y="-392.2" font-family="Helvetica,sans-Serif" font-size="11.00">[table]</text>
-<polygon fill="none" stroke="black" points="244.5,-366 244.5,-384 349.5,-384 349.5,-366 244.5,-366"/>
-<text text-anchor="start" x="247.5" y="-372.2" font-family="Helvetica,sans-Serif" font-size="11.00">...</text>
-<polygon fill="#ffffff" stroke="transparent" points="244.5,-348 244.5,-366 349.5,-366 349.5,-348 244.5,-348"/>
-<polygon fill="none" stroke="black" points="244.5,-348 244.5,-366 349.5,-366 349.5,-348 244.5,-348"/>
-<polygon fill="#ffffff" stroke="transparent" points="245.5,-349 245.5,-365 276.5,-365 276.5,-349 245.5,-349"/>
-<text text-anchor="start" x="247.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 24</text>
-<polygon fill="#ffffff" stroke="transparent" points="276.5,-349 276.5,-365 324.5,-365 324.5,-349 276.5,-349"/>
-<text text-anchor="start" x="278.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">82 rows</text>
-<polygon fill="#ffffff" stroke="transparent" points="324.5,-349 324.5,-365 348.5,-365 348.5,-349 324.5,-349"/>
-<text text-anchor="start" x="326.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">7 &gt;</text>
-<polygon fill="black" stroke="black" points="276.5,-349 276.5,-365 276.5,-365 276.5,-349 276.5,-349"/>
-<polygon fill="black" stroke="black" points="324.5,-349 324.5,-365 324.5,-365 324.5,-349 324.5,-349"/>
+<polygon fill="#ffffff" stroke="transparent" points="247.5,-348 247.5,-406 345.5,-406 345.5,-348 247.5,-348"/>
+<polygon fill="#f5f5f5" stroke="transparent" points="247.5,-384 247.5,-406 345.5,-406 345.5,-384 247.5,-384"/>
+<polygon fill="none" stroke="black" points="247.5,-384 247.5,-406 345.5,-406 345.5,-384 247.5,-384"/>
+<text text-anchor="start" x="252" y="-393.2" font-family="Helvetica,sans-Serif" font-weight="bold" font-size="11.00">plot</text>
+<text text-anchor="start" x="303.5" y="-392.2" font-family="Helvetica,sans-Serif" font-size="11.00">[table]</text>
+<polygon fill="none" stroke="black" points="247.5,-366 247.5,-384 345.5,-384 345.5,-366 247.5,-366"/>
+<text text-anchor="start" x="250.5" y="-372.2" font-family="Helvetica,sans-Serif" font-size="11.00">...</text>
+<polygon fill="#ffffff" stroke="transparent" points="247.5,-348 247.5,-366 345.5,-366 345.5,-348 247.5,-348"/>
+<polygon fill="none" stroke="black" points="247.5,-348 247.5,-366 345.5,-366 345.5,-348 247.5,-348"/>
+<polygon fill="#ffffff" stroke="transparent" points="248.5,-349 248.5,-365 279.5,-365 279.5,-349 248.5,-349"/>
+<text text-anchor="start" x="250.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 24</text>
+<polygon fill="#ffffff" stroke="transparent" points="279.5,-349 279.5,-365 320.5,-365 320.5,-349 279.5,-349"/>
+<text text-anchor="start" x="281.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">0 rows</text>
+<polygon fill="#ffffff" stroke="transparent" points="320.5,-349 320.5,-365 344.5,-365 344.5,-349 320.5,-349"/>
+<text text-anchor="start" x="322.5" y="-354.2" font-family="Helvetica,sans-Serif" font-size="11.00">7 &gt;</text>
+<polygon fill="black" stroke="black" points="279.5,-349 279.5,-365 279.5,-365 279.5,-349 279.5,-349"/>
+<polygon fill="black" stroke="black" points="320.5,-349 320.5,-365 320.5,-365 320.5,-349 320.5,-349"/>
 </a>
 </g>
 </g>
 <!-- deadwood&#45;&gt;plot -->
 <g id="edge3" class="edge">
 <title>deadwood:w&#45;&gt;plot:e</title>
-<path fill="none" stroke="black" d="M618.71,-219.66C587.85,-234.28 631.7,-305.3 593,-338 509.72,-408.36 459.53,-375 350.5,-375"/>
+<path fill="none" stroke="black" d="M618.71,-219.66C587.86,-234.29 631.74,-305.35 593,-338 508.29,-409.39 457.28,-375 346.5,-375"/>
 <polygon fill="black" stroke="black" points="625.14,-218.47 633.66,-220.54 629.07,-217.73 633,-217 633,-217 633,-217 629.07,-217.73 632.34,-213.46 625.14,-218.47 625.14,-218.47"/>
 <ellipse fill="none" stroke="black" cx="621.99" cy="-219.05" rx="3.2" ry="3.2"/>
 </g>
