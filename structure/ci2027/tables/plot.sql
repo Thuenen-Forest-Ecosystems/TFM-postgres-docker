@@ -123,6 +123,8 @@ CREATE TABLE IF NOT EXISTS plot (
 	-- ez9 smallint NULL -- ez9
 );
 
+
+
 ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster FOREIGN KEY (cluster_id)
 	REFERENCES cluster (id) MATCH SIMPLE
 	ON DELETE CASCADE;

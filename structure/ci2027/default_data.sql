@@ -10,10 +10,10 @@ DECLARE
 BEGIN
 
     -- Insert into cluster and return the generated id
-    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
-        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{landesinventurleiter,recording-troop}')
+    INSERT INTO cluster (id, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
+        VALUES (2345, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{}')
         RETURNING id INTO temp_cluster_id;
-    INSERT INTO cluster (cluster_name, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
+    INSERT INTO cluster (id, state_administration, state_location, states, sampling_strata, cluster_identifier, select_access_by) 
         VALUES (23456, 'BY', 'BY', '{"BY", "BE"}', '8', '5', '{}')
         RETURNING id INTO temp_cluster_id2;
 

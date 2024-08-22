@@ -11,6 +11,7 @@ services:
     links:
       - postgres:postgres
     environment:
+      VERSION: "1.0.1"
       PGRST_DB_URI: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/tfm"
       PGRST_DB_SCHEMA: public_api
       PGRST_DB_ANON_ROLE: web_anon
@@ -141,8 +142,8 @@ services:
 
 
        # TMP
-      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
-      - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
+      #- ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
+      #- ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
 
       ### Test Setup to be used by automated tests
       - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
@@ -173,30 +174,6 @@ services:
 
       #- ./pgdata:/var/lib/postgresql/data
 
-      
-
-  # https://hub.docker.com/r/prodrigestivill/postgres-backup-local
-  pgbackups:
-    image: prodrigestivill/postgres-backup-local
-    restart: always
-    user: postgres:postgres 
-    volumes:
-        - /var/opt/pgbackups:/backups
-    links:
-        - postgres # :${POSTGRES_HOST}
-    depends_on:
-        - postgres
-    environment:
-        - POSTGRES_HOST=${POSTGRES_HOST}
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
-        # - POSTGRES_PASSWORD_FILE=/run/secrets/db_password <-- alternative for POSTGRES_PASSWORD (to use with docker secrets)
-        # - POSTGRES_EXTRA_OPTS=-Z1 --schema=public --blobs
-        - SCHEDULE=@daily
-        - BACKUP_KEEP_MONTHS=6
-        - HEALTHCHECK_PORT=8080
-
   pgadmin:
     restart: always
     container_name: pgadmin4_container
@@ -215,15 +192,3 @@ services:
     user: root
     volumes:
       - ./pgadmindata:/var/lib/pgadmin
-
-  swagger:
-    restart: always
-    image: "swaggerapi/swagger-ui:v5.17.14"
-    ports:
-        - "4080:8080"
-    expose:
-        - "4080"
-    environment:
-        API_URL: ${PGRST_OPENAPI_SERVER_PROXY_URI}
-    depends_on:
-      - postgrest

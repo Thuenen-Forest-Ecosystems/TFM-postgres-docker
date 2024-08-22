@@ -103,11 +103,6 @@ BEGIN
 
         IF (child_object->'plot_location')::text != 'null' THEN
 
-            --FOR child_object IN SELECT * FROM json_array_elements(child_object->'plot_location')
-            --LOOP
-            --    
-            --END LOOP;
-
             SELECT(set_plot_location(changed_values.id, child_object->'plot_location', changed_values.geometry)) INTO child_plot_location;
             --locationId := COALESCE(NULLIF((child_plot_location->>'id')::text, 'null')::int, NULL);
             modified_element := jsonb_set(
@@ -115,8 +110,6 @@ BEGIN
                 '{plot_location}',
                 child_plot_location
             );
-
-            
             
         END IF;
 
