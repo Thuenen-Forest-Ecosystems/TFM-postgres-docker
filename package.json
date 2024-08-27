@@ -8,6 +8,8 @@
   },
   "scripts": {
     "test": "mocha --timeout 3000 --exit",
+    "test:dev": "ENV_FILE=_.env mocha --timeout 3000 --exit",
+
     "patch": "npm version patch && git push && git push --tags",
     "minor": "npm version minor && git push && git push --tags",
     "major": "npm version major && git push && git push --tags",
@@ -16,7 +18,10 @@
     "stop": "docker compose down -v && pm2 stop webhook/ecosystem.config.js",
     "pull": "git submodule update --recursive --remote && npm install",
     "flush": "docker compose down && docker volume prune",
-    "act": "act -P macos-latest=-self-hosted"
+    "act": "act -P macos-latest=-self-hosted",
+
+    "docker:local": "docker compose -f docker-compose-local.yml up",
+    "docker:docu": "docker compose -f docker-compose-schemaspy.yml up"
   },
   "repository": {
     "type": "git",

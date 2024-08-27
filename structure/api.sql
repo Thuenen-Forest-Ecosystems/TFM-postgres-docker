@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS public_api;
-COMMENT ON SCHEMA public_api IS 'Public API schema';
+COMMENT ON SCHEMA public_api IS 'Public API schema 1.0.0' ;
 
 ALTER SCHEMA public_api OWNER TO postgres;
 GRANT USAGE ON SCHEMA public_api TO web_anon;
@@ -65,9 +65,11 @@ CREATE EVENT TRIGGER pgrst_watch
   EXECUTE PROCEDURE pgrst_watch();
 
 
--- Function to return the current user's email
+
+-- Function to return the current user's email and current_user
 CREATE OR REPLACE FUNCTION public_api.get_current_user() RETURNS json AS $$
 BEGIN
-	RETURN current_setting('request.jwt.claims', true)::json;
+    -- Return the combined information as a JSON object
+    RETURN current_setting('request.jwt.claims', true)::json;
 END;
 $$ LANGUAGE plpgsql;

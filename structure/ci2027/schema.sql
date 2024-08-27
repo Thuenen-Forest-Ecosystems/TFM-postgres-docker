@@ -3,7 +3,6 @@ SET default_transaction_read_only = OFF;
 -- SCHEMA DEFINITION
 CREATE SCHEMA private_ci2027_001;
 ALTER SCHEMA private_ci2027_001 OWNER TO postgres;
-
 COMMENT ON SCHEMA private_ci2027_001 IS 'Kohlenstoffinventur 2027';
 
 SET search_path TO private_ci2027_001;
@@ -15,3 +14,5 @@ CREATE TABLE lookup_TEMPLATE (
     name_en VARCHAR(150) NOT NULL,
     sort INTEGER NOT NULL
 );
+
+

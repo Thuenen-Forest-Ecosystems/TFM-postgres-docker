@@ -32,4 +32,27 @@ jobs:
           time: '30s'
           
       - name: Connect to PostgreSQL
-        run: npm test
+        run: npm run test:dev
+        #env:
+        #  POSTGRES_HOST: localhost
+        #  # The default PostgreSQL port
+        #  POSTGRES_PORT: 5432
+
+      - name: Run SchemaSpy
+        uses: tj-actions/schemaspy@v2
+        with:
+          host: postgres
+          port: 5432
+          database_name: tfm
+          database_type: pgsql11
+          user: postgres
+          password: SecretSecretSecretSecret
+          schema: private_ci2027_001
+          output_dir: docs
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-without-markdown
+          path: docs
+

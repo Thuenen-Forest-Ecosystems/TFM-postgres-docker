@@ -38,14 +38,14 @@
 <text text-anchor="start" x="477.5" y="-61.2" font-family="Helvetica,sans-Serif" font-size="11.00">...</text>
 <polygon fill="#ffffff" stroke="transparent" points="474.5,-37 474.5,-55 583.5,-55 583.5,-37 474.5,-37"/>
 <polygon fill="none" stroke="black" points="474.5,-37 474.5,-55 583.5,-55 583.5,-37 474.5,-37"/>
-<polygon fill="#ffffff" stroke="transparent" points="475.5,-38 475.5,-54 507.5,-54 507.5,-38 475.5,-38"/>
+<polygon fill="#ffffff" stroke="transparent" points="475.5,-38 475.5,-54 509.5,-54 509.5,-38 475.5,-38"/>
 <text text-anchor="start" x="477.5" y="-43.2" font-family="Helvetica,sans-Serif" font-size="11.00">&lt; 4</text>
-<polygon fill="#ffffff" stroke="transparent" points="507.5,-38 507.5,-54 563.5,-54 563.5,-38 507.5,-38"/>
-<text text-anchor="start" x="513.5" y="-43.2" font-family="Helvetica,sans-Serif" font-size="11.00">81 rows</text>
-<polygon fill="#ffffff" stroke="transparent" points="563.5,-38 563.5,-54 582.5,-54 582.5,-38 563.5,-38"/>
+<polygon fill="#ffffff" stroke="transparent" points="509.5,-38 509.5,-54 560.5,-54 560.5,-38 509.5,-38"/>
+<text text-anchor="start" x="516.5" y="-43.2" font-family="Helvetica,sans-Serif" font-size="11.00">0 rows</text>
+<polygon fill="#ffffff" stroke="transparent" points="560.5,-38 560.5,-54 582.5,-54 582.5,-38 560.5,-38"/>
 <text text-anchor="start" x="572.5" y="-43.2" font-family="Helvetica,sans-Serif" font-size="11.00"> &#160;</text>
-<polygon fill="black" stroke="black" points="507.5,-38 507.5,-54 507.5,-54 507.5,-38 507.5,-38"/>
-<polygon fill="black" stroke="black" points="563.5,-38 563.5,-54 563.5,-54 563.5,-38 563.5,-38"/>
+<polygon fill="black" stroke="black" points="509.5,-38 509.5,-54 509.5,-54 509.5,-38 509.5,-38"/>
+<polygon fill="black" stroke="black" points="560.5,-38 560.5,-54 560.5,-54 560.5,-38 560.5,-38"/>
 </a>
 </g>
 </g>

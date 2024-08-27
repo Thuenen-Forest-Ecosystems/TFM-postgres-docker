@@ -43,7 +43,7 @@
             <column ascending="true" name="cluster_name"/>
          </index>
       </table>
-      <table name="deadwood" numRows="81" remarks="Deadwood" schema="private_ci2027_001" type="TABLE">
+      <table name="deadwood" numRows="0" remarks="Deadwood" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.deadwood_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="Foreign Key to plot" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_deadwood_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
@@ -70,7 +70,7 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="edges" numRows="81" remarks="Tabelle für die Kanten" schema="private_ci2027_001" type="TABLE">
+      <table name="edges" numRows="0" remarks="Tabelle für die Kanten" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.edges_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primärschlüssel" size="10" type="serial" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="Fremdschlüssel auf Plot" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_edges_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
@@ -548,7 +548,7 @@
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="plot" numRows="82" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="plot" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.plot_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4">
             <child column="plot_id" foreignKey="fk_deadwood_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="deadwood"/>
             <child column="plot_id" foreignKey="fk_edges_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="edges"/>
@@ -664,7 +664,7 @@
             <column ascending="true" name="plot_name"/>
          </index>
       </table>
-      <table name="plot_location" numRows="406" remarks="Sub Plots" schema="private_ci2027_001" type="TABLE">
+      <table name="plot_location" numRows="0" remarks="Sub Plots" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.plot_location_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4">
             <child column="plot_location_id" foreignKey="fk_position_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="position"/>
             <child column="plot_location_id" foreignKey="fk_saplings1m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="sapling_1m"/>
@@ -691,7 +691,7 @@
             <column ascending="true" name="parent_table"/>
          </index>
       </table>
-      <table name="position" numRows="81" remarks="Position der Probenfläche" schema="private_ci2027_001" type="TABLE">
+      <table name="position" numRows="0" remarks="Position der Probenfläche" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.position_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Unique ID der Probenfläche" size="10" type="serial" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="ID der Probenfläche" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_position_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
@@ -774,7 +774,7 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="wzp_tree" numRows="747" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="wzp_tree" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.wzp_tree_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="" size="10" type="serial" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_wzptree_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
