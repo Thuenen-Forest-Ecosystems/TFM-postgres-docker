@@ -142,8 +142,9 @@ services:
 
 
        # TMP
-      #- ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
-      #- ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
+      - ./ci2027-db-structure/NFI2022/schema.sql:/docker-entrypoint-initdb.d/998-schema.sql
+      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
+      - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
 
       ### Test Setup to be used by automated tests
       - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql

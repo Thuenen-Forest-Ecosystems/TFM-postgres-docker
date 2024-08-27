@@ -32,7 +32,7 @@ jobs:
           time: '30s'
           
       - name: Connect to PostgreSQL
-        run: npm test
+        run: npm run test:dev
         #env:
         #  POSTGRES_HOST: localhost
         #  # The default PostgreSQL port

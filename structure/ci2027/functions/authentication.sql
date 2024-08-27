@@ -3,7 +3,7 @@ SET search_path TO private_ci2027_001, public;
 
 
 
-
+--ALTER TABLE cluster OWNER TO state_admin;
 
 --
 --GRANT SELECT ON TABLE plot_location (id, updated_at, azimuth, distance, radius, geometry, no_entities) TO web_anon;
@@ -120,8 +120,11 @@ CREATE OR REPLACE FUNCTION remove_rls_policy_and_trigger(
     table_name TEXT,
     policy_name TEXT,
     column_name TEXT DEFAULT NULL
-) RETURNS void AS $$
+) RETURNS json AS $$
 BEGIN
+
+    --RAISE EXCEPTION 'Removing RLS policy % on table % colum %', policy_name, table_name, column_name;
+
     -- Drop the policy if it already exists
     EXECUTE format('DROP POLICY IF EXISTS %I ON %I', policy_name, table_name);
 
@@ -130,8 +133,10 @@ BEGIN
         EXECUTE format('DROP TRIGGER IF EXISTS %I ON %I', 'trg_prevent_' || column_name || '_update', table_name);
         EXECUTE format('DROP FUNCTION IF EXISTS %I', 'fn_prevent_' || column_name || '_update');
     END IF;
+
+    RETURN json_build_object('status', 'success');
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
 CREATE OR REPLACE FUNCTION apply_rls_policy(table_name TEXT, policy_name TEXT, role_name TEXT, column_name TEXT DEFAULT NULL)
 RETURNS json AS
@@ -142,6 +147,16 @@ BEGIN
     IF current_setting('transaction_read_only') = 'on' THEN
         RAISE EXCEPTION 'Cannot execute CREATE POLICY in a read-only transaction';
     END IF;
+
+    -- check if the policy already exists
+    --IF EXISTS (
+    --    SELECT 1
+    --    FROM pg_policies
+    --    WHERE table_name = table_name
+    --    AND policy_name = policy_name
+    --) THEN
+    --    RETURN json_build_object('status', 'error', 'message', 'Policy already exists');
+    --END IF;
     
     PERFORM apply_rls_policy_and_trigger(
         table_name,
@@ -155,8 +170,15 @@ BEGIN
     RETURN json_build_object('status', 'success');
 
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
 
+
+CREATE OR REPLACE FUNCTION has_column_privilege(user_name TEXT, table_name TEXT, column_name TEXT)
+RETURNS BOOLEAN AS $$
+BEGIN
+    RETURN has_column_privilege(user_name, table_name, column_name, 'UPDATE');
+END;
+$$ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION check_update_permission(table_name TEXT, column_name TEXT)
@@ -188,5 +210,26 @@ BEGIN
     END IF;
 
     RETURN is_allowed;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE OR REPLACE FUNCTION get_column_permissions(p_table_name TEXT)
+RETURNS JSON AS $$
+BEGIN
+    RETURN (
+        SELECT json_agg(
+            json_build_object(
+                'grantee', cp.grantee,
+                'table_catalog', cp.table_catalog,
+                'table_schema', cp.table_schema,
+                'table_name', cp.table_name,
+                'column_name', cp.column_name,
+                'privilege_type', cp.privilege_type
+            )
+        )
+        FROM information_schema.column_privileges cp
+        WHERE cp.table_name = p_table_name
+    );
 END;
 $$ LANGUAGE plpgsql;

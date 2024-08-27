@@ -62,8 +62,8 @@ BEGIN
             states_array,
             (cluster_object->>'sampling_strata')::enum_sampling_strata,
             (cluster_object->>'cluster_identifier')::enum_cluster_identifier,
-            ARRAY[username]::text[],
-            ARRAY[username]::text[]
+            ARRAY(SELECT json_array_elements_text(cluster_object->'select_access_by'))::text[],
+            ARRAY(SELECT json_array_elements_text(cluster_object->'update_access_by'))::text[]
         )
         ON CONFLICT (id) DO UPDATE
         SET 

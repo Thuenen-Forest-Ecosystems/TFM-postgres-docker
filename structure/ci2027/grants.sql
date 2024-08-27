@@ -11,8 +11,8 @@ GRANT web_anon TO ci2027_user;
 
 
 
-GRANT USAGE ON SCHEMA private_ci2027_001 TO web_anon;
-
+--GRANT USAGE ON SCHEMA private_ci2027_001 TO web_anon;
+GRANT USAGE ON SCHEMA private_ci2027_001 TO ci2027_user;
 
 
 -- CREATE ROLE readonly_everything;
