@@ -15,12 +15,13 @@ CREATE TABLE IF NOT EXISTS cluster (
 
 	supervisor_id INTEGER NULL, -- Supervisor of the cluster
 
-	topographic_map_number CK_TopographicMapNumber NULL,
-	state_administration enum_state NOT NULL,
-	state_location enum_state NULL,
-	states enum_state[],
-	sampling_strata enum_sampling_strata NOT NULL,
-	cluster_identifier enum_cluster_identifier NULL
+	topo_map_sheet CK_TopographicMapSheet NULL,
+	state_responsible enum_state NOT NULL,
+	state_standard enum_state NULL,
+	states_affected enum_state[],
+	grid_density enum_grid_density NOT NULL,
+	cluster_status enum_cluster_status NULL,
+	cluster_situation enum_cluster_situation NULL
 );
 
 ALTER TABLE cluster ADD CONSTRAINT fk_Cluster_user_id FOREIGN KEY (supervisor_id) REFERENCES basic_auth.users(id);
@@ -52,12 +53,13 @@ COMMENT ON COLUMN private_ci2027_001.cluster.created_at IS 'Erstellungsdatum';
 
 --COMMENT ON COLUMN private_ci2027_001.cluster.cluster_name IS 'Eindeutige Bezeichung des Traktes';
 
-COMMENT ON COLUMN private_ci2027_001.cluster.topographic_map_number IS 'Nummer der topgraphischen Karte 1:25.000';
-COMMENT ON COLUMN private_ci2027_001.cluster.state_administration IS 'Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale';
-COMMENT ON COLUMN private_ci2027_001.cluster.state_location IS 'Standard-Land für Ecken und Wege, meist wie Aufnahmeland "AufnBl", Ausnahmen bei Grenztrakten';
-COMMENT ON COLUMN private_ci2027_001.cluster.states IS 'zugehörige Ländernummer(n), auch mehrere';
-COMMENT ON COLUMN private_ci2027_001.cluster.sampling_strata IS 'Zugehörigkeit zum Rasternetz';
-COMMENT ON COLUMN private_ci2027_001.cluster.cluster_identifier IS 'Traktkennung / Traktkennzeichen lt. Vorklärung durch vTI';
+COMMENT ON COLUMN private_ci2027_001.cluster.topo_map_sheet IS 'Nummer der topgraphischen Karte 1:25.000';
+COMMENT ON COLUMN private_ci2027_001.cluster.state_responsible IS 'Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale';
+COMMENT ON COLUMN private_ci2027_001.cluster.state_standard IS 'Standard-Land für Ecken und Wege, meist wie Aufnahmeland "AufnBl", Ausnahmen bei Grenztrakten';
+COMMENT ON COLUMN private_ci2027_001.cluster.states_affected IS 'zugehörige Ländernummer(n), auch mehrere';
+COMMENT ON COLUMN private_ci2027_001.cluster.grid_density IS 'Zugehörigkeit zum Stichprobennetz, Netzdichte';
+COMMENT ON COLUMN private_ci2027_001.cluster.cluster_status IS 'Traktkennung / Traktkennzeichen lt. Vorklärung durch vTI';
+COMMENT ON COLUMN private_ci2027_001.cluster.cluster_situation IS 'Lage des Traktes im Vergleich zu Bundesland- und Landesgrenzen';
 
 
 ALTER TABLE private_ci2027_001.cluster OWNER TO postgres;
@@ -69,21 +71,21 @@ ALTER TABLE private_ci2027_001.cluster OWNER TO postgres;
 --	REFERENCES lookup_state (abbreviation);
 --
 ALTER TABLE cluster
-	ADD CONSTRAINT FK_Tract_LookupStateAdministration
-	FOREIGN KEY (state_administration)
+	ADD CONSTRAINT FK_Tract_LookupStateResponsible
+	FOREIGN KEY (state_responsible)
 	REFERENCES lookup_state (abbreviation);
 
 ALTER TABLE cluster
-	ADD CONSTRAINT FK_Tract_LookupStateLocation
-	FOREIGN KEY (state_location)
+	ADD CONSTRAINT FK_Tract_LookupStateStandard
+	FOREIGN KEY (state_standard)
 	REFERENCES lookup_state (abbreviation);
 
 
 
 --ALTER TABLE cluster
---	ADD CONSTRAINT FK_Tract_LookupSamplingStrata
---	FOREIGN KEY (sampling_strata)
---	REFERENCES lookup_sampling_strata (abbreviation);
+--	ADD CONSTRAINT FK_Tract_LookupGridDensity
+--	FOREIGN KEY (grid_density)
+--	REFERENCES lookup_grid_density (abbreviation);
 --
 --ALTER TABLE cluster
 --	ADD CONSTRAINT FK_Tract_LookupTractIdentifier
