@@ -12,7 +12,7 @@ CREATE TABLE wzp_tree (
 
 	tree_number smallint NOT NULL, -- Bnr
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 
-	tree_state enum_tree_state NULL, -- Pk
+	tree_status enum_tree_status NULL, -- Pk
 
 
 	azimuth CK_GON NOT NULL, -- Azi
@@ -39,8 +39,8 @@ CREATE TABLE wzp_tree (
 	pruning enum_pruning NULL, -- Ast
 	pruning_height smallint NULL, -- Ast_Hoe (Astungungshöhe [dm])
 
-	stand_affiliation BOOLEAN NULL DEFAULT false, -- Bz https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure/-/issues/3#note_24310
-	inventory_layer enum_stand_layer NULL, -- Bs //sablings_layer
+	within_stand BOOLEAN NULL DEFAULT false, -- Bz https://git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-structure/-/issues/3#note_24310
+	stand_layer enum_stand_layer NULL, -- Bs //saplings_layer
 	
 	damage_dead boolean NULL DEFAULT false, -- Tot
 	damage_peel_new boolean NULL DEFAULT false, -- jSchael
@@ -52,10 +52,10 @@ CREATE TABLE wzp_tree (
 	damage_other boolean NULL DEFAULT false, -- sStamm
 
 	cave_tree boolean NULL DEFAULT false, -- Hoehle
-	crown_clear boolean NULL DEFAULT false, -- Bizarr
-	crown_dry boolean NULL DEFAULT false, -- Uralt
+	crown_dead_wood boolean NULL DEFAULT false, -- Bizarr
+	tree_top_drought boolean NULL DEFAULT false, -- Uralt
 
-	damage_bark boolean NULL DEFAULT false, -- Horst
+	bark_pocket boolean NULL DEFAULT false, -- Rindentaschen
 	biotope_marked boolean NULL DEFAULT false, -- MBiotop
 
 	bark_condition smallint NULL -- NEU:  Rindenzustand für frisch abgestorbene WZP4-Bäume (ab 2021/2022 wird das ehemals landesspez. WZ1 bundesweit verwendet)
@@ -70,8 +70,8 @@ ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_Plot FOREIGN KEY (plot_id)
 --    REFERENCES plot_location (id) MATCH SIMPLE
 --    ON DELETE CASCADE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeState FOREIGN KEY (tree_state)
-	REFERENCES lookup_tree_state (abbreviation) MATCH SIMPLE;
+ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeStatus FOREIGN KEY (tree_status)
+	REFERENCES lookup_tree_status (abbreviation) MATCH SIMPLE;
 
 ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeSpecies FOREIGN KEY (tree_species)
 	REFERENCES lookup_tree_species (abbreviation) MATCH SIMPLE;
@@ -85,7 +85,7 @@ ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StemForm FOREIGN KEY (stem_form)
 ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_Prunging FOREIGN KEY (pruning)
 	REFERENCES lookup_pruning (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StandLayer FOREIGN KEY (inventory_layer)
+ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StandLayer FOREIGN KEY (stand_layer)
 	REFERENCES lookup_stand_layer (abbreviation) MATCH SIMPLE;
 
 

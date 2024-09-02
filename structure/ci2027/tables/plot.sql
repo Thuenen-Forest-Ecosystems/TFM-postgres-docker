@@ -14,16 +14,15 @@ CREATE TABLE IF NOT EXISTS plot (
 	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
 
     
-	sampling_strata enum_sampling_strata NOT NULL,
-	state_administration enum_state NOT NULL,
-	state_collect enum_state NOT NULL,
+	sampling_stratum enum_sampling_stratum NOT NULL,
+	state enum_state NOT NULL,
 
 	geometry Geometry(Point, 4326), -- geom NEU, PostGis wird gebraucht
 
 
 	growth_district integer  NULL, -- wb
 
-	forest_decision enum_forest_decision NULL, -- wa
+	forest_status enum_forest_status NULL, -- wa
 	accessibility smallint NULL, -- begehbar TODO
 	
 	-- ags varchar(8)  NULL, -- ags Wird das noch gebraucht?  (Amtlicher Gemeindeschlüssel (8-stellig, Pos 1+2=Bl, 3=RegBez, 4-5=Kreis, 6-7=Gemeinde), aus Karte 1:250.000 (31.12.2008)) Alternative: reverse lookup ??
@@ -40,18 +39,19 @@ CREATE TABLE IF NOT EXISTS plot (
 	-- biosphaere smallint NULL, -- biosphaere (vgl. ffh)
 	-- natursg smallint NULL, -- natursg (vgl. ffh)
 
-	forestry_department smallint NULL, -- fa
-	height_layer_class enum_height_layer_class NULL, -- nathoe
+	forest_office smallint NULL, -- fa
+	elevation_level enum_elevation_level NULL, -- nathoe
 	property_type enum_property_type NULL, -- eg
 	property_size_class enum_property_size_class NULL, -- eggrkl
 
-	forest_type enum_forest_type NULL, -- natwgv
-	habitat_type enum_habitat_type NULL, -- wlt_v
-	habitat_type_source enum_habitat_type_source NULL, --wlt_wiev
+	forest_community enum_forest_community NULL, -- natwgv
+	ffh_forest_type enum_ffh_type NULL, -- wlt_v
+	ffh_type_source enum_ffh_type_source NULL, --wlt_wiev
 
 	use_restriction enum_use_restriction NULL, -- ne
 	
-	land_use enum_land_use NULL, -- lanu
+	land_use_before enum_land_use NULL, -- lanu
+	land_use_after enum_land_use NULL, -- lanu
 
 	-- ez1 smallint NULL, -- ez1 --Wird in Rücksprache mit TS anders erfasst (TODO)
     -- ez2 smallint NULL, -- ez2
@@ -72,11 +72,11 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	coast BOOLEAN NOT NULL DEFAULT FALSE, --kueste
 	sandy BOOLEAN NOT NULL DEFAULT FALSE, -- gestein
-	conservation_area BOOLEAN NOT NULL DEFAULT FALSE, -- lsg
+	protected_landscape BOOLEAN NOT NULL DEFAULT FALSE, -- lsg
 	histwald BOOLEAN NOT NULL DEFAULT FALSE, -- histwald
 
-
-	use_restriction_reasons enum_use_restriction_reason[] NOT NULL DEFAULT '{}', -- NEU: Nutzungseinschränkungen als Array TODO: Lookup Table
+	harvest_restriction enum_harvest_restriction NOT NULL 
+	harvest_restriction_source enum_harvest_restriction_source[] NOT NULL DEFAULT '{}', -- NEU: Nutzungseinschränkungen als Array TODO: Lookup Table, inner- und außerbetrieblich zusammenführen
 
     -- wfkt1 smallint NOT NULL, -- wfkt1  --Wird in Rücksprache mit TS anders erfasst (TODO)
 	-- wfkt2 smallint NULL, -- wfkt2
@@ -92,10 +92,10 @@ CREATE TABLE IF NOT EXISTS plot (
 	landmark_distance smallint NULL, -- mark_hori
 	landmark_note varchar(12)  NULL, -- mark_beschreibung
 
-	marking_state enum_marking_state NOT NULL, -- perm: Das Feld bietet kein Mehrwert, da perm_profile die gleiche Information enthält
-	marking_azimuth CK_GON NULL, -- perm_azi: 
-	marking_distance smallint NULL, -- perm_hori
-	marking_profile enum_marking_profile NULL, -- perm_profil
+	marker_status enum_marker_state NOT NULL, -- perm: Das Feld bietet kein Mehrwert, da perm_profile die gleiche Information enthält
+	marker_azimuth CK_GON NULL, -- perm_azi: 
+	marker_distance smallint NULL, -- perm_hori
+	marker_profile enum_marker_profile NULL, -- perm_profil
 
 	terrain_form enum_terrain_form NULL, -- gform
 	terrain_slope CK_SLOPE_DEGREE NULL, -- gneig [Grad]
@@ -104,15 +104,15 @@ CREATE TABLE IF NOT EXISTS plot (
 	management_type enum_management_type NULL, -- be
 	harvesting_method enum_harvesting_method NOT NULL, -- ernte (x3_ernte)
 	biotope CK_BIOTOPE NULL, -- biotop (x3_biotop)
-	layer_type enum_layer_type NULL, -- ab
+	stand_structure enum_stand_structure NULL, -- ab
 	stand_age CK_STAND_AGE NULL, -- al_best
-	stand_phase enum_stand_phase NULL, -- phase
+	stand_dev_phase enum_stand_dev_phase NULL, -- phase
 
-	sablings_layer enum_stand_layer NULL, -- b0_bs
-	sablings_fence BOOLEAN NULL DEFAULT FALSE, -- b0_zaun
+	stand_layer_reg enum_stand_layer NULL, -- b0_bs
+	fence_reg BOOLEAN NULL DEFAULT FALSE, -- b0_zaun
 
 	trees_less_4meter_mirrored enum_trees_less_4meter_mirrored NULL, -- schigt4_sp (gespiegelt)
-	trees_less_4meter_count_factor enum_trees_less_4meter_count_factor NULL, -- schigt4_zf
+	trees_less_4meter_basal_area_factor enum_trees_less_4meter_count_factor NULL, -- schigt4_zf
 	trees_less_4meter_coverage smallint NULL, -- schile4_bedg
 	trees_less_4meter_layer enum_trees_less_4meter_layer NULL -- schile4_schi
 
@@ -129,8 +129,8 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster FOREIGN KEY (cluster_id)
 	REFERENCES cluster (id) MATCH SIMPLE
 	ON DELETE CASCADE;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_SamplingStrata FOREIGN KEY (sampling_strata)
-	REFERENCES lookup_sampling_strata (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_SamplingStratum FOREIGN KEY (sampling_stratum)
+	REFERENCES lookup_sampling_stratum (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
@@ -139,18 +139,18 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupGrowthDistrict FOREIGN KEY (growth
         ON UPDATE NO ACTION
         ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestDecision FOREIGN KEY (forest_decision)
-		REFERENCES lookup_forest_decision (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestStatus FOREIGN KEY (forest_status)
+		REFERENCES lookup_forest_status (abbreviation) MATCH SIMPLE
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestryDepartment FOREIGN KEY (forestry_department) 
-		REFERENCES lookup_forestry_department (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestrOffice FOREIGN KEY (forestry_office) 
+		REFERENCES lookup_forestry_office (abbreviation) MATCH SIMPLE
 		ON UPDATE NO ACTION
 		ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHeightLayerClass FOREIGN KEY (height_layer_class) 
-	REFERENCES lookup_height_layer_class (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupElevationLevel FOREIGN KEY (elevation_level) 
+	REFERENCES lookup_elevation_level (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
@@ -164,43 +164,48 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupPropertySizeClass FOREIGN KEY (pro
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestType FOREIGN KEY (forest_type)
-	REFERENCES lookup_forest_type (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestCommunity FOREIGN KEY (forest_community)
+	REFERENCES lookup_forest_community (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHabitatType FOREIGN KEY (habitat_type)
-	REFERENCES lookup_habitat_type (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupFfhForestType FOREIGN KEY (ffh_forest_type)
+	REFERENCES lookup_ffh_forest_type (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHabitatTypeSource FOREIGN KEY (habitat_type_source)
-	REFERENCES lookup_habitat_type_source (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupFfhForestTypeSource FOREIGN KEY (ffh_forest_type_source)
+	REFERENCES lookup_ffh_forest_type_source (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupUseRestriction FOREIGN KEY (use_restriction)
-	REFERENCES lookup_use_restriction (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHarvestRestriction FOREIGN KEY (harvest_restriction)
+	REFERENCES lookup_harvest_restriction (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupLandUse FOREIGN KEY (land_use)
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupLandUse FOREIGN KEY (land_use_before)
 	REFERENCES lookup_land_use (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
---ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupUseRestrictionReasons FOREIGN KEY (use_restriction_reasons)
---	REFERENCES lookup_use_restriction_reason (abbreviation) MATCH SIMPLE
---	ON UPDATE NO ACTION
---	ON DELETE NO ACTION;
-
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupMarkingState FOREIGN KEY (marking_state)
-	REFERENCES lookup_marking_state (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupLandUse FOREIGN KEY (land_use_after)
+	REFERENCES lookup_land_use (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupMarkingProfile FOREIGN KEY (marking_profile)
-	REFERENCES lookup_marking_profile (abbreviation) MATCH SIMPLE
+--ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHarvestRestrictionSource FOREIGN KEY (harvest_restriction_source)
+--	REFERENCES lookup_use_restriction_source (abbreviation) MATCH SIMPLE
+--	ON UPDATE NO ACTION
+--	ON DELETE NO ACTION;
+
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupMarkerStatus FOREIGN KEY (marker_status)
+	REFERENCES lookup_marker_status (abbreviation) MATCH SIMPLE
+	ON UPDATE NO ACTION
+	ON DELETE NO ACTION;
+
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupMarkerProfile FOREIGN KEY (marker_profile)
+	REFERENCES lookup_marker_profile (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
@@ -224,17 +229,17 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupHarvestingMethod FOREIGN KEY (harv
 --	ON UPDATE NO ACTION
 --	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupLayerType FOREIGN KEY (layer_type)
-	REFERENCES lookup_layer_type (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandStructure FOREIGN KEY (stand_structure)
+	REFERENCES lookup_stand_structure (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandPhase FOREIGN KEY (stand_phase)
-	REFERENCES lookup_stand_phase (abbreviation) MATCH SIMPLE
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandDevPhase FOREIGN KEY (stand_dev_phase)
+	REFERENCES lookup_stand_dev_phase (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandLayer FOREIGN KEY (sablings_layer)
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandLayer FOREIGN KEY (stand_layer_reg)
 	REFERENCES lookup_stand_layer (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
