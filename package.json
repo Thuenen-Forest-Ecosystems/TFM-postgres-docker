@@ -21,7 +21,8 @@
     "act": "act -P macos-latest=-self-hosted",
 
     "docker:local": "docker compose -f docker-compose-local.yml up",
-    "docker:docu": "docker compose -f docker-compose-schemaspy.yml up"
+    "docker:docu": "docker compose -f docker-compose-schemaspy.yml up",
+    "docker:github": "docker compose --env-file _.env up -d postgres postgrest"
   },
   "repository": {
     "type": "git",
