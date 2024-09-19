@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS edges (
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	edge_state enum_edge_state NOT NULL, --Rk
+	edge_status enum_edge_status NOT NULL, --Rk
 	edge_type enum_edge_type NOT NULL, --Rart
 	terrain enum_terrain NOT NULL, --Rterrain
 

@@ -10,7 +10,7 @@ CREATE TABLE structure_lt4m (
 
 		tree_species smallint NULL, --Ba
 	  coverage enum_coverage NOT NULL, --Anteil
-	  regeneration_type enum_reg_type NULL, --Vart
+	  regeneration_type enum_reg_type NULL --Vart
 );
 
 

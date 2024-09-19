@@ -51,7 +51,7 @@ BEGIN
             state_location,
             states,
             sampling_strata,
-            cluster_identifier,
+            cluster_status,
             select_access_by,
             update_access_by
         )
@@ -61,7 +61,7 @@ BEGIN
             (cluster_object->>'state_location')::enum_state,
             states_array,
             (cluster_object->>'sampling_strata')::enum_sampling_strata,
-            (cluster_object->>'cluster_identifier')::enum_cluster_identifier,
+            (cluster_object->>'cluster_status')::enum_cluster_status,
             ARRAY(SELECT json_array_elements_text(cluster_object->'select_access_by'))::text[],
             ARRAY(SELECT json_array_elements_text(cluster_object->'update_access_by'))::text[]
         )
@@ -71,7 +71,7 @@ BEGIN
             state_location = COALESCE(EXCLUDED.state_location, cluster.state_location),
             states = COALESCE(EXCLUDED.states, cluster.states),
             sampling_strata = COALESCE(EXCLUDED.sampling_strata, cluster.sampling_strata),
-            cluster_identifier = COALESCE(EXCLUDED.cluster_identifier, cluster.cluster_identifier),
+            cluster_status = COALESCE(EXCLUDED.cluster_status, cluster.cluster_status),
             select_access_by = COALESCE(EXCLUDED.select_access_by, cluster.select_access_by), -- select_access_by = cluster.select_access_by || '{"new item"}'
             update_access_by = COALESCE(EXCLUDED.update_access_by, cluster.update_access_by) -- select_access_by = cluster.select_access_by || '{"new item"}'
         WHERE cluster.id = EXCLUDED.id

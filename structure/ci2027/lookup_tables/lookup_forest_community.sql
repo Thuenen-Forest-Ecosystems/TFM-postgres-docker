@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_forest_type AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_forest_type ADD COLUMN abbreviation enum_forest_type UNIQUE NOT NULL;
+CREATE TABLE lookup_forest_community AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_forest_community ADD COLUMN abbreviation enum_forest_community UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_forest_type ADD COLUMN abbreviation enum_forest_type UNIQUE N
 
 
 --
--- Data for Name: lookup_forest_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_forest_community; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_forest_type (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_forest_community (abbreviation, name_de, name_en, sort) VALUES
 	('1', 'Hainsimsen-Buchenwald, z.T. mit Tanne', 'Luzulo-Fagetum', NULL),
 	('2', 'Drahtschmielen-Buchenwald', 'Deschampsio-Fagetum', NULL),
 	('3', 'Waldmeister-Buchenwald, z.T. mit Tanne', 'Galio odorati-Fagetum', NULL),

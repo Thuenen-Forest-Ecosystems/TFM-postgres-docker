@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_height_layer_class AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_height_layer_class ADD COLUMN abbreviation enum_height_layer_class UNIQUE NOT NULL;
+CREATE TABLE lookup_elevation_level AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_elevation_level ADD COLUMN abbreviation enum_elevation_level UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_height_layer_class ADD COLUMN abbreviation enum_height_layer_
 
 
 --
--- Data for Name: lookup_height_layer_class; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_elevation_level; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_height_layer_class (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_elevation_level (abbreviation, name_de, name_en, sort) VALUES
 	('1', 'planar', 'planar', NULL),
 	('2', 'kollin', 'colline', NULL),
 	('3', 'submontan', 'submontane', NULL),

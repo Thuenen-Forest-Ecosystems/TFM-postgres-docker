@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_marking_profile AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_marking_profile ADD COLUMN abbreviation enum_marking_profile UNIQUE NOT NULL;
+CREATE TABLE lookup_marker_profile AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_marker_profile ADD COLUMN abbreviation enum_marker_profile UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_marking_profile ADD COLUMN abbreviation enum_marking_profile 
 
 
 --
--- Data for Name: lookup_marking_profile; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_marker_profile; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_marking_profile (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_marker_profile (abbreviation, name_de, name_en, sort) VALUES
 	('10', 'Rundeisen (Standard bei BWI1)', NULL, 10),
 	('11', 'Ringmagnet (NW, BWI1, gebietsweise)', NULL, 11),
 	('13', 'Rundeisen + Atlasdraht an Bäumen', NULL, 13),

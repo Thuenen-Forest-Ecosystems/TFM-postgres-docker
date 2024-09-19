@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_stand_phase AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_stand_phase ADD COLUMN abbreviation enum_stand_phase UNIQUE NOT NULL;
+CREATE TABLE lookup_stand_dev_phase AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_stand_dev_phase ADD COLUMN abbreviation enum_stand_dev_phase UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_stand_phase ADD COLUMN abbreviation enum_stand_phase UNIQUE N
 
 
 --
--- Data for Name: lookup_stand_phase; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stand_dev_phase; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_stand_phase (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_stand_dev_phase (abbreviation, name_de, name_en, sort) VALUES
 	('1', 'Blöße bis Stangenholz (BHD<20 cm); Pionierphase', NULL, 10),
 	('2', 'geringes Baumholz (BHD 20 bis  <35  cm)', NULL, 20),
 	('3', 'mittleres Baumholz (BHD 35 bis <50 cm)', NULL, 30),

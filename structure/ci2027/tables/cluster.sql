@@ -2,14 +2,11 @@ SET search_path TO private_ci2027_001;
 
 CREATE TABLE IF NOT EXISTS cluster (
 
-    --id SERIAL PRIMARY KEY NOT NULL,
 	id INTEGER PRIMARY KEY NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	--cluster_name INTEGER NOT NULL UNIQUE PRIMARY KEY, -- Unique human readable name
-	--email TEXT[] NOT NULL DEFAULT array[]::text[], -- Email of the user who created the cluster
 	select_access_by TEXT[] NOT NULL DEFAULT array[]::TEXT[], -- Roles that can access the cluster
 	update_access_by TEXT[] NOT NULL DEFAULT array[]::TEXT[], -- Roles that can update the cluster
 
@@ -19,9 +16,9 @@ CREATE TABLE IF NOT EXISTS cluster (
 	state_responsible enum_state NOT NULL,
 	state_standard enum_state NULL,
 	states_affected enum_state[],
-	grid_density enum_grid_density NOT NULL,
+	grid_density INTEGER NOT NULL, -- TODO: create enum_grid_density + Lookup
 	cluster_status enum_cluster_status NULL,
-	cluster_situation enum_cluster_situation NULL
+	cluster_situation INTEGER NULL -- TODO: create enum_cluster_situation + Lookup
 );
 
 ALTER TABLE cluster ADD CONSTRAINT fk_Cluster_user_id FOREIGN KEY (supervisor_id) REFERENCES basic_auth.users(id);
@@ -89,8 +86,8 @@ ALTER TABLE cluster
 --
 --ALTER TABLE cluster
 --	ADD CONSTRAINT FK_Tract_LookupTractIdentifier
---	FOREIGN KEY (cluster_identifier)
---	REFERENCES lookup_cluster_identifier (abbreviation);
+--	FOREIGN KEY (cluster_status)
+--	REFERENCES lookup_cluster_status (abbreviation);
 
 
 

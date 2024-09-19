@@ -7,8 +7,8 @@ CREATE TYPE enum_state AS ENUM ('BW', 'BY', 'BE', 'BB', 'HB', 'HH', 'HE', 'MV', 
 DROP TYPE IF EXISTS enum_sampling_strata;
 CREATE TYPE enum_sampling_strata AS ENUM ('0', '1', '4', '8', '16', '64', '128', '256', '512'); -- x3_net
 
-DROP TYPE IF EXISTS enum_forest_decision;
-CREATE TYPE enum_forest_decision AS ENUM('0', '1', '2', '3', '4', '5', '8', '9', '23', '24', '25'); -- x3_wa
+DROP TYPE IF EXISTS enum_forest_status;
+CREATE TYPE enum_forest_status AS ENUM('0', '1', '2', '3', '4', '5', '8', '9', '23', '24', '25'); -- x3_wa
 
 DROP TYPE IF EXISTS enum_use_restriction_reason;
 CREATE TYPE enum_use_restriction_reason AS ENUM ('nenschutz', 'neswald', 'neewald', 'nesabursach', 'nestreu', 'neunerschlies', 'negeleig', 'negerertrag', 'neeigenbin', 'nesibursach'); -- NEU

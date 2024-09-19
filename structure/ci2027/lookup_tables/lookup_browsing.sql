@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_bitten AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_bitten ADD COLUMN abbreviation enum_bitten UNIQUE NOT NULL;
+CREATE TABLE lookup_browsing AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_browsing ADD COLUMN abbreviation enum_bitten UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -14,7 +14,7 @@ ALTER TABLE lookup_bitten ADD COLUMN abbreviation enum_bitten UNIQUE NOT NULL;
 -- Data for Name: lookup_bitten; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_bitten (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_browsing (abbreviation, name_de, name_en, sort) VALUES
 	('0', 'kein Verbiss', 'no', NULL),
 	('1', 'einfacher (nur) Verbiss der Terminalknospe innerhalb der letzten 12 Monate', 'single', NULL),
 	('2', 'mehrfacher Verbiss über längeren Zeitraum (einschließlich der letzten 12 Monate)', 'multi', NULL),

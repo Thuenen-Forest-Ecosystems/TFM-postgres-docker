@@ -37,13 +37,13 @@ BEGIN
             CONTINUE;
         END IF;
 
-        INSERT INTO plot (id, cluster_id, plot_name, sampling_strata, state_administration, state_collect, marking_state, harvesting_method,
+        INSERT INTO plot (id, cluster_id, plot_name, sampling_strata, state_administration, state_collect, marker_status, harvesting_method,
             geometry,
             growth_district,
-            forest_decision,
+            forest_status,
             accessibility,
             forestry_department,
-            height_layer_class,
+            elevation_level,
             property_type,
             property_size_class
         )
@@ -54,16 +54,16 @@ BEGIN
             (child_object->>'sampling_strata')::enum_sampling_strata,
             (child_object->>'state_administration')::enum_state,
             (child_object->>'state_collect')::enum_state,
-            (child_object->>'marking_state')::enum_marking_state,
+            (child_object->>'marker_status')::enum_marker_status,
             (child_object->>'harvesting_method')::enum_harvesting_method,
             
             ST_GeomFromGeoJSON((child_object->>'geometry')::text),
 
             (child_object->>'growth_district')::int,
-            (child_object->>'forest_decision')::enum_forest_decision,
+            (child_object->>'forest_status')::enum_forest_status,
             (child_object->>'accessibility')::int,
             (child_object->>'forestry_department')::int,
-            (child_object->>'height_layer_class')::enum_height_layer_class,
+            (child_object->>'elevation_level')::enum_elevation_level,
             (child_object->>'property_type')::enum_property_type,
             (child_object->>'property_size_class')::enum_property_size_class
         )
@@ -74,14 +74,14 @@ BEGIN
             sampling_strata = COALESCE(EXCLUDED.sampling_strata, plot.sampling_strata),
             state_administration = COALESCE(EXCLUDED.state_administration, plot.state_administration),
             state_collect = COALESCE(EXCLUDED.state_collect, plot.state_collect),
-            marking_state = COALESCE(EXCLUDED.marking_state, plot.marking_state),
+            marker_status = COALESCE(EXCLUDED.marker_status, plot.marker_status),
             harvesting_method = COALESCE(EXCLUDED.harvesting_method, plot.harvesting_method),
             geometry = COALESCE(ST_GeomFromGeoJSON((child_object->>'geometry')::text), plot.geometry),
             growth_district = COALESCE(EXCLUDED.growth_district, plot.growth_district),
-            forest_decision = COALESCE(EXCLUDED.forest_decision, plot.forest_decision),
+            forest_status = COALESCE(EXCLUDED.forest_status, plot.forest_status),
             accessibility = COALESCE(EXCLUDED.accessibility, plot.accessibility),
             forestry_department = COALESCE(EXCLUDED.forestry_department, plot.forestry_department),
-            height_layer_class = COALESCE(EXCLUDED.height_layer_class, plot.height_layer_class),
+            elevation_level = COALESCE(EXCLUDED.elevation_level, plot.elevation_level),
             property_type = COALESCE(EXCLUDED.property_type, plot.property_type),
             property_size_class = COALESCE(EXCLUDED.property_size_class, plot.property_size_class)
 

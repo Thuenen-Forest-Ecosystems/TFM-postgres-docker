@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_layer_type AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_layer_type ADD COLUMN abbreviation enum_layer_type UNIQUE NOT NULL;
+CREATE TABLE lookup_stand_structure AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_stand_structure ADD COLUMN abbreviation enum_stand_structure UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_layer_type ADD COLUMN abbreviation enum_layer_type UNIQUE NOT
 
 
 --
--- Data for Name: lookup_layer_type; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stand_structure; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_layer_type (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_stand_structure (abbreviation, name_de, name_en, sort) VALUES
 	('1', 'einschichtig', NULL, 10),
 	('2', 'zweischichtig', NULL, 20),
 	('3', 'zweischichtig (Überhälter/Nachhiebsrest)', NULL, 30),

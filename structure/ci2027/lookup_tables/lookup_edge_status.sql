@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_edge_state AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_edge_state ADD COLUMN abbreviation enum_edge_state UNIQUE NOT NULL;
+CREATE TABLE lookup_edge_status AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_edge_status ADD COLUMN abbreviation enum_edge_status UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
@@ -11,10 +11,10 @@ ALTER TABLE lookup_edge_state ADD COLUMN abbreviation enum_edge_state UNIQUE NOT
 
 
 --
--- Data for Name: lookup_edge_state; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_edge_status; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO lookup_edge_state (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO lookup_edge_status (abbreviation, name_de, name_en, sort) VALUES
 	('0', 'neuer Waldrand oder neue Best.-Grenze zu Nichtholzboden', 'new stand border', NULL),
 	('1', 'übernommener Waldrand o. Best.-Grenze zu NHB aus früherer Inventur', 'stand border taken over from ???', NULL),
 	('4', '"neue" Wald- oder Best.-Grenze, gültig auch Vorgängerinventur (hier BWI3)', '"new" stand edge, valid for ??', NULL),
