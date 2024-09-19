@@ -35,4 +35,4 @@ CREATE TYPE enum_edge_state AS ENUM('2008', '10', '0', '2007', '2002', '5', '201
 CREATE TYPE enum_edge_type AS ENUM('2', '1', '4', '3');
 CREATE TYPE enum_terrain AS ENUM('12', '2', '10', '7', '0', '3', '5', '13', '14', '9', '11', '8', '6', '1', '4');
 CREATE TYPE enum_tree_size_class AS ENUM('2', '0', '5', '9', '6', '1');
-CREATE TYPE enum_bitten AS ENUM('2', '0', '3', '1', '4');
+CREATE TYPE enum_browsing AS ENUM('2', '0', '3', '1', '4');

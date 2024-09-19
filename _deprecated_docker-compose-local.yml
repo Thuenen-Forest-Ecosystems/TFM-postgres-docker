@@ -116,7 +116,7 @@ services:
       - ./structure/ci2027/lookup_tables/lookup_edge_state.sql:/docker-entrypoint-initdb.d/910-lookup_edge_state.sql
       - ./structure/ci2027/lookup_tables/lookup_edge_type.sql:/docker-entrypoint-initdb.d/910-lookup_edge_type.sql
       - ./structure/ci2027/lookup_tables/lookup_gnss_quality.sql:/docker-entrypoint-initdb.d/910-lookup_gnss_quality.sql
-      - ./structure/ci2027/lookup_tables/lookup_bitten.sql:/docker-entrypoint-initdb.d/910-lookup_bitten.sql
+      - ./structure/ci2027/lookup_tables/lookup_browsing.sql:/docker-entrypoint-initdb.d/910-lookup_browsing.sql
       - ./structure/ci2027/lookup_tables/lookup_tree_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_tree_size_class.sql
 
 

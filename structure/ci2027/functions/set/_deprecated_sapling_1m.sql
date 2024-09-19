@@ -28,27 +28,27 @@ BEGIN
             plot_id,
             stand_affiliation,
             tree_species,
-            bitten,
+            browsing,
             protection_individual,
-            quantity
+            count
         )
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('sapling_1m_id_seq')),
             parent_id,
             (child_object->>'stand_affiliation')::boolean,
             (child_object->>'tree_species')::smallint,
-            (child_object->>'bitten')::enum_browsing,
+            (child_object->>'browsing')::enum_browsing,
             (child_object->>'protection_individual')::boolean,
-            (child_object->>'quantity')::smallint
+            (child_object->>'count')::smallint
             
         )
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
             tree_species = COALESCE(EXCLUDED.tree_species, sapling_1m.tree_species),
-            bitten = COALESCE(EXCLUDED.bitten, sapling_1m.bitten),
+            browsing = COALESCE(EXCLUDED.browsing, sapling_1m.browsing),
             protection_individual = COALESCE(EXCLUDED.protection_individual, sapling_1m.protection_individual),
-            quantity = COALESCE(EXCLUDED.quantity, sapling_1m.quantity)
+            count = COALESCE(EXCLUDED.count, sapling_1m.count)
             
         WHERE sapling_1m.id = EXCLUDED.id AND sapling_1m.plot_id = parent_id
         RETURNING * INTO changed_values;

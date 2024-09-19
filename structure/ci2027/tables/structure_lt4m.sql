@@ -2,15 +2,15 @@ CREATE TABLE structure_lt4m (
 
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-	  plot_location_id INTEGER NULL,
+	plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	  modified_at TIMESTAMP DEFAULT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-		tree_species smallint NULL, --Ba
-	  coverage enum_coverage NOT NULL, --Anteil
-	  regeneration_type enum_reg_type NULL, --Vart
+	tree_species enum_tree_species NULL, --Ba
+	coverage enum_coverage NOT NULL, --Anteil
+	regeneration_type enum_reg_type NULL --Vart
 );
 
 

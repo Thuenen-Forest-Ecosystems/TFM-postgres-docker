@@ -14,5 +14,3 @@ CREATE TABLE lookup_TEMPLATE (
     name_en VARCHAR(150) NOT NULL,
     sort INTEGER NOT NULL
 );
-
-

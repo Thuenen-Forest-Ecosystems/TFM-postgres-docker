@@ -71,7 +71,7 @@ services:
       ## SET DEFAULT GRANTS
       - ./structure/ci2027/grants.sql:/docker-entrypoint-initdb.d/907-grants.sql
 
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/908-data.sql
+      #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/938-data.sql
 
       
 
@@ -115,7 +115,7 @@ services:
       - ./structure/ci2027/lookup_tables/lookup_edge_state.sql:/docker-entrypoint-initdb.d/910-lookup_edge_state.sql
       - ./structure/ci2027/lookup_tables/lookup_edge_type.sql:/docker-entrypoint-initdb.d/910-lookup_edge_type.sql
       - ./structure/ci2027/lookup_tables/lookup_gnss_quality.sql:/docker-entrypoint-initdb.d/910-lookup_gnss_quality.sql
-      - ./structure/ci2027/lookup_tables/lookup_bitten.sql:/docker-entrypoint-initdb.d/910-lookup_bitten.sql
+      - ./structure/ci2027/lookup_tables/lookup_browsing.sql:/docker-entrypoint-initdb.d/910-lookup_browsing.sql
       - ./structure/ci2027/lookup_tables/lookup_tree_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_tree_size_class.sql
 
 
@@ -127,8 +127,10 @@ services:
       - ./structure/ci2027/tables/wzp_tree.sql:/docker-entrypoint-initdb.d/922-wzp_tree.sql
       - ./structure/ci2027/tables/position.sql:/docker-entrypoint-initdb.d/922-position.sql
       - ./structure/ci2027/tables/edge.sql:/docker-entrypoint-initdb.d/922-edge.sql
-      - ./structure/ci2027/tables/sapling_1m.sql:/docker-entrypoint-initdb.d/922-sapling_1m.sql
-      - ./structure/ci2027/tables/sapling_2m.sql:/docker-entrypoint-initdb.d/922-sapling_2m.sql
+      #- ./structure/ci2027/tables/sapling_1m.sql:/docker-entrypoint-initdb.d/922-sapling_1m.sql
+      #- ./structure/ci2027/tables/sapling_2m.sql:/docker-entrypoint-initdb.d/922-sapling_2m.sql
+      - ./structure/ci2027/tables/regeneration.sql:/docker-entrypoint-initdb.d/922-regeneration.sql
+      - ./structure/ci2027/tables/structure_lt4m.sql:/docker-entrypoint-initdb.d/922-structure_lt4m.sql
       - ./structure/ci2027/tables/deadwood.sql:/docker-entrypoint-initdb.d/922-deadwood.sql
 
       
@@ -141,8 +143,8 @@ services:
 
 
        # TMP
-      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
-      - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
+      #- ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/999-code_bwineu.sql
+      #- ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/999-bwineu_structure.sql
 
       ### Test Setup to be used by automated tests
       - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
@@ -166,7 +168,7 @@ services:
       - ./structure/ci2027/functions/set_clusters.sql:/docker-entrypoint-initdb.d/99-set_clusters.sql
       
 
-      - ./structure/ci2027/default_data.sql:/docker-entrypoint-initdb.d/999-default_data.sql
+      #- ./structure/ci2027/default_data.sql:/docker-entrypoint-initdb.d/999-default_data.sql
 
       
       - ./structure/ci2027/functions/authentication.sql:/docker-entrypoint-initdb.d/999-authentication.sql
