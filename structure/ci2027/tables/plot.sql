@@ -44,9 +44,10 @@ CREATE TABLE IF NOT EXISTS plot (
 	property_type enum_property_type NULL, -- eg
 	property_size_class enum_property_size_class NULL, -- eggrkl
 
-	forest_community enum_forest_community NULL, -- natwgv
-	ffh_forest_type INTEGER NULL, -- wlt_v TODO: Lookup Table: enum_ffh_type : wlt_v
-	ffh_type_source INTEGER NULL, --wlt_wiev TODO: Lookup Table: enum_ffh_type_source : wlt
+	forest_community TEXT NULL, -- natwgv TODO: in bwineu.b3f_ecke_vorkl
+	forest_community_field enum_forest_community_field NULL, -- natwg
+	ffh_forest_type TEXT NULL, -- natwgv TODO: in bwineu.b3f_ecke_vorkl
+	ffh_forest_type_field enum_ffh_forest_type_field NULL, --wlt
 
 	
 	
@@ -164,10 +165,10 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupPropertySizeClass FOREIGN KEY (pro
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestCommunity FOREIGN KEY (forest_community)
-	REFERENCES lookup_forest_community (abbreviation) MATCH SIMPLE
-	ON UPDATE NO ACTION
-	ON DELETE NO ACTION;
+--ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupForestCommunity FOREIGN KEY (forest_community)
+--	REFERENCES lookup_forest_community (abbreviation) MATCH SIMPLE
+--	ON UPDATE NO ACTION
+--	ON DELETE NO ACTION;
 
 --ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupFfhForestType FOREIGN KEY (ffh_forest_type)
 --	REFERENCES lookup_ffh_forest_type (abbreviation) MATCH SIMPLE

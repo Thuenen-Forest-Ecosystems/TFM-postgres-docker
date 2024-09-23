@@ -7,11 +7,11 @@ ALTER TABLE lookup_stand_dev_phase ADD COLUMN abbreviation enum_stand_dev_phase 
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_stand_dev_phase; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stand_dev_phase; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
 INSERT INTO lookup_stand_dev_phase (abbreviation, name_de, name_en, sort) VALUES

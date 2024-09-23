@@ -7,11 +7,11 @@ ALTER TABLE lookup_stem_form ADD COLUMN abbreviation enum_stem_form UNIQUE NOT N
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_stem_form; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stem_form; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
 INSERT INTO lookup_stem_form (abbreviation, name_de, name_en, sort) VALUES

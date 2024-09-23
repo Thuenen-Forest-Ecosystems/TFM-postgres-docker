@@ -1,20 +1,21 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_forestry_department AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_forestry_department ADD COLUMN abbreviation integer UNIQUE NOT NULL;
-ALTER TABLE lookup_forestry_department ADD COLUMN phone varchar(20) NULL;
+CREATE TABLE lookup_forest_office AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_forest_office ADD COLUMN abbreviation SMALLINT UNIQUE NOT NULL;
+
+ALTER TABLE lookup_forest_office ADD COLUMN telefon varchar(20) NULL;
 --
 -- PostgreSQL database dump
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_forestry_department; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_forest_office; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_forestry_department (abbreviation, name_de, name_en, sort, phone) VALUES
+INSERT INTO nfi2022.lookup_forest_office (abbreviation, name_de, name_en, sort, phone) VALUES
 	(1001, 'Trittau', 'Trittau', 1001, '04154/8594-0'),
 	(1002, 'Rantzau', 'Rantzau', 1002, '04123/9025-0'),
 	(1003, 'Erlebniswald Trappenkamp', 'Erlebniswald Trappenkamp', 1003, '04328/1430'),

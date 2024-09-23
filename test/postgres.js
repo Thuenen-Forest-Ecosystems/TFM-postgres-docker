@@ -86,8 +86,8 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
             json: {
                 "json_object": [{
                     "id": 666666,
-                    "state_administration": "BB",
-                    "state_location": "BB",
+                    "state_responsible": "BB",
+                    "state": "BB",
                     "states": ["BB"],
                     "sampling_strata": "8",
                     "status": "12"

@@ -1,16 +1,18 @@
+SET search_path TO private_ci2027_001;
+
 CREATE TABLE structure_lt4m (
 
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-	  plot_location_id INTEGER NULL,
+	plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	  modified_at TIMESTAMP DEFAULT NULL,
+	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-		tree_species smallint NULL, --Ba
-	  coverage enum_coverage NOT NULL, --Anteil
-	  regeneration_type enum_reg_type NULL --Vart
+	tree_species smallint NULL, --Ba
+	coverage INTEGER NOT NULL, --Anteil TODO: enum_coverage NEU
+	regeneration_type INTEGER NULL --Vart TODO: enum_reg_type NEU
 );
 
 
@@ -22,7 +24,7 @@ COMMENT ON COLUMN structure_lt4m.tree_species IS 'Baumart';
 COMMENT ON COLUMN structure_lt4m.coverage IS 'Anteil der Baumart in Zehntel (Deckungsgrad entspricht 10 Zehntel = 100 %)';
 COMMENT ON COLUMN structure_lt4m.regeneration_type IS 'Verjüngungsart der Baumart';
 
-ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id) MATCH SIMPLE
+ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id)
 	ON DELETE CASCADE;
 
 --- plot_location_id
@@ -33,8 +35,8 @@ ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_PlotLocation FOREIGN 
 ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupTreeSpecies FOREIGN KEY (tree_species)
     REFERENCES lookup_tree_species (abbreviation);
 
-ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupCoverage FOREIGN KEY (coverage)
-    REFERENCES lookup_coverage (abbreviation);
-
-ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupRegType FOREIGN KEY (regeneration_type)
-    REFERENCES lookup_regeneration_type (abbreviation);
+--ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupCoverage FOREIGN KEY (coverage)
+--    REFERENCES lookup_coverage (abbreviation);
+--
+--ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupRegType FOREIGN KEY (regeneration_type)
+--    REFERENCES lookup_regeneration_type (abbreviation);

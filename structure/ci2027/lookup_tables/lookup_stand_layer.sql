@@ -7,11 +7,11 @@ ALTER TABLE lookup_stand_layer ADD COLUMN abbreviation enum_stand_layer UNIQUE N
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_stand_layer; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stand_layer; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
 INSERT INTO lookup_stand_layer (abbreviation, name_de, name_en, sort) VALUES

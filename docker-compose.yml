@@ -45,10 +45,8 @@ services:
       - ./config/pgjwt/pgjwt.control:/usr/share/postgresql/13/extension/pgjwt.control
       - ./config/pgjwt/pgjwt--0.2.0-tfm.sql:/usr/share/postgresql/13/extension/pgjwt--0.2.0.sql
       
-
       ### Old Setup (deprecated)
       #- ./structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
-      #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/40-data.sql
       
       # NFI2022
       - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/800-code_bwineu.sql
@@ -62,6 +60,7 @@ services:
       - ./structure/ci2027/domains.sql:/docker-entrypoint-initdb.d/902-domains.sql
       
       
+      
 
       ## Thünen intern data
       - ./config/10-pgcrypto.sql:/docker-entrypoint-initdb.d/904-pgcrypto.sql
@@ -72,26 +71,28 @@ services:
 
       ## SET DEFAULT GRANTS
       - ./structure/ci2027/grants.sql:/docker-entrypoint-initdb.d/907-grants.sql
-
+      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/908-data.sql
       #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/908-data.sql
 
       
 
       #- ./structure/ci2027:/docker-entrypoint-initdb.d
       #- ci2027-db-structure/ci2027/lookup_tables:/docker-entrypoint-initdb.d
-      - ./structure/ci2027/lookup_tables/lookup_growth_area.sql:/docker-entrypoint-initdb.d/910-lookup_growth_area.sql
+      - ./structure/ci2027/lookup_template.sql:/docker-entrypoint-initdb.d/909-lookup_template.sql
+      
+      #- ./structure/ci2027/lookup_tables_overwrite/lookup_growth_area.sql:/docker-entrypoint-initdb.d/909-lookup_growth_area.sql
+      #- ./structure/ci2027/lookup_tables_overwrite/lookup_growth_district.sql:/docker-entrypoint-initdb.d/910-lookup_growth_district.sql
       - ./structure/ci2027/lookup_tables/lookup_growth_district.sql:/docker-entrypoint-initdb.d/910-lookup_growth_district.sql
       - ./structure/ci2027/lookup_tables/lookup_state.sql:/docker-entrypoint-initdb.d/910-lookup_state.sql
-      - ./structure/ci2027/lookup_tables/lookup_sampling_strata.sql:/docker-entrypoint-initdb.d/910-lookup_sampling_strata.sql
+      - ./structure/ci2027/lookup_tables/lookup_grid_density.sql:/docker-entrypoint-initdb.d/910-lookup_grid_density.sql
       - ./structure/ci2027/lookup_tables/lookup_stand_structure.sql:/docker-entrypoint-initdb.d/910-lookup_stand_structure.sql
       - ./structure/ci2027/lookup_tables/lookup_forest_status.sql:/docker-entrypoint-initdb.d/910-lookup_forest_status.sql
       - ./structure/ci2027/lookup_tables/lookup_property_type.sql:/docker-entrypoint-initdb.d/910-lookup_property_type.sql
       - ./structure/ci2027/lookup_tables/lookup_property_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_property_size_class.sql
       - ./structure/ci2027/lookup_tables/lookup_elevation_level.sql:/docker-entrypoint-initdb.d/910-lookup_elevation_level.sql
-      - ./structure/ci2027/lookup_tables/lookup_forestry_department.sql:/docker-entrypoint-initdb.d/910-lookup_forestry_department.sql
-      - ./structure/ci2027/lookup_tables/lookup_forest_community.sql:/docker-entrypoint-initdb.d/910-lookup_forest_community.sql
-      - ./structure/ci2027/lookup_tables/lookup_habitat_type.sql:/docker-entrypoint-initdb.d/910-lookup_habitat_type.sql
-      - ./structure/ci2027/lookup_tables/lookup_habitat_type_source.sql:/docker-entrypoint-initdb.d/910-lookup_habitat_type_source.sql
+      - ./structure/ci2027/lookup_tables/lookup_forest_office.sql:/docker-entrypoint-initdb.d/910-lookup_forest_office.sql
+      - ./structure/ci2027/lookup_tables/lookup_forest_community_field.sql:/docker-entrypoint-initdb.d/910-lookup_forest_community_field.sql
+      - ./structure/ci2027/lookup_tables/lookup_ffh_forest_type_field.sql:/docker-entrypoint-initdb.d/910-lookup_ffh_forest_type_field.sql
       - ./structure/ci2027/lookup_tables/lookup_land_use.sql:/docker-entrypoint-initdb.d/910-lookup_land_use.sql
       - ./structure/ci2027/lookup_tables/lookup_use_restriction.sql:/docker-entrypoint-initdb.d/910-lookup_use_restriction.sql
       - ./structure/ci2027/lookup_tables/lookup_marker_status.sql:/docker-entrypoint-initdb.d/910-lookup_marker_status.sql
@@ -105,7 +106,7 @@ services:
       - ./structure/ci2027/lookup_tables/lookup_trees_less_4meter_layer.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_layer.sql
       - ./structure/ci2027/lookup_tables/lookup_trees_less_4meter_mirrored.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_mirrored.sql
       - ./structure/ci2027/lookup_tables/lookup_trees_less_4meter_origin.sql:/docker-entrypoint-initdb.d/910-lookup_trees_less_4meter_origin.sql
-      - ./structure/ci2027/lookup_tables/lookup_tree_state.sql:/docker-entrypoint-initdb.d/910-lookup_tree_state.sql
+      - ./structure/ci2027/lookup_tables/lookup_tree_status.sql:/docker-entrypoint-initdb.d/910-lookup_tree_status.sql
       - ./structure/ci2027/lookup_tables/lookup_tree_species.sql:/docker-entrypoint-initdb.d/910-lookup_tree_species.sql
       - ./structure/ci2027/lookup_tables/lookup_stem_breakage.sql:/docker-entrypoint-initdb.d/910-lookup_stem_breakage.sql
       - ./structure/ci2027/lookup_tables/lookup_stem_form.sql:/docker-entrypoint-initdb.d/910-lookup_stem_form.sql
@@ -129,8 +130,10 @@ services:
       - ./structure/ci2027/tables/wzp_tree.sql:/docker-entrypoint-initdb.d/922-wzp_tree.sql
       - ./structure/ci2027/tables/position.sql:/docker-entrypoint-initdb.d/922-position.sql
       - ./structure/ci2027/tables/edge.sql:/docker-entrypoint-initdb.d/922-edge.sql
-      - ./structure/ci2027/tables/sapling_1m.sql:/docker-entrypoint-initdb.d/922-sapling_1m.sql
-      - ./structure/ci2027/tables/sapling_2m.sql:/docker-entrypoint-initdb.d/922-sapling_2m.sql
+
+      - ./structure/ci2027/tables/regeneration.sql:/docker-entrypoint-initdb.d/922-regeneration.sql
+      #- ./structure/ci2027/tables/sapling_1m.sql:/docker-entrypoint-initdb.d/922-sapling_1m.sql
+      #- ./structure/ci2027/tables/sapling_2m.sql:/docker-entrypoint-initdb.d/922-sapling_2m.sql
       - ./structure/ci2027/tables/structure_lt4m.sql:/docker-entrypoint-initdb.d/922-structure_lt4m.sql
       - ./structure/ci2027/tables/deadwood.sql:/docker-entrypoint-initdb.d/922-deadwood.sql
 
@@ -143,7 +146,7 @@ services:
       - ./structure/ci2027/view/qgis.sql:/docker-entrypoint-initdb.d/923-qgis.sql
 
       ### Test Setup to be used by automated tests
-      - ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
+      #- ./structure/default_user.sql:/docker-entrypoint-initdb.d/99-default_user.sql
       #- ./default/views.sql:/docker-entrypoint-initdb.d/99-default-views.sql
       
 

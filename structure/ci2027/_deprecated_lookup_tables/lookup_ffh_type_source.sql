@@ -1,20 +1,20 @@
 SET search_path TO private_ci2027_001;
-CREATE TABLE lookup_habitat_type_source AS TABLE lookup_TEMPLATE WITH NO DATA;
-ALTER TABLE lookup_habitat_type_source ADD COLUMN abbreviation enum_habitat_type_source UNIQUE NOT NULL;
+CREATE TABLE lookup_ffh_type_source AS TABLE lookup_TEMPLATE WITH NO DATA;
+ALTER TABLE lookup_ffh_type_source ADD COLUMN abbreviation enum_ffh_type_source UNIQUE NOT NULL;
 
 --
 -- PostgreSQL database dump
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_habitat_type_source; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_ffh_type_source; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_habitat_type_source (abbreviation, name_de, name_en, sort) VALUES
+INSERT INTO nfi2022.lookup_ffh_type_source (abbreviation, name_de, name_en, sort) VALUES
 	('1', 'Herleitung aus Lebensraumtyp-Kartierung', NULL, 1),
 	('2', 'Herleitung aus Biotopkartierung', NULL, 2),
 	('3', 'Herleitung aus Standortkartierung bzw. -parametern', NULL, 3),

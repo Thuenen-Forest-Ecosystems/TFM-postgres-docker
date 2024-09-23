@@ -13,9 +13,11 @@ CREATE TABLE IF NOT EXISTS cluster (
 	supervisor_id INTEGER NULL, -- Supervisor of the cluster
 
 	topo_map_sheet CK_TopographicMapSheet NULL,
+	
 	state_responsible enum_state NOT NULL,
-	state_standard enum_state NULL,
+	state enum_state NULL,
 	states_affected enum_state[],
+
 	grid_density INTEGER NOT NULL, -- TODO: create enum_grid_density + Lookup
 	cluster_status enum_cluster_status NULL,
 	cluster_situation INTEGER NULL -- TODO: create enum_cluster_situation + Lookup
@@ -51,9 +53,11 @@ COMMENT ON COLUMN private_ci2027_001.cluster.created_at IS 'Erstellungsdatum';
 --COMMENT ON COLUMN private_ci2027_001.cluster.cluster_name IS 'Eindeutige Bezeichung des Traktes';
 
 COMMENT ON COLUMN private_ci2027_001.cluster.topo_map_sheet IS 'Nummer der topgraphischen Karte 1:25.000';
+
 COMMENT ON COLUMN private_ci2027_001.cluster.state_responsible IS 'Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale';
-COMMENT ON COLUMN private_ci2027_001.cluster.state_standard IS 'Standard-Land für Ecken und Wege, meist wie Aufnahmeland "AufnBl", Ausnahmen bei Grenztrakten';
+COMMENT ON COLUMN private_ci2027_001.cluster.state IS 'Standard-Land für Ecken und Wege, meist wie Aufnahmeland "StandardBl"';
 COMMENT ON COLUMN private_ci2027_001.cluster.states_affected IS 'zugehörige Ländernummer(n), auch mehrere';
+
 COMMENT ON COLUMN private_ci2027_001.cluster.grid_density IS 'Zugehörigkeit zum Stichprobennetz, Netzdichte';
 COMMENT ON COLUMN private_ci2027_001.cluster.cluster_status IS 'Traktkennung / Traktkennzeichen lt. Vorklärung durch vTI';
 COMMENT ON COLUMN private_ci2027_001.cluster.cluster_situation IS 'Lage des Traktes im Vergleich zu Bundesland- und Landesgrenzen';
@@ -73,8 +77,8 @@ ALTER TABLE cluster
 	REFERENCES lookup_state (abbreviation);
 
 ALTER TABLE cluster
-	ADD CONSTRAINT FK_Tract_LookupStateStandard
-	FOREIGN KEY (state_standard)
+	ADD CONSTRAINT FK_Tract_LookupState
+	FOREIGN KEY (state)
 	REFERENCES lookup_state (abbreviation);
 
 

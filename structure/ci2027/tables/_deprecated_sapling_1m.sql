@@ -11,7 +11,7 @@ CREATE TABLE sapling_1m (
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
 	tree_species smallint NULL, --Ba
-	browsing enum_bitten NOT NULL, --Biss
+	browsing enum_browsing NOT NULL, --Biss
 	protection_individual boolean NULL, --Schu
 	count smallint NOT NULL --Anz
 
