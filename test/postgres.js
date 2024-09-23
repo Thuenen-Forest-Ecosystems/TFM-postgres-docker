@@ -58,9 +58,10 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
     it(`can login -> return 200`, function () {
         const res = request('POST', 'http://localhost:3000/rpc/login', {
             json: { "email": process.env.COUNTRY_ADMIN_USER, "pass": process.env.COUNTRY_ADMIN_PASSWORD }
-        });
+        }, headers = { "Content-Type": "application/json" });
         if (res.statusCode === 200){
             country_admin_token = JSON.parse(res.getBody('utf8')).token;
+            console.log(country_admin_token);
         }else{
             console.log(res.statusCode);
         }

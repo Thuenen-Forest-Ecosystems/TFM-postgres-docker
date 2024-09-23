@@ -14,12 +14,12 @@ ALTER TABLE lookup_marker_status ADD COLUMN abbreviation enum_marker_status UNIQ
 -- Data for Name: lookup_marker_status; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_marker_status (abbreviation, name_de, name_en, sort) VALUES
-	('0', 'nicht gesucht, weil Nichtwald/Nichtholzboden', 'not searched/not found, non forest/non stocked area in forest', NULL),
-	('1', 'alte Markierung wiedergefunden', 'old mark located', NULL),
-	('2', 'alte Markierung nicht wiedergefunden, jedoch Ecke eindeutig  identifiziert, neue Marke gesetzt', 'old mark not located, but identified', NULL),
-	('3', 'erstmals Markierung gesetzt', 'marked for the first time', NULL),
-	('4', 'alte Markierung nicht gefunden; Neuaufnahme', 'old mark not found, new assesment', NULL);
+INSERT INTO lookup_marker_status (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('0', 'nicht gesucht, weil Nichtwald/Nichtholzboden', 'not searched/not found, non forest/non stocked area in forest', NULL, '{bwi2002,bwi2012}'),
+	('1', 'alte Markierung wiedergefunden', 'old mark located', NULL, '{bwi2002,bwi2012}'),
+	('2', 'alte Markierung nicht wiedergefunden, jedoch Ecke eindeutig  identifiziert, neue Marke gesetzt', 'old mark not located, but identified', NULL, '{bwi2002,bwi2012}'),
+	('3', 'erstmals Markierung gesetzt', 'marked for the first time', NULL, '{bwi2002,bwi2012}'),
+	('4', 'alte Markierung nicht gefunden; Neuaufnahme', 'old mark not found, new assesment', NULL, '{bwi2002,bwi2012}');
 
 
 --

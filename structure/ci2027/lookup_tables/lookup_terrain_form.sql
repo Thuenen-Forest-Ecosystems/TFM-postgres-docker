@@ -14,17 +14,17 @@ ALTER TABLE lookup_terrain_form ADD COLUMN abbreviation enum_terrain_form UNIQUE
 -- Data for Name: lookup_terrain_form; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_terrain_form (abbreviation, name_de, name_en, sort) VALUES
-	('0', 'Ebene', 'plain', 0),
-	('1', 'hügelig, wellig', 'hilly, wavy', 10),
-	('2', 'Tallage', 'valley site', 20),
-	('3', 'Hanglage', 'sloping site', 30),
-	('4', 'Hoch-, Kamm oder Plateaulage', 'high altidudes site, ridge site, high plateau site', 40),
-	('21', 'Tallage ohne Kaltluftstau', 'valley site without frost pool', 21),
-	('22', 'Tallage mit Kaltluftstau', 'valley site with frost pool', 22),
-	('31', 'untere Hanglage', 'lower sloping site', 31),
-	('32', 'mittlere Hanglage', 'middle sloping site', 32),
-	('33', 'obere Hanglage', 'upper sloping site', 33);
+INSERT INTO lookup_terrain_form (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('0', 'Ebene', 'plain', 0, '{bwi2002,bwi2012}'),
+	('1', 'hügelig, wellig', 'hilly, wavy', 10, '{bwi2002,bwi2012}'),
+	('2', 'Tallage', 'valley site', 20, '{bwi2002,bwi2012}'),
+	('3', 'Hanglage', 'sloping site', 30, '{bwi2002,bwi2012}'),
+	('4', 'Hoch-, Kamm oder Plateaulage', 'high altidudes site, ridge site, high plateau site', 40, '{bwi2002,bwi2012}'),
+	('21', 'Tallage ohne Kaltluftstau', 'valley site without frost pool', 21, '{bwi2002,bwi2012}'),
+	('22', 'Tallage mit Kaltluftstau', 'valley site with frost pool', 22, '{bwi2002,bwi2012}'),
+	('31', 'untere Hanglage', 'lower sloping site', 31, '{bwi2002,bwi2012}'),
+	('32', 'mittlere Hanglage', 'middle sloping site', 32, '{bwi2002,bwi2012}'),
+	('33', 'obere Hanglage', 'upper sloping site', 33, '{bwi2002,bwi2012}');
 
 
 --

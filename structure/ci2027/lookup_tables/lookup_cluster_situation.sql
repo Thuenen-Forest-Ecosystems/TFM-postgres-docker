@@ -14,13 +14,13 @@ ALTER TABLE lookup_cluster_situation ADD COLUMN abbreviation enum_cluster_situat
 -- Data for Name: lookup_cluster_situation; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_cluster_situation (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'Waldtrakt der vorangegangenen Inventur', 'Waldtrakt der vorangegangenen Inventur', 1),
-	('2', 'neu anzulegender Waldtrakt', 'erstmals anzulegender Waldtrakt', 2),
-	('3', 'Wald/ Nichtwald-Entscheid ungewiss', 'Wald/ Nichtwald ungewiss', 3),
-	('4', 'Nichtwaldtrakt, vollständig in bebautem Gebiet oder Gewässer gelegen', 'NWT in bebautem Gebiet', 4),
-	('5', 'Nichtwaldtrakt in der offenen Landschaft', 'NWT in offener Landschaft', 5),
-	('6', 'Waldtrakt außerhalb Landeswald (keine Erhebung bei Inventuren 2007/2008)', 'Waldtrakt außerhalb Landeswald', 6);
+INSERT INTO lookup_cluster_situation (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'Waldtrakt der vorangegangenen Inventur', 'Waldtrakt der vorangegangenen Inventur', 1, '{bwi2002,bwi2012}'),
+	('2', 'neu anzulegender Waldtrakt', 'erstmals anzulegender Waldtrakt', 2, '{bwi2002,bwi2012}'),
+	('3', 'Wald/ Nichtwald-Entscheid ungewiss', 'Wald/ Nichtwald ungewiss', 3, '{bwi2002,bwi2012}'),
+	('4', 'Nichtwaldtrakt, vollständig in bebautem Gebiet oder Gewässer gelegen', 'NWT in bebautem Gebiet', 4, '{bwi2002,bwi2012}'),
+	('5', 'Nichtwaldtrakt in der offenen Landschaft', 'NWT in offener Landschaft', 5, '{bwi2002,bwi2012}'),
+	('6', 'Waldtrakt außerhalb Landeswald (keine Erhebung bei Inventuren 2007/2008)', 'Waldtrakt außerhalb Landeswald', 6, '{bwi2002,bwi2012}');
 
 
 --

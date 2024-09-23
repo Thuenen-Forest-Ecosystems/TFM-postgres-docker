@@ -14,12 +14,12 @@ ALTER TABLE lookup_elevation_level ADD COLUMN abbreviation enum_elevation_level 
 -- Data for Name: lookup_elevation_level; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_elevation_level (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'planar', 'planar', NULL),
-	('2', 'kollin', 'colline', NULL),
-	('3', 'submontan', 'submontane', NULL),
-	('4', 'montan', 'montane', NULL),
-	('5', 'hochmontan/subalpin', 'high-montane/sub-alpine', NULL);
+INSERT INTO lookup_elevation_level (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'planar', 'planar', NULL, '{bwi2002,bwi2012}'),
+	('2', 'kollin', 'colline', NULL, '{bwi2002,bwi2012}'),
+	('3', 'submontan', 'submontane', NULL, '{bwi2002,bwi2012}'),
+	('4', 'montan', 'montane', NULL, '{bwi2002,bwi2012}'),
+	('5', 'hochmontan/subalpin', 'high-montane/sub-alpine', NULL, '{bwi2002,bwi2012}');
 
 
 --

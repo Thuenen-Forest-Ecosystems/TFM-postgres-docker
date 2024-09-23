@@ -14,13 +14,13 @@ ALTER TABLE lookup_stand_structure ADD COLUMN abbreviation enum_stand_structure 
 -- Data for Name: lookup_stand_structure; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_stand_structure (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'einschichtig', NULL, 10),
-	('2', 'zweischichtig', NULL, 20),
-	('3', 'zweischichtig (Überhälter/Nachhiebsrest)', NULL, 30),
-	('4', 'zweischichtig (Vorausverjüngung)', NULL, 40),
-	('5', 'zweischichtig (Unterbau)', NULL, 50),
-	('6', 'mehrschichtig oder plenterartig', NULL, 60);
+INSERT INTO lookup_stand_structure (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'einschichtig', NULL, 10, '{bwi2002,bwi2012}'),
+	('2', 'zweischichtig', NULL, 20, '{bwi2002,bwi2012}'),
+	('3', 'zweischichtig (Überhälter/Nachhiebsrest)', NULL, 30, '{bwi2002,bwi2012}'),
+	('4', 'zweischichtig (Vorausverjüngung)', NULL, 40, '{bwi2002,bwi2012}'),
+	('5', 'zweischichtig (Unterbau)', NULL, 50, '{bwi2002,bwi2012}'),
+	('6', 'mehrschichtig oder plenterartig', NULL, 60, '{bwi2002,bwi2012}');
 
 
 --

@@ -14,10 +14,10 @@ ALTER TABLE lookup_tree_species_group ADD COLUMN abbreviation enum_tree_species_
 -- Data for Name: lookup_tree_species_group; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_tree_species_group (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'Nadelbäume', 'coniferous trees', NULL),
-	('2', 'Laubbäume ohne Eiche', 'deciduous trees without oak', NULL),
-	('3', 'Eiche', 'oak', NULL);
+INSERT INTO lookup_tree_species_group (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'Nadelbäume', 'coniferous trees', NULL, '{bwi2002,bwi2012}'),
+	('2', 'Laubbäume ohne Eiche', 'deciduous trees without oak', NULL, '{bwi2002,bwi2012}'),
+	('3', 'Eiche', 'oak', NULL, '{bwi2002,bwi2012}');
 
 
 --

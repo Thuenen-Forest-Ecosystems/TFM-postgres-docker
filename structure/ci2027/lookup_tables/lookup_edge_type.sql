@@ -14,11 +14,11 @@ ALTER TABLE lookup_edge_type ADD COLUMN abbreviation enum_edge_type UNIQUE NOT N
 -- Data for Name: lookup_edge_type; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_edge_type (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'Außenrand, Abstand > 50 m', 'outside forest edge, distance > 50 m', 10),
-	('2', 'Innenrand, Abstand 30 bis 50 m', 'inside forest edge, distance 30 to 50 m', 20),
-	('3', 'Bestandesgrenze (davor >=20 m niedriger)', 'stand edge (preliminary stand with 20 m lower stand high)', 30),
-	('4', 'sonstige Bestandesgrenze', 'other stand edge', 40);
+INSERT INTO lookup_edge_type (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'Außenrand, Abstand > 50 m', 'outside forest edge, distance > 50 m', 10, '{bwi2002,bwi2012}'),
+	('2', 'Innenrand, Abstand 30 bis 50 m', 'inside forest edge, distance 30 to 50 m', 20, '{bwi2002,bwi2012}'),
+	('3', 'Bestandesgrenze (davor >=20 m niedriger)', 'stand edge (preliminary stand with 20 m lower stand high)', 30, '{bwi2002,bwi2012}'),
+	('4', 'sonstige Bestandesgrenze', 'other stand edge', 40, '{bwi2002,bwi2012}');
 
 
 --

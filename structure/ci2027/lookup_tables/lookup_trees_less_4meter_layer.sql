@@ -14,11 +14,11 @@ ALTER TABLE lookup_trees_less_4meter_layer ADD COLUMN abbreviation enum_trees_le
 -- Data for Name: lookup_trees_less_4meter_layer; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_trees_less_4meter_layer (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'Hauptbestockung', 'main stocking', 1),
-	('2', 'Verjüngung', 'regeneration', 2),
-	('3', 'Restbestockung', 'residual stocking', 3),
-	('9', 'im Kreis r=10m berücksichtigt', 'stocking layer surveyed in the sample plot 10 m radius', 9);
+INSERT INTO lookup_trees_less_4meter_layer (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'Hauptbestockung', 'main stocking', 1, '{bwi2002,bwi2012}'),
+	('2', 'Verjüngung', 'regeneration', 2, '{bwi2002,bwi2012}'),
+	('3', 'Restbestockung', 'residual stocking', 3, '{bwi2002,bwi2012}'),
+	('9', 'im Kreis r=10m berücksichtigt', 'stocking layer surveyed in the sample plot 10 m radius', 9, '{bwi2002,bwi2012}');
 
 
 --
