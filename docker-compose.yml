@@ -25,6 +25,7 @@ services:
 
 
   postgres:
+    platform: linux/amd64
     restart: always
     #name the container
     container_name: postgis
