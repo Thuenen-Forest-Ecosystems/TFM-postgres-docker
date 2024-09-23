@@ -120,6 +120,7 @@ services:
       - ./structure/ci2027/lookup_tables/lookup_gnss_quality.sql:/docker-entrypoint-initdb.d/910-lookup_gnss_quality.sql
       - ./structure/ci2027/lookup_tables/lookup_browsing.sql:/docker-entrypoint-initdb.d/910-lookup_browsing.sql
       - ./structure/ci2027/lookup_tables/lookup_tree_size_class.sql:/docker-entrypoint-initdb.d/910-lookup_tree_size_class.sql
+      - ./structure/ci2027/lookup_tables/lookup_cluster_situation.sql:/docker-entrypoint-initdb.d/910-lookup_cluster_situation.sql
 
 
       - ./structure/ci2027/tables/cluster.sql:/docker-entrypoint-initdb.d/919-cluster.sql

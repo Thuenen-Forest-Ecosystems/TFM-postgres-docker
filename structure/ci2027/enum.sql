@@ -4,6 +4,7 @@ CREATE TYPE enum_grid_density AS ENUM('0', '8', '16', '1', '4', '90');
 CREATE TYPE enum_state AS ENUM('--', 'BY', 'SN', 'ST', 'RP', 'HE', 'BB', 'NI', 'HB', 'BW', 'HH', 'SL', 'NW', 'MV', 'TH', 'BE', 'SH');
 CREATE TYPE enum_gnss_quality AS ENUM('9', '5', '2', '1', '4');
 CREATE TYPE enum_cluster_status AS ENUM('9', '10', '5', '8', '2', '12', '3', '13', '11', '1', '4', '7', '6');
+CREATE TYPE enum_cluster_situation AS ENUM('5', '2', '3', '1', '4', '6');
 CREATE TYPE enum_forest_community_field AS ENUM('10', '25', '32', '5', '24', '39', '18', '23', '31', '17', '34', '22', '11', '33', '29', '26', '28', '37', '27', '162', '21', '35', '8', '16', '20', '13', '1', '19', '36', '6', '161', '9', '2', '12', '3', '40', '30', '38', '4', '14', '7', '15');
 CREATE TYPE enum_use_restriction AS ENUM('0', '5', '2', '3', '1', '4', '6');
 CREATE TYPE enum_land_use AS ENUM('99', '92', '12', '23', '90', '3', '13', '22', '11', '93', '4', '14', '21');

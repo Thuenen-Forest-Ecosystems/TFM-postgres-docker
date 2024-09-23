@@ -52,6 +52,7 @@ BEGIN
             states_affected,
             grid_density,
             cluster_status,
+            cluster_situation,
             select_access_by,
             update_access_by
         )
@@ -60,8 +61,9 @@ BEGIN
             (cluster_object->>'state_responsible')::enum_state,
             (cluster_object->>'state')::enum_state,
             states_array,
-            (cluster_object->>'grid_density')::enum_sampling_strata,
+            (cluster_object->>'grid_density')::enum_grid_density,
             (cluster_object->>'cluster_status')::enum_cluster_status,
+            (cluster_object->>'cluster_situation')::enum_cluster_situation,
             ARRAY(SELECT json_array_elements_text(cluster_object->'select_access_by'))::text[],
             ARRAY(SELECT json_array_elements_text(cluster_object->'update_access_by'))::text[]
         )

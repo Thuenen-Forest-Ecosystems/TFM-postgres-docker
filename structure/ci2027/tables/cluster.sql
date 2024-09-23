@@ -18,9 +18,9 @@ CREATE TABLE IF NOT EXISTS cluster (
 	state enum_state NULL,
 	states_affected enum_state[],
 
-	grid_density INTEGER NOT NULL, -- TODO: create enum_grid_density + Lookup
+	grid_density enum_grid_density NOT NULL,
 	cluster_status enum_cluster_status NULL,
-	cluster_situation INTEGER NULL -- TODO: create enum_cluster_situation + Lookup
+	cluster_situation enum_cluster_situation NULL
 );
 
 ALTER TABLE cluster ADD CONSTRAINT fk_Cluster_user_id FOREIGN KEY (supervisor_id) REFERENCES basic_auth.users(id);
