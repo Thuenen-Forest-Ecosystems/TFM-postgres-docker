@@ -75,7 +75,7 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
         if (res.statusCode === 200){
             assert.strictEqual(JSON.parse(res.getBody('utf8')).email, process.env.COUNTRY_ADMIN_USER);
         }else{
-            console.log(res.statusCode);
+            console.log(res.statusCode, res.getBody('utf8'));
         }
         
         assert.strictEqual(res.statusCode, 200);
