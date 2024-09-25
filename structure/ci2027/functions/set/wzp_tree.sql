@@ -40,7 +40,7 @@ BEGIN
             new_geometry := NULL;
         END IF;
         
-        INSERT INTO wzp_tree (id, plot_id, azimuth, distance, geometry, tree_species, bhd, bhd_height, tree_number, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry)
+        INSERT INTO wzp_tree (id, plot_id, azimuth, distance, geometry, tree_species, bhd, bhd_height, tree_id, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, within_stand, stand_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_dead_wood, tree_top_drought)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('wzp_tree_id_seq')),
             parent_id,
@@ -51,7 +51,7 @@ BEGIN
             (child_object->>'tree_species')::int,
             (child_object->>'bhd')::int,
             (child_object->>'bhd_height')::int,
-            (child_object->>'tree_number')::int,
+            (child_object->>'tree_id')::int,
             (child_object->>'tree_height')::int,
             (child_object->>'stem_height')::int,
             (child_object->>'tree_height_azimuth')::int,
@@ -61,8 +61,8 @@ BEGIN
             (child_object->>'stem_form')::enum_stem_form,
             (child_object->>'pruning')::enum_pruning,
             (child_object->>'pruning_height')::int,
-            (child_object->>'stand_affiliation')::boolean,
-            (child_object->>'inventory_layer')::enum_stand_layer,
+            (child_object->>'within_stand')::boolean,
+            (child_object->>'stand_layer')::enum_stand_layer,
             (child_object->>'damage_dead')::boolean,
             (child_object->>'damage_peel_new')::boolean,
             (child_object->>'damage_peel_old')::boolean,
@@ -72,8 +72,8 @@ BEGIN
             (child_object->>'damage_beetle')::boolean,
             (child_object->>'damage_other')::boolean,
             (child_object->>'cave_tree')::boolean,
-            (child_object->>'crown_clear')::boolean,
-            (child_object->>'crown_dry')::boolean
+            (child_object->>'crown_dead_wood')::boolean,
+            (child_object->>'tree_top_drought')::boolean
         )
         ON CONFLICT (id) DO UPDATE
         SET
@@ -85,7 +85,7 @@ BEGIN
             tree_species = EXCLUDED.tree_species,
             bhd = EXCLUDED.bhd,
             bhd_height = EXCLUDED.bhd_height,
-            tree_number = EXCLUDED.tree_number,
+            tree_id = EXCLUDED.tree_id,
             tree_height = EXCLUDED.tree_height,
             stem_height = EXCLUDED.stem_height,
             tree_height_azimuth = EXCLUDED.tree_height_azimuth,
@@ -95,8 +95,8 @@ BEGIN
             stem_form = EXCLUDED.stem_form,
             pruning = EXCLUDED.pruning,
             pruning_height = EXCLUDED.pruning_height,
-            stand_affiliation = EXCLUDED.stand_affiliation,
-            inventory_layer = EXCLUDED.inventory_layer,
+            within_stand = EXCLUDED.within_stand,
+            stand_layer = EXCLUDED.stand_layer,
             damage_dead = EXCLUDED.damage_dead,
             damage_peel_new = EXCLUDED.damage_peel_new,
             damage_peel_old = EXCLUDED.damage_peel_old,
@@ -106,8 +106,8 @@ BEGIN
             damage_beetle = EXCLUDED.damage_beetle,
             damage_other = EXCLUDED.damage_other,
             cave_tree = EXCLUDED.cave_tree,
-            crown_clear = EXCLUDED.crown_clear,
-            crown_dry = EXCLUDED.crown_dry
+            crown_dead_wood = EXCLUDED.crown_dead_wood,
+            tree_top_drought = EXCLUDED.tree_top_drought
         WHERE wzp_tree.id = EXCLUDED.id
         RETURNING * INTO changed_values;
 

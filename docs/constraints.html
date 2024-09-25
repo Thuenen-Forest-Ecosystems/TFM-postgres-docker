@@ -80,7 +80,7 @@
                     <div class="box box-primary">
                         <div class="box-header with-border">
                             <i class="ion ion-key"></i>
-                            <h3 class="box-title">56 Foreign Key Constraints</h3>
+                            <h3 class="box-title">46 Foreign Key Constraints</h3>
                             <div class="box-tools pull-right">
                                 <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -103,6 +103,60 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td>fk_structurelt4m_lookuptreespecies</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/structure_lt4m.html'>structure_lt4m</a><span>.tree_species</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_tree_species.html'>lookup_tree_species</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_structurelt4m_plot</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/structure_lt4m.html'>structure_lt4m</a><span>.plot_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_structurelt4m_plotlocation</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/structure_lt4m.html'>structure_lt4m</a><span>.plot_location_id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/plot_location.html'>plot_location</a><span>.id</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
+                                    </tr>
                                     <tr>
                                         <td>fk_wzptree_stembreakage</td>
                                         <td>
@@ -140,24 +194,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_wzptree_treestate</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/wzp_tree.html'>wzp_tree</a><span>.tree_state</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_tree_state.html'>lookup_tree_state</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_wzptree_treespecies</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -180,7 +216,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/wzp_tree.html'>wzp_tree</a><span>.inventory_layer</span></td>
+                                                    <td><a href='tables/wzp_tree.html'>wzp_tree</a><span>.stand_layer</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -188,6 +224,24 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/lookup_stand_layer.html'>lookup_stand_layer</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_wzptree_treestatus</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/wzp_tree.html'>wzp_tree</a><span>.tree_status</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_tree_status.html'>lookup_tree_status</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -284,11 +338,11 @@
                                         <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_tract_lookupstatelocation</td>
+                                        <td>fk_tract_lookupstateresponsible</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/cluster.html'>cluster</a><span>.state_location</span></td>
+                                                    <td><a href='tables/cluster.html'>cluster</a><span>.state_responsible</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -302,11 +356,11 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_tract_lookupstateadministration</td>
+                                        <td>fk_tract_lookupstate</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/cluster.html'>cluster</a><span>.state_administration</span></td>
+                                                    <td><a href='tables/cluster.html'>cluster</a><span>.state</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -342,7 +396,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/sapling_2m.html'>sapling_2m</a><span>.plot_location_id</span></td>
+                                                    <td><a href='tables/regeneration.html'>regeneration</a><span>.plot_location_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -360,7 +414,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/sapling_2m.html'>sapling_2m</a><span>.tree_size_class</span></td>
+                                                    <td><a href='tables/regeneration.html'>regeneration</a><span>.tree_size_class</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -374,29 +428,11 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_saplings2m_lookupbitten</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/sapling_2m.html'>sapling_2m</a><span>.bitten</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_bitten.html'>lookup_bitten</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_saplings2m_plot</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/sapling_2m.html'>sapling_2m</a><span>.plot_id</span></td>
+                                                    <td><a href='tables/regeneration.html'>regeneration</a><span>.plot_id</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -414,7 +450,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/sapling_2m.html'>sapling_2m</a><span>.tree_species</span></td>
+                                                    <td><a href='tables/regeneration.html'>regeneration</a><span>.tree_species</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -422,6 +458,24 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/lookup_tree_species.html'>lookup_tree_species</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_saplings2m_lookupbrowsing</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/regeneration.html'>regeneration</a><span>.browsing</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_browsing.html'>lookup_browsing</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -518,42 +572,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookuphabitattypesource</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.habitat_type_source</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_habitat_type_source.html'>lookup_habitat_type_source</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookuptreesless4metercountfactor</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.trees_less_4meter_count_factor</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_trees_less_4meter_count_factor.html'>lookup_trees_less_4meter_count_factor</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_plot_cluster</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -572,36 +590,54 @@
                                         <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookuplayertype</td>
+                                        <td>fk_plot_lookupelevationlevel</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.layer_type</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.elevation_level</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/lookup_layer_type.html'>lookup_layer_type</a><span>.abbreviation</span></td>
+                                                    <td><a href='tables/lookup_elevation_level.html'>lookup_elevation_level</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookupmarkingprofile</td>
+                                        <td>fk_plot_lookupstandstructure</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.marking_profile</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.stand_structure</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/lookup_marking_profile.html'>lookup_marking_profile</a><span>.abbreviation</span></td>
+                                                    <td><a href='tables/lookup_stand_structure.html'>lookup_stand_structure</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_plot_lookupforeststatus</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.forest_status</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_forest_status.html'>lookup_forest_status</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -644,24 +680,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookupheightlayerclass</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.height_layer_class</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_height_layer_class.html'>lookup_height_layer_class</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_plot_lookupterrainform</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -674,6 +692,24 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/lookup_terrain_form.html'>lookup_terrain_form</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_plot_lookupmarkerstatus</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.marker_status</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_marker_status.html'>lookup_marker_status</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -698,24 +734,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookupforesttype</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.forest_type</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_forest_type.html'>lookup_forest_type</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_plot_lookuppropertysizeclass</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -734,90 +752,36 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookupforestdecision</td>
+                                        <td>fk_plot_lookupmarkerprofile</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.forest_decision</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.marker_profile</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/lookup_forest_decision.html'>lookup_forest_decision</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookupforestrydepartment</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.forestry_department</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_forestry_department.html'>lookup_forestry_department</a><span>.abbreviation</span></td>
+                                                    <td><a href='tables/lookup_marker_profile.html'>lookup_marker_profile</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_plot_lookuptreesless4meterlayer</td>
+                                        <td>fk_plot_lookupstanddevphase</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.trees_less_4meter_layer</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.stand_dev_phase</span></td>
                                                 </tr>
                                             </table>
                                         </td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/lookup_trees_less_4meter_layer.html'>lookup_trees_less_4meter_layer</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookuphabitattype</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.habitat_type</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_habitat_type.html'>lookup_habitat_type</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookupmarkingstate</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.marking_state</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_marking_state.html'>lookup_marking_state</a><span>.abbreviation</span></td>
+                                                    <td><a href='tables/lookup_stand_dev_phase.html'>lookup_stand_dev_phase</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -846,7 +810,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.sablings_layer</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.stand_layer_reg</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -864,7 +828,7 @@
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.land_use</span></td>
+                                                    <td><a href='tables/plot.html'>plot</a><span>.land_use_after</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -872,150 +836,6 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/lookup_land_use.html'>lookup_land_use</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookupuserestriction</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.use_restriction</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_use_restriction.html'>lookup_use_restriction</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_samplingstrata</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.sampling_strata</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_sampling_strata.html'>lookup_sampling_strata</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_plot_lookupstandphase</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.stand_phase</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_stand_phase.html'>lookup_stand_phase</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_saplings1m_lookuptreespecies</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/sapling_1m.html'>sapling_1m</a><span>.tree_species</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_tree_species.html'>lookup_tree_species</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_saplings1m_plot</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/sapling_1m.html'>sapling_1m</a><span>.plot_id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot.html'>plot</a><span>.id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_saplings1m_lookupbitten</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/sapling_1m.html'>sapling_1m</a><span>.bitten</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_bitten.html'>lookup_bitten</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_saplings1m_plotlocation</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/sapling_1m.html'>sapling_1m</a><span>.plot_location_id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/plot_location.html'>plot_location</a><span>.id</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Cascade on delete:&#10;Deletion of parent deletes child'>Cascade on delete</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>fk_lookupgrowtharea</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_growth_district.html'>lookup_growth_district</a><span>.district_area</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_growth_area.html'>lookup_growth_area</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -1040,24 +860,6 @@
                                         <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
                                     </tr>
                                     <tr>
-                                        <td>fk_edge_lookupedgestate</td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/edges.html'>edges</a><span>.edge_state</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td>
-                                            <table border='0' cellspacing='0' cellpadding='0'>
-                                                <tr>
-                                                    <td><a href='tables/lookup_edge_state.html'>lookup_edge_state</a><span>.abbreviation</span></td>
-                                                </tr>
-                                            </table>
-                                        </td>
-                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
-                                    </tr>
-                                    <tr>
                                         <td>fk_edge_lookupterrain</td>
                                         <td>
                                             <table border='0' cellspacing='0' cellpadding='0'>
@@ -1070,6 +872,24 @@
                                             <table border='0' cellspacing='0' cellpadding='0'>
                                                 <tr>
                                                     <td><a href='tables/lookup_terrain.html'>lookup_terrain</a><span>.abbreviation</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>Restrict delete</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>fk_edge_lookupedgestatus</td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/edges.html'>edges</a><span>.edge_status</span></td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                        <td>
+                                            <table border='0' cellspacing='0' cellpadding='0'>
+                                                <tr>
+                                                    <td><a href='tables/lookup_edge_status.html'>lookup_edge_status</a><span>.abbreviation</span></td>
                                                 </tr>
                                             </table>
                                         </td>
@@ -1140,6 +960,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <tr>
+                                        <td><a href='tables/cluster.html'>cluster</a></td>
+                                        <td>check_select_access_by_emails_constraint</td>
+                                        <td>(private_ci2027_001.check_select_access_by_emails(select_access_by))</td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href='tables/cluster.html'>cluster</a></td>
+                                        <td>check_update_access_by_emails_constraint</td>
+                                        <td>(private_ci2027_001.check_select_access_by_emails(update_access_by))</td>
+                                    </tr>
                                     <tr>
                                         <td><a href='tables/edges.html'>edges</a></td>
                                         <td>ck_edges_geometry</td>

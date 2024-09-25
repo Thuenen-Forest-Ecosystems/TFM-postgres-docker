@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	geometry Geometry(Point, 4326), -- geom NEU, PostGis wird gebraucht
 
+	state_responsible enum_state NOT NULL, -- AufnBl
 
 	growth_district integer  NULL, -- wb
 
@@ -76,8 +77,8 @@ CREATE TABLE IF NOT EXISTS plot (
 	protected_landscape BOOLEAN NOT NULL DEFAULT FALSE, -- lsg
 	histwald BOOLEAN NOT NULL DEFAULT FALSE, -- histwald
 
-	harvest_restriction INTEGER NOT NULL, -- ne TODO: Lookup Table & enum
-	harvest_restriction_source INTEGER[] NOT NULL DEFAULT '{}', -- NEU: create enum_harvest_restriction_source Nutzungseinschränkungen als Array TODO: Lookup Table, inner- und außerbetrieblich zusammenführen
+	harvest_restriction INTEGER NULL, -- ne TODO: Lookup Table & enum
+	harvest_restriction_source INTEGER[] DEFAULT '{}', -- NEU: create enum_harvest_restriction_source Nutzungseinschränkungen als Array TODO: Lookup Table, inner- und außerbetrieblich zusammenführen
 
     -- wfkt1 smallint NOT NULL, -- wfkt1  --Wird in Rücksprache mit TS anders erfasst (TODO)
 	-- wfkt2 smallint NULL, -- wfkt2

@@ -52,6 +52,7 @@ services:
       # NFI2022
       - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/800-code_bwineu.sql
       - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/801-bwineu_structure.sql
+      #- ./ci2027-db-data/data_part.sql:/docker-entrypoint-initdb.d/802-data.sql
 
       ### New Setup (to be implemented) 
       #- ./structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/930-structure.sql
@@ -72,7 +73,7 @@ services:
 
       ## SET DEFAULT GRANTS
       - ./structure/ci2027/grants.sql:/docker-entrypoint-initdb.d/907-grants.sql
-      - ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/908-data.sql
+      - ./structure/user.sql:/docker-entrypoint-initdb.d/908-user.sql
       #- ./ci2027-db-data/data.sql:/docker-entrypoint-initdb.d/908-data.sql
 
       

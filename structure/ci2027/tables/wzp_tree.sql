@@ -10,7 +10,7 @@ CREATE TABLE wzp_tree (
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	tree_number smallint NOT NULL, -- Bnr
+	tree_id smallint NOT NULL, -- Bnr
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 
 	tree_status enum_tree_status NULL, -- Pk
 

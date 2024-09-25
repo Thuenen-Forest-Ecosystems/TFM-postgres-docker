@@ -21,7 +21,6 @@ returns void as $$
     set_config('pgrst.jwt_secret', '7u8f0HLDi5S6NKzNuo69cDEl3abvDP8YVfW3egLNubvy7uJFrP', FALSE),
     set_config('pgrst.db_schemas', string_agg(nspname, ','), true),
     set_config('pgrst.version', '1.0.2', true)
-    --set_config('app.current_user_email', 'gerrit.balindt@gruenecho.de', true)
     from pg_namespace
     where nspname like '%_api' OR nspname like 'private_%';
 $$ language sql;

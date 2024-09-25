@@ -138,13 +138,13 @@
                                                 <td class="constraint detail"><span title='Cascade on delete:&#10;Deletion of parent deletes child'>C</span></td>
                                             </tr>
                                             <tr>
-                                                <td title="sapling_1m.plot_id references plot.id via fk_saplings1m_plot"><a href='sapling_1m.html'>sapling_1m</a><span class='relatedKey'>.plot_id</span></td>
-                                                <td class="constraint detail">fk_saplings1m_plot</td>
+                                                <td title="regeneration.plot_id references plot.id via fk_saplings2m_plot"><a href='regeneration.html'>regeneration</a><span class='relatedKey'>.plot_id</span></td>
+                                                <td class="constraint detail">fk_saplings2m_plot</td>
                                                 <td class="constraint detail"><span title='Cascade on delete:&#10;Deletion of parent deletes child'>C</span></td>
                                             </tr>
                                             <tr>
-                                                <td title="sapling_2m.plot_id references plot.id via fk_saplings2m_plot"><a href='sapling_2m.html'>sapling_2m</a><span class='relatedKey'>.plot_id</span></td>
-                                                <td class="constraint detail">fk_saplings2m_plot</td>
+                                                <td title="structure_lt4m.plot_id references plot.id via fk_structurelt4m_plot"><a href='structure_lt4m.html'>structure_lt4m</a><span class='relatedKey'>.plot_id</span></td>
+                                                <td class="constraint detail">fk_structurelt4m_plot</td>
                                                 <td class="constraint detail"><span title='Cascade on delete:&#10;Deletion of parent deletes child'>C</span></td>
                                             </tr>
                                             <tr>
@@ -268,31 +268,9 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="sampling_strata">sampling_strata</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_sampling_strata&quot;</td>
-                                    <td>2147483647</td>
-                                    <td title=''></td>
-                                    <td title=''></td>
-                                    <td>null</td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                        </table>
-                                    </td>
-                                    <td>
-                                        <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.sampling_strata references lookup_sampling_strata.abbreviation via fk_plot_samplingstrata"><a href='lookup_sampling_strata.html'>lookup_sampling_strata</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_samplingstrata</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
-                                        </table>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td><span id="state_administration">state_administration</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_state&quot;</td>
-                                    <td>2147483647</td>
+                                    <td><span id="sampling_stratum">sampling_stratum</span></td>
+                                    <td>int4</td>
+                                    <td>10</td>
                                     <td title=''></td>
                                     <td title=''></td>
                                     <td>null</td>
@@ -307,7 +285,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="state_collect">state_collect</span></td>
+                                    <td><span id="state">state</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_state&quot;</td>
                                     <td>2147483647</td>
                                     <td title=''></td>
@@ -363,8 +341,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="forest_decision">forest_decision</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_forest_decision&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="forest_status">forest_status</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_forest_status&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -376,8 +354,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.forest_decision references lookup_forest_decision.abbreviation via fk_plot_lookupforestdecision"><a href='lookup_forest_decision.html'>lookup_forest_decision</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupforestdecision</td>
+                                                <td title="plot.forest_status references lookup_forest_status.abbreviation via fk_plot_lookupforeststatus"><a href='lookup_forest_status.html'>lookup_forest_status</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupforeststatus</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -402,7 +380,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="forestry_department">forestry_department</span></td>
+                                    <td><span id="forest_office">forest_office</span></td>
                                     <td>int2</td>
                                     <td>5</td>
                                     <td title='nullable'>√</td>
@@ -414,18 +392,13 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.forestry_department references lookup_forestry_department.abbreviation via fk_plot_lookupforestrydepartment"><a href='lookup_forestry_department.html'>lookup_forestry_department</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupforestrydepartment</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="height_layer_class">height_layer_class</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_height_layer_class&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="elevation_level">elevation_level</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_elevation_level&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -437,8 +410,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.height_layer_class references lookup_height_layer_class.abbreviation via fk_plot_lookupheightlayerclass"><a href='lookup_height_layer_class.html'>lookup_height_layer_class</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupheightlayerclass</td>
+                                                <td title="plot.elevation_level references lookup_elevation_level.abbreviation via fk_plot_lookupelevationlevel"><a href='lookup_elevation_level.html'>lookup_elevation_level</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupelevationlevel</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -490,8 +463,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="forest_type">forest_type</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_forest_type&quot;</td>
+                                    <td><span id="forest_community">forest_community</span></td>
+                                    <td>text</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -502,18 +475,13 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.forest_type references lookup_forest_type.abbreviation via fk_plot_lookupforesttype"><a href='lookup_forest_type.html'>lookup_forest_type</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupforesttype</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="habitat_type">habitat_type</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_habitat_type&quot;</td>
+                                    <td><span id="forest_community_field">forest_community_field</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_forest_community_field&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -524,18 +492,13 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.habitat_type references lookup_habitat_type.abbreviation via fk_plot_lookuphabitattype"><a href='lookup_habitat_type.html'>lookup_habitat_type</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookuphabitattype</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="habitat_type_source">habitat_type_source</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_habitat_type_source&quot;</td>
+                                    <td><span id="ffh_forest_type">ffh_forest_type</span></td>
+                                    <td>text</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -546,18 +509,13 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.habitat_type_source references lookup_habitat_type_source.abbreviation via fk_plot_lookuphabitattypesource"><a href='lookup_habitat_type_source.html'>lookup_habitat_type_source</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookuphabitattypesource</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="use_restriction">use_restriction</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_use_restriction&quot;</td>
+                                    <td><span id="ffh_forest_type_field">ffh_forest_type_field</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_ffh_forest_type_field&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -568,17 +526,29 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.use_restriction references lookup_use_restriction.abbreviation via fk_plot_lookupuserestriction"><a href='lookup_use_restriction.html'>lookup_use_restriction</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupuserestriction</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="land_use">land_use</span></td>
+                                    <td><span id="land_use_before">land_use_before</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;</td>
+                                    <td>2147483647</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="land_use_after">land_use_after</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
@@ -591,7 +561,7 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.land_use references lookup_land_use.abbreviation via fk_plot_lookuplanduse"><a href='lookup_land_use.html'>lookup_land_use</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td title="plot.land_use_after references lookup_land_use.abbreviation via fk_plot_lookuplanduse"><a href='lookup_land_use.html'>lookup_land_use</a><span class='relatedKey'>.abbreviation</span></td>
                                                 <td class="constraint detail">fk_plot_lookuplanduse</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
@@ -634,7 +604,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="conservation_area">conservation_area</span></td>
+                                    <td><span id="protected_landscape">protected_landscape</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title=''></td>
@@ -668,12 +638,29 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="use_restriction_reasons">use_restriction_reasons</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;_enum_use_restriction_reason&quot;</td>
-                                    <td>2147483647</td>
+                                    <td><span id="harvest_restriction">harvest_restriction</span></td>
+                                    <td>int4</td>
+                                    <td>10</td>
                                     <td title=''></td>
                                     <td title=''></td>
-                                    <td>&#39;{}&#39;::private_ci2027_001.enum_use_restriction_reason[]</td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><span id="harvest_restriction_source">harvest_restriction_source</span></td>
+                                    <td>_int4</td>
+                                    <td>10</td>
+                                    <td title=''></td>
+                                    <td title=''></td>
+                                    <td>&#39;{}&#39;::integer[]</td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                         </table>
@@ -736,8 +723,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="marking_state">marking_state</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_marking_state&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="marker_status">marker_status</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_marker_status&quot;</td>
                                     <td>2147483647</td>
                                     <td title=''></td>
                                     <td title=''></td>
@@ -749,8 +736,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.marking_state references lookup_marking_state.abbreviation via fk_plot_lookupmarkingstate"><a href='lookup_marking_state.html'>lookup_marking_state</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupmarkingstate</td>
+                                                <td title="plot.marker_status references lookup_marker_status.abbreviation via fk_plot_lookupmarkerstatus"><a href='lookup_marker_status.html'>lookup_marker_status</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupmarkerstatus</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -758,7 +745,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="marking_azimuth">marking_azimuth</span></td>
+                                    <td><span id="marker_azimuth">marker_azimuth</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;</td>
                                     <td>5</td>
                                     <td title='nullable'>√</td>
@@ -775,7 +762,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="marking_distance">marking_distance</span></td>
+                                    <td><span id="marker_distance">marker_distance</span></td>
                                     <td>int2</td>
                                     <td>5</td>
                                     <td title='nullable'>√</td>
@@ -792,8 +779,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="marking_profile">marking_profile</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_marking_profile&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="marker_profile">marker_profile</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_marker_profile&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -805,8 +792,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.marking_profile references lookup_marking_profile.abbreviation via fk_plot_lookupmarkingprofile"><a href='lookup_marking_profile.html'>lookup_marking_profile</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupmarkingprofile</td>
+                                                <td title="plot.marker_profile references lookup_marker_profile.abbreviation via fk_plot_lookupmarkerprofile"><a href='lookup_marker_profile.html'>lookup_marker_profile</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupmarkerprofile</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -931,8 +918,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="layer_type">layer_type</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_layer_type&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="stand_structure">stand_structure</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_stand_structure&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -944,8 +931,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.layer_type references lookup_layer_type.abbreviation via fk_plot_lookuplayertype"><a href='lookup_layer_type.html'>lookup_layer_type</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookuplayertype</td>
+                                                <td title="plot.stand_structure references lookup_stand_structure.abbreviation via fk_plot_lookupstandstructure"><a href='lookup_stand_structure.html'>lookup_stand_structure</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupstandstructure</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -970,8 +957,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="stand_phase">stand_phase</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_stand_phase&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="stand_dev_phase">stand_dev_phase</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_stand_dev_phase&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -983,8 +970,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.stand_phase references lookup_stand_phase.abbreviation via fk_plot_lookupstandphase"><a href='lookup_stand_phase.html'>lookup_stand_phase</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookupstandphase</td>
+                                                <td title="plot.stand_dev_phase references lookup_stand_dev_phase.abbreviation via fk_plot_lookupstanddevphase"><a href='lookup_stand_dev_phase.html'>lookup_stand_dev_phase</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_plot_lookupstanddevphase</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -992,7 +979,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="sablings_layer">sablings_layer</span></td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="stand_layer_reg">stand_layer_reg</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
@@ -1005,7 +992,7 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="plot.sablings_layer references lookup_stand_layer.abbreviation via fk_plot_lookupstandlayer"><a href='lookup_stand_layer.html'>lookup_stand_layer</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td title="plot.stand_layer_reg references lookup_stand_layer.abbreviation via fk_plot_lookupstandlayer"><a href='lookup_stand_layer.html'>lookup_stand_layer</a><span class='relatedKey'>.abbreviation</span></td>
                                                 <td class="constraint detail">fk_plot_lookupstandlayer</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
@@ -1014,7 +1001,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="sablings_fence">sablings_fence</span></td>
+                                    <td><span id="fence_reg">fence_reg</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title='nullable'>√</td>
@@ -1053,7 +1040,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="trees_less_4meter_count_factor">trees_less_4meter_count_factor</span></td>
+                                    <td><span id="trees_less_4meter_basal_area_factor">trees_less_4meter_basal_area_factor</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_count_factor&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
@@ -1065,11 +1052,6 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.trees_less_4meter_count_factor references lookup_trees_less_4meter_count_factor.abbreviation via fk_plot_lookuptreesless4metercountfactor"><a href='lookup_trees_less_4meter_count_factor.html'>lookup_trees_less_4meter_count_factor</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookuptreesless4metercountfactor</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>
@@ -1092,7 +1074,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="trees_less_4meter_layer">trees_less_4meter_layer</span></td>
+                                    <td><span id="trees_less_4meter_layer">trees_less_4meter_layer</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_layer&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
@@ -1104,11 +1086,6 @@
                                     </td>
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
-                                            <tr>
-                                                <td title="plot.trees_less_4meter_layer references lookup_trees_less_4meter_layer.abbreviation via fk_plot_lookuptreesless4meterlayer"><a href='lookup_trees_less_4meter_layer.html'>lookup_trees_less_4meter_layer</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_plot_lookuptreesless4meterlayer</td>
-                                                <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
-                                            </tr>
                                         </table>
                                     </td>
                                     <td></td>

@@ -143,6 +143,23 @@
                                     <td></td>
                                 </tr>
                                 <tr>
+                                    <td><span id="interval">interval</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;</td>
+                                    <td>2147483647</td>
+                                    <td title='nullable'>√</td>
+                                    <td title=''></td>
+                                    <td>null</td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table border='0' cellspacing='0' cellpadding='0'>
+                                        </table>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                                <tr>
                                     <td><span id="sort">sort</span></td>
                                     <td>int4</td>
                                     <td>10</td>
@@ -169,13 +186,13 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="cluster.state_administration references lookup_state.abbreviation via fk_tract_lookupstateadministration"><a href='cluster.html'>cluster</a><span class='relatedKey'>.state_administration</span></td>
-                                                <td class="constraint detail">fk_tract_lookupstateadministration</td>
+                                                <td title="cluster.state references lookup_state.abbreviation via fk_tract_lookupstate"><a href='cluster.html'>cluster</a><span class='relatedKey'>.state</span></td>
+                                                <td class="constraint detail">fk_tract_lookupstate</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                             <tr>
-                                                <td title="cluster.state_location references lookup_state.abbreviation via fk_tract_lookupstatelocation"><a href='cluster.html'>cluster</a><span class='relatedKey'>.state_location</span></td>
-                                                <td class="constraint detail">fk_tract_lookupstatelocation</td>
+                                                <td title="cluster.state_responsible references lookup_state.abbreviation via fk_tract_lookupstateresponsible"><a href='cluster.html'>cluster</a><span class='relatedKey'>.state_responsible</span></td>
+                                                <td class="constraint detail">fk_tract_lookupstateresponsible</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
