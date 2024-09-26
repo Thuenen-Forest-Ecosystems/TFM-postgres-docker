@@ -23,7 +23,7 @@ DECLARE
 
     changed_values RECORD;
 
-    wzp_trees_object json;
+    trees_object json;
     username text;
 BEGIN
 
@@ -48,7 +48,6 @@ BEGIN
         INSERT INTO cluster (
             id,
             state_responsible,
-            state,
             states_affected,
             grid_density,
             cluster_status,
@@ -59,7 +58,6 @@ BEGIN
         VALUES (
             (cluster_object->>'id')::int,
             (cluster_object->>'state_responsible')::enum_state,
-            (cluster_object->>'state')::enum_state,
             states_array,
             (cluster_object->>'grid_density')::enum_grid_density,
             (cluster_object->>'cluster_status')::enum_cluster_status,
@@ -70,7 +68,6 @@ BEGIN
         ON CONFLICT (id) DO UPDATE
         SET 
             state_responsible = COALESCE(EXCLUDED.state_responsible, cluster.state_responsible),
-            state = COALESCE(EXCLUDED.state, cluster.state),
             states_affected = COALESCE(EXCLUDED.states_affected, cluster.states_affected),
             grid_density = COALESCE(EXCLUDED.grid_density, cluster.grid_density),
             cluster_status = COALESCE(EXCLUDED.cluster_status, cluster.cluster_status),

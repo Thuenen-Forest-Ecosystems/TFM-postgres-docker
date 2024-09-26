@@ -5,6 +5,8 @@ CREATE TABLE IF NOT EXISTS edges (
     id SERIAL PRIMARY KEY,
 	plot_id INTEGER NOT NULL,
 
+	edge_number INTEGER NOT NULL, -- NEU: Kanten-ID || ToDo: Welchen Mehrwert hat diese ID gegenüber der ID?
+
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,

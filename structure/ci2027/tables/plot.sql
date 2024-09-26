@@ -14,12 +14,12 @@ CREATE TABLE IF NOT EXISTS plot (
 	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
 
     
-	sampling_stratum INTEGER NOT NULL, -- TODO: create enum_sampling_stratum + Lookup from bwineu.Vbl 
-	state enum_state NOT NULL,
+	sampling_stratum INTEGER NOT NULL, -- ToDo: create enum_sampling_stratum + Lookup from bwineu.Vbl 
+	federal_state enum_state NOT NULL,
 
-	geometry Geometry(Point, 4326), -- geom NEU, PostGis wird gebraucht
+	geometry Geometry(Point, 4326), -- geom NEU || ToDo: Sinnvoller benennen
 
-	state_responsible enum_state NOT NULL, -- AufnBl
+	--state_responsible enum_state NOT NULL, -- AufnBl
 
 	growth_district integer  NULL, -- wb
 
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	forest_community TEXT NULL, -- natwgv TODO: in bwineu.b3f_ecke_vorkl
 	forest_community_field enum_forest_community_field NULL, -- natwg
-	ffh_forest_type TEXT NULL, -- natwgv TODO: in bwineu.b3f_ecke_vorkl
+	ffh_forest_type TEXT NULL, -- wlt_v TODO: in bwineu.b3f_ecke_vorkl
 	ffh_forest_type_field enum_ffh_forest_type_field NULL, --wlt
 
 	

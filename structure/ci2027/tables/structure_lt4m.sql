@@ -4,7 +4,6 @@ CREATE TABLE structure_lt4m (
 
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
-	--plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -42,4 +41,4 @@ ALTER TABLE structure_lt4m ADD CONSTRAINT FK_StructureLt4m_LookupTreeSpecies FOR
 --    REFERENCES lookup_regeneration_type (abbreviation);
 
 -- Create example data
-INSERT INTO structure_lt4m (plot_id, tree_species, coverage, regeneration_type) VALUES (1, 1, 10, 1);
+--INSERT INTO structure_lt4m (plot_id, tree_species, coverage, regeneration_type) VALUES (1, 1, 10, 1);

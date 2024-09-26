@@ -1,7 +1,7 @@
 SET search_path TO private_ci2027_001, public;
 
 -- Function to import WZP Trees
-CREATE OR REPLACE FUNCTION set_wzp_tree(parent_id int, json_object json)
+CREATE OR REPLACE FUNCTION set_tree(parent_id int, json_object json)
 RETURNS json AS
 $$
 DECLARE
@@ -20,7 +20,7 @@ BEGIN
         RETURN modified;
     END IF;
 
-    SELECT geometry INTO plot_location_geometry FROM plot_location WHERE plot_location.plot_id = parent_id AND  plot_location.parent_table = 'wzp_tree' LIMIT 1;
+    SELECT geometry INTO plot_location_geometry FROM plot_location WHERE plot_location.plot_id = parent_id AND  plot_location.parent_table = 'tree' LIMIT 1;
     
     CREATE TEMP TABLE IF NOT EXISTS temp_child_ids (id INT);
     TRUNCATE temp_child_ids;
@@ -40,9 +40,9 @@ BEGIN
             new_geometry := NULL;
         END IF;
         
-        INSERT INTO wzp_tree (id, plot_id, azimuth, distance, geometry, tree_species, bhd, bhd_height, tree_id, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, within_stand, stand_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_dead_wood, tree_top_drought)
+        INSERT INTO tree (id, plot_id, azimuth, distance, geometry, tree_species, bhd, bhd_height, tree_id, tree_height, stem_height, tree_height_azimuth, tree_height_distance, tree_age, stem_breakage, stem_form, pruning, pruning_height, within_stand, stand_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_dead_wood, tree_top_drought)
         VALUES (
-            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('wzp_tree_id_seq')),
+            COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('tree_id_seq')),
             parent_id,
             (child_object->>'azimuth')::int,
             (child_object->>'distance')::int,
@@ -108,7 +108,7 @@ BEGIN
             cave_tree = EXCLUDED.cave_tree,
             crown_dead_wood = EXCLUDED.crown_dead_wood,
             tree_top_drought = EXCLUDED.tree_top_drought
-        WHERE wzp_tree.id = EXCLUDED.id
+        WHERE tree.id = EXCLUDED.id
         RETURNING * INTO changed_values;
 
         INSERT INTO temp_child_ids (id) VALUES (changed_values.id);
@@ -119,12 +119,12 @@ BEGIN
 
     END LOOP;
 
-    DELETE FROM wzp_tree WHERE id NOT IN (SELECT id FROM temp_child_ids) AND wzp_tree.plot_id = parent_id;
+    DELETE FROM tree WHERE id NOT IN (SELECT id FROM temp_child_ids) AND tree.plot_id = parent_id;
 
 RETURN modified;
 
 EXCEPTION WHEN others THEN
-        RAISE EXCEPTION 'Error set_wzp_tree: %', SQLERRM; --SQLERRM;
+        RAISE EXCEPTION 'Error set_tree: %', SQLERRM; --SQLERRM;
         RETURN '{}'::json;
 
 END;

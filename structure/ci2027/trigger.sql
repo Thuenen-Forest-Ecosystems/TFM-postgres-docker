@@ -24,7 +24,7 @@ BEFORE UPDATE ON plot_location
 FOR EACH ROW
 EXECUTE FUNCTION update_table();
 
-CREATE TRIGGER trigger_wzp_tree_modified
-BEFORE UPDATE ON wzp_tree
+CREATE TRIGGER trigger_tree_modified
+BEFORE UPDATE ON tree
 FOR EACH ROW
 EXECUTE FUNCTION update_table();

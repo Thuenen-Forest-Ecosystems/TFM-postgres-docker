@@ -27,11 +27,11 @@ BEGIN
 
     -- Insert Plot Location
     INSERT INTO plot_location (plot_id, parent_table, azimuth, distance, radius, geometry, no_entities)
-        VALUES (temp_plot_id, 'wzp_tree',100, 500, 100, ST_SetSRID(ST_MakePoint(20,20), 4326), FALSE)
+        VALUES (temp_plot_id, 'tree',100, 500, 100, ST_SetSRID(ST_MakePoint(20,20), 4326), FALSE)
          RETURNING id INTO temp_location_id;
 
     -- Insert into wzp
-    INSERT INTO wzp_tree (
+    INSERT INTO tree (
         plot_id,
         azimuth,
         distance, 
@@ -85,7 +85,7 @@ BEGIN
         false -- damage_beetle (default value, can be omitted)
     );
      -- Insert into wzp
-    INSERT INTO wzp_tree (
+    INSERT INTO tree (
         plot_id,
         azimuth,
         distance, 

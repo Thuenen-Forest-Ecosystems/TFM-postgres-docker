@@ -20,7 +20,7 @@ DROP TYPE IF EXISTS enum_plot_location_parent_table;
 CREATE TYPE enum_plot_location_parent_table AS ENUM('wzp_tree', 'deadwood', 'edges', 'position', 'sapling_1m', 'sapling_2m'); -- x3_plot
 
 DROP TYPE IF EXISTS enum_interval_name;
-CREATE TYPE enum_interval_name AS ENUM('bwi1992', 'bwi2002', 'bwi2012', 'ci2022', 'ci2027');
+CREATE TYPE enum_interval_name AS ENUM('bwi1987', 'bwi1992', 'bwi2002', 'ci2008', 'bwi2012', 'ci2017', 'ci2022', 'ci2027');
 
 DROP TYPE IF EXISTS enum_regrole;
 CREATE TYPE enum_regtype AS ENUM('int4', 'int8', 'float4', 'float8', 'text', 'varchar', 'date', 'timestamp', 'bool', 'regtype');

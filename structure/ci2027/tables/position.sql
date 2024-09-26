@@ -28,7 +28,7 @@ CREATE TABLE position (
 	start_measurement timestamp NULL, -- UTCStartzeit
 	stop_measurement timestamp NULL, -- UTCStopzeit
 
-	device_gnss varchar(150) NULL, -- Geraet (smallint) || Ist hier ein freies Eingabefeld nicht sinnvoller ???
+	device_gnss varchar(150) NULL, -- Geraet (smallint) || ToDo: Ist hier ein freies Eingabefeld nicht sinnvoller ???
 
 	quality enum_gnss_quality NULL -- GNSS_Qualitaet
 

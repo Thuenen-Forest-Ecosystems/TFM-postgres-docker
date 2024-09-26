@@ -12,15 +12,15 @@ BEGIN
                     'plots', (SELECT COALESCE(json_agg(
                             json_build_object(
                                 'plot', plot.*,
-                                'wzp_tree', (
+                                'tree', (
                                     json_build_object(
-                                        'wzp_tree', (
-                                            SELECT COALESCE(json_agg(row_to_json(wzp_tree)), '[]'::json)
-                                            FROM wzp_tree WHERE wzp_tree.plot_id = plot.id
+                                        'tree', (
+                                            SELECT COALESCE(json_agg(row_to_json(tree)), '[]'::json)
+                                            FROM tree WHERE tree.plot_id = plot.id
                                         ),
                                         'plot_location', (
                                             SELECT row_to_json(plot_location)
-                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'wzp_tree'
+                                            FROM plot_location WHERE plot_location.plot_id = plot.id AND plot_location.parent_table = 'tree'
                                         )
                                     ) 
                                 ),

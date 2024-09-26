@@ -10,7 +10,7 @@ DECLARE
     modified jsonb := '[]'::jsonb;
     modified_element jsonb;
 
-    child_wzp_tree jsonb;
+    child_tree jsonb;
     child_plot_location jsonb;
 
     changed_values RECORD;
@@ -106,7 +106,7 @@ BEGIN
 
         --modified_element := json_build_object(
         --    --'plot', changed_values,
-        --    'wzp_tree', '[]'::json,
+        --    'tree', '[]'::json,
         --    'deadwood', '[]'::json,
         --    'position', '[]'::json,
         --    'plot_location', '[]'::json
@@ -125,29 +125,29 @@ BEGIN
 
         
 
-        IF (child_object->'wzp_tree')::text != 'null' THEN
-            SELECT(set_wzp_tree(changed_values.id, child_object->'wzp_tree')) INTO child_wzp_tree;
+        IF (child_object->'tree')::text != 'null' THEN
+            SELECT(set_tree(changed_values.id, child_object->'tree')) INTO child_tree;
             modified_element := jsonb_set(
                 modified_element,
-                '{wzp_tree}',
-                child_wzp_tree
+                '{tree}',
+                child_tree
             );
         ELSE
             modified_element := jsonb_set(
                 modified_element,
-                '{wzp_tree}',
+                '{tree}',
                 '[]'::json
             );
         END IF;
 
         IF (child_object->'deadwood')::text != 'null' THEN
             
-            SELECT(set_deadwood(changed_values.id, child_object->'deadwood', NULL)) INTO child_wzp_tree;
+            SELECT(set_deadwood(changed_values.id, child_object->'deadwood', NULL)) INTO child_tree;
             
             modified_element := jsonb_set(
                 modified_element,
                 '{deadwood}',
-                child_wzp_tree
+                child_tree
             );
         ELSE
             modified_element := jsonb_set(
@@ -159,12 +159,12 @@ BEGIN
 
         IF (child_object->'position')::text != 'null' THEN
 
-            SELECT(set_position(changed_values.id, child_object->'position')) INTO child_wzp_tree;
+            SELECT(set_position(changed_values.id, child_object->'position')) INTO child_tree;
             
             modified_element := jsonb_set(
                 modified_element,
                 '{position}',
-                child_wzp_tree
+                child_tree
             );
         ELSE
             modified_element := jsonb_set(
@@ -176,12 +176,12 @@ BEGIN
 
         IF (child_object->'edges')::text != 'null' THEN
 
-            SELECT(set_edges(changed_values.id, child_object->'edges',NULL)) INTO child_wzp_tree;
+            SELECT(set_edges(changed_values.id, child_object->'edges',NULL)) INTO child_tree;
             
             modified_element := jsonb_set(
                 modified_element,
                 '{edges}',
-                child_wzp_tree
+                child_tree
             );
 
         ELSE

@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS cluster (
 	topo_map_sheet CK_TopographicMapSheet NULL,
 	
 	state_responsible enum_state NOT NULL,
-	state enum_state NULL,
+	-- state enum_state NULL, -- StandardBl || ToDo: Raus??
 	states_affected enum_state[],
 
 	grid_density enum_grid_density NOT NULL,
@@ -55,7 +55,6 @@ COMMENT ON COLUMN private_ci2027_001.cluster.created_at IS 'Erstellungsdatum';
 COMMENT ON COLUMN private_ci2027_001.cluster.topo_map_sheet IS 'Nummer der topgraphischen Karte 1:25.000';
 
 COMMENT ON COLUMN private_ci2027_001.cluster.state_responsible IS 'Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale';
-COMMENT ON COLUMN private_ci2027_001.cluster.state IS 'Standard-Land für Ecken und Wege, meist wie Aufnahmeland "StandardBl"';
 COMMENT ON COLUMN private_ci2027_001.cluster.states_affected IS 'zugehörige Ländernummer(n), auch mehrere';
 
 COMMENT ON COLUMN private_ci2027_001.cluster.grid_density IS 'Zugehörigkeit zum Stichprobennetz, Netzdichte';
@@ -74,11 +73,6 @@ ALTER TABLE private_ci2027_001.cluster OWNER TO postgres;
 ALTER TABLE cluster
 	ADD CONSTRAINT FK_Tract_LookupStateResponsible
 	FOREIGN KEY (state_responsible)
-	REFERENCES lookup_state (abbreviation);
-
-ALTER TABLE cluster
-	ADD CONSTRAINT FK_Tract_LookupState
-	FOREIGN KEY (state)
 	REFERENCES lookup_state (abbreviation);
 
 

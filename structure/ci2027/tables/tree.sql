@@ -1,6 +1,6 @@
 SET search_path TO private_ci2027_001, public;
 
-CREATE TABLE wzp_tree (
+CREATE TABLE tree (
 	
     id SERIAL PRIMARY KEY,
     plot_id INTEGER NOT NULL,
@@ -10,7 +10,7 @@ CREATE TABLE wzp_tree (
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	tree_id smallint NOT NULL, -- Bnr
+	tree_number smallint NOT NULL, -- Bnr || Mehrwert ggü. ID?
 	tree_marked boolean NOT NULL DEFAULT false, -- Perm 
 	tree_status enum_tree_status NULL, -- Pk
 
@@ -62,32 +62,32 @@ CREATE TABLE wzp_tree (
 
 );
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_Plot FOREIGN KEY (plot_id)
+ALTER TABLE tree ADD CONSTRAINT FK_Tree_Plot FOREIGN KEY (plot_id)
 	REFERENCES plot (id) MATCH SIMPLE
 	ON DELETE CASCADE;
 
---ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_PlotLocation FOREIGN KEY (plot_location_id)
+--ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_PlotLocation FOREIGN KEY (plot_location_id)
 --    REFERENCES plot_location (id) MATCH SIMPLE
 --    ON DELETE CASCADE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeStatus FOREIGN KEY (tree_status)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_TreeStatus FOREIGN KEY (tree_status)
 	REFERENCES lookup_tree_status (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_TreeSpecies FOREIGN KEY (tree_species)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_TreeSpecies FOREIGN KEY (tree_species)
 	REFERENCES lookup_tree_species (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StemBreakage FOREIGN KEY (stem_breakage)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_StemBreakage FOREIGN KEY (stem_breakage)
 	REFERENCES lookup_stem_breakage (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StemForm FOREIGN KEY (stem_form)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_StemForm FOREIGN KEY (stem_form)
 	REFERENCES lookup_stem_form (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_Prunging FOREIGN KEY (pruning)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_Prunging FOREIGN KEY (pruning)
 	REFERENCES lookup_pruning (abbreviation) MATCH SIMPLE;
 
-ALTER TABLE wzp_tree ADD CONSTRAINT FK_WzpTree_StandLayer FOREIGN KEY (stand_layer)
+ALTER TABLE tree ADD CONSTRAINT FK_WzpTree_StandLayer FOREIGN KEY (stand_layer)
 	REFERENCES lookup_stand_layer (abbreviation) MATCH SIMPLE;
 
 
 -- add Example Tree#
--- INSERT INTO wzp_tree (plot_id, tree_number, azimuth, distance, bhd, tree_height, stem_height, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry, damage_bark, biotope_marked, bark_condition)
+-- INSERT INTO tree (plot_id, tree_number, azimuth, distance, bhd, tree_height, stem_height, tree_age, stem_breakage, stem_form, pruning, pruning_height, stand_affiliation, inventory_layer, damage_dead, damage_peel_new, damage_peel_old, damage_logging, damage_fungus, damage_resin, damage_beetle, damage_other, cave_tree, crown_clear, crown_dry, damage_bark, biotope_marked, bark_condition)
