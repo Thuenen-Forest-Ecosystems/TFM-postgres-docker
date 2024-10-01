@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS plot (
 	sampling_stratum INTEGER NOT NULL, -- ToDo: create enum_sampling_stratum + Lookup from bwineu.Vbl 
 	federal_state enum_state NOT NULL,
 
-	geometry Geometry(Point, 4326), -- geom NEU || ToDo: Sinnvoller benennen
+	bottom_left_corner Geometry(Point, 4326), -- geom NEU || ToDo: Sinnvoller benennen
 
 	--state_responsible enum_state NOT NULL, -- AufnBl
 
@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS plot (
 	property_type enum_property_type NULL, -- eg
 	property_size_class enum_property_size_class NULL, -- eggrkl
 
-	forest_community TEXT NULL, -- natwgv TODO: in bwineu.b3f_ecke_vorkl
+	forest_community enum_forest_community_field TEXT NULL, -- natwgv
 	forest_community_field enum_forest_community_field NULL, -- natwg
-	ffh_forest_type TEXT NULL, -- wlt_v TODO: in bwineu.b3f_ecke_vorkl
+	ffh_forest_type enum_ffh_forest_type_field TEXT NULL, -- wlt_v
 	ffh_forest_type_field enum_ffh_forest_type_field NULL, --wlt
 
 	
@@ -113,8 +113,8 @@ CREATE TABLE IF NOT EXISTS plot (
 	stand_layer_reg enum_stand_layer NULL, -- b0_bs
 	fence_reg BOOLEAN NULL DEFAULT FALSE, -- b0_zaun
 
-	trees_less_4meter_mirrored enum_trees_less_4meter_mirrored NULL, -- schigt4_sp (gespiegelt)
-	trees_less_4meter_basal_area_factor enum_trees_less_4meter_count_factor NULL, -- schigt4_zf
+	trees_greater_4meter_mirrored enum_trees_less_4meter_mirrored NULL, -- schigt4_sp (gespiegelt)
+	trees_greater_4meter_basal_area_factor enum_trees_less_4meter_count_factor NULL, -- schigt4_zf
 	trees_less_4meter_coverage smallint NULL, -- schile4_bedg
 	trees_less_4meter_layer enum_trees_less_4meter_layer NULL -- schile4_schi
 
@@ -125,6 +125,9 @@ CREATE TABLE IF NOT EXISTS plot (
 	-- ez9 smallint NULL -- ez9
 );
 
+COMMENT ON TABLE plot IS 'Tabelle für die Erfassung von Ecken';
+COMMENT ON COLUMN plot.forest_community IS 'Natürliche Waldgesellschaft.';
+COMMENT ON COLUMN plot.forest_community_field IS 'Natürliche Waldgesellschaft im Bestand definiert.';
 
 
 ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster FOREIGN KEY (cluster_id)
