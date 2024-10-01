@@ -45,9 +45,9 @@ CREATE TABLE IF NOT EXISTS plot (
 	property_type enum_property_type NULL, -- eg
 	property_size_class enum_property_size_class NULL, -- eggrkl
 
-	forest_community enum_forest_community_field TEXT NULL, -- natwgv
+	forest_community enum_forest_community_field NULL, -- natwgv
 	forest_community_field enum_forest_community_field NULL, -- natwg
-	ffh_forest_type enum_ffh_forest_type_field TEXT NULL, -- wlt_v
+	ffh_forest_type enum_ffh_forest_type_field NULL, -- wlt_v
 	ffh_forest_type_field enum_ffh_forest_type_field NULL, --wlt
 
 	
