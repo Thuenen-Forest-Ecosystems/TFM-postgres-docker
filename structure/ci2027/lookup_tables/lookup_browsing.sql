@@ -7,6 +7,7 @@ ALTER TABLE lookup_browsing ADD COLUMN abbreviation enum_browsing UNIQUE NOT NUL
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
+
 -- Dumped by pg_dump version 14.13 (Homebrew)
 
 
@@ -20,6 +21,7 @@ INSERT INTO lookup_browsing (abbreviation, name_de, name_en, sort, "interval") V
 	('2', 'mehrfacher Verbiss über längeren Zeitraum (einschließlich der letzten 12 Monate)', 'multi', NULL, '{bwi2002,bwi2012}'),
 	('3', 'Verbiss im oberen Drittel an mindestens drei Seitentrieben bei intakter Terminalknospe', NULL, NULL, '{bwi2002,bwi2012}'),
 	('4', 'Verbiss im oberen Drittel an mindestens drei Seitentrieben UND der Terminalknospe', NULL, NULL, '{bwi2002,bwi2012}');
+
 
 
 --
