@@ -7,17 +7,17 @@ ALTER TABLE lookup_tree_species_group ADD COLUMN abbreviation enum_tree_species_
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_tree_species_group; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_tree_species_group; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_tree_species_group (abbreviation, name_de, name_en, sort) VALUES
-	('1', 'Nadelbäume', 'coniferous trees', NULL),
-	('2', 'Laubbäume ohne Eiche', 'deciduous trees without oak', NULL),
-	('3', 'Eiche', 'oak', NULL);
+INSERT INTO lookup_tree_species_group (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('1', 'Nadelbäume', 'coniferous trees', NULL, '{bwi2002,bwi2012}'),
+	('2', 'Laubbäume ohne Eiche', 'deciduous trees without oak', NULL, '{bwi2002,bwi2012}'),
+	('3', 'Eiche', 'oak', NULL, '{bwi2002,bwi2012}');
 
 
 --

@@ -23,7 +23,7 @@ DECLARE
 
     changed_values RECORD;
 
-    wzp_trees_object json;
+    trees_object json;
     username text;
 BEGIN
 
@@ -41,37 +41,36 @@ BEGIN
 
         states_array := ARRAY(
             SELECT elem::enum_state
-            FROM json_array_elements_text(cluster_object->'states') AS elem
+            FROM json_array_elements_text(cluster_object->'states_affected') AS elem
         );
 
         
         INSERT INTO cluster (
             id,
-            state_administration,
-            state_location,
-            states,
-            sampling_strata,
-            cluster_identifier,
+            state_responsible,
+            states_affected,
+            grid_density,
+            cluster_status,
+            cluster_situation,
             select_access_by,
             update_access_by
         )
         VALUES (
             (cluster_object->>'id')::int,
-            (cluster_object->>'state_administration')::enum_state,
-            (cluster_object->>'state_location')::enum_state,
+            (cluster_object->>'state_responsible')::enum_state,
             states_array,
-            (cluster_object->>'sampling_strata')::enum_sampling_strata,
-            (cluster_object->>'cluster_identifier')::enum_cluster_identifier,
+            (cluster_object->>'grid_density')::enum_grid_density,
+            (cluster_object->>'cluster_status')::enum_cluster_status,
+            (cluster_object->>'cluster_situation')::enum_cluster_situation,
             ARRAY(SELECT json_array_elements_text(cluster_object->'select_access_by'))::text[],
             ARRAY(SELECT json_array_elements_text(cluster_object->'update_access_by'))::text[]
         )
         ON CONFLICT (id) DO UPDATE
         SET 
-            state_administration = 'BB', --COALESCE(EXCLUDED.state_administration, cluster.state_administration)
-            state_location = COALESCE(EXCLUDED.state_location, cluster.state_location),
-            states = COALESCE(EXCLUDED.states, cluster.states),
-            sampling_strata = COALESCE(EXCLUDED.sampling_strata, cluster.sampling_strata),
-            cluster_identifier = COALESCE(EXCLUDED.cluster_identifier, cluster.cluster_identifier),
+            state_responsible = COALESCE(EXCLUDED.state_responsible, cluster.state_responsible),
+            states_affected = COALESCE(EXCLUDED.states_affected, cluster.states_affected),
+            grid_density = COALESCE(EXCLUDED.grid_density, cluster.grid_density),
+            cluster_status = COALESCE(EXCLUDED.cluster_status, cluster.cluster_status),
             select_access_by = COALESCE(EXCLUDED.select_access_by, cluster.select_access_by), -- select_access_by = cluster.select_access_by || '{"new item"}'
             update_access_by = COALESCE(EXCLUDED.update_access_by, cluster.update_access_by) -- select_access_by = cluster.select_access_by || '{"new item"}'
         WHERE cluster.id = EXCLUDED.id

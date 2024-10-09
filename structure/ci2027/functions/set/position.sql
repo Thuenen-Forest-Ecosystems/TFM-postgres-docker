@@ -33,7 +33,7 @@ BEGIN
             rtcm_age,
             start_measurement,
             stop_measurement,
-            device_gps,
+            device_gnss,
             quality)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('position_id_seq')),
@@ -47,7 +47,7 @@ BEGIN
             (child_object->>'rtcm_age')::int,
             (child_object->>'start_measurement')::timestamp,
             (child_object->>'stop_measurement')::timestamp,
-            (child_object->>'device_gps')::text,
+            (child_object->>'device_gnss')::text,
             (child_object->>'quality')::enum_gnss_quality
         )
         ON CONFLICT (id) DO UPDATE
@@ -62,7 +62,7 @@ BEGIN
             rtcm_age = COALESCE(EXCLUDED.rtcm_age, position.rtcm_age),
             start_measurement = COALESCE(EXCLUDED.start_measurement, position.start_measurement),
             stop_measurement = COALESCE(EXCLUDED.stop_measurement, position.stop_measurement),
-            device_gps = COALESCE(EXCLUDED.device_gps, position.device_gps),
+            device_gnss = COALESCE(EXCLUDED.device_gnss, position.device_gnss),
             quality = COALESCE(EXCLUDED.quality, position.quality)
             
         WHERE position.id = EXCLUDED.id AND position.plot_id = parent_id

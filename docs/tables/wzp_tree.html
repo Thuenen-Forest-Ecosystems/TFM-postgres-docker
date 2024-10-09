@@ -233,8 +233,8 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="tree_state">tree_state</span></td>
-                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_tree_state&quot;</td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="tree_status">tree_status</span></td>
+                                    <td>&quot;private_ci2027_001&quot;.&quot;enum_tree_status&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
                                     <td title=''></td>
@@ -246,8 +246,8 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="wzp_tree.tree_state references lookup_tree_state.abbreviation via fk_wzptree_treestate"><a href='lookup_tree_state.html'>lookup_tree_state</a><span class='relatedKey'>.abbreviation</span></td>
-                                                <td class="constraint detail">fk_wzptree_treestate</td>
+                                                <td title="wzp_tree.tree_status references lookup_tree_status.abbreviation via fk_wzptree_treestatus"><a href='lookup_tree_status.html'>lookup_tree_status</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td class="constraint detail">fk_wzptree_treestatus</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
                                         </table>
@@ -530,7 +530,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="stand_affiliation">stand_affiliation</span></td>
+                                    <td><span id="within_stand">within_stand</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title='nullable'>√</td>
@@ -547,7 +547,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="inventory_layer">inventory_layer</span></td>
+                                    <td class='foreignKey' title='Foreign Key'><i class='icon ion-key iconkey' style='padding-left: 5px;'></i><span id="stand_layer">stand_layer</span></td>
                                     <td>&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;</td>
                                     <td>2147483647</td>
                                     <td title='nullable'>√</td>
@@ -560,7 +560,7 @@
                                     <td>
                                         <table border='0' cellspacing='0' cellpadding='0'>
                                             <tr>
-                                                <td title="wzp_tree.inventory_layer references lookup_stand_layer.abbreviation via fk_wzptree_standlayer"><a href='lookup_stand_layer.html'>lookup_stand_layer</a><span class='relatedKey'>.abbreviation</span></td>
+                                                <td title="wzp_tree.stand_layer references lookup_stand_layer.abbreviation via fk_wzptree_standlayer"><a href='lookup_stand_layer.html'>lookup_stand_layer</a><span class='relatedKey'>.abbreviation</span></td>
                                                 <td class="constraint detail">fk_wzptree_standlayer</td>
                                                 <td class="constraint detail"><span title='Restrict delete:&#10;Parent cannot be deleted if children exist'>R</span></td>
                                             </tr>
@@ -722,7 +722,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="crown_clear">crown_clear</span></td>
+                                    <td><span id="crown_dead_wood">crown_dead_wood</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title='nullable'>√</td>
@@ -739,7 +739,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="crown_dry">crown_dry</span></td>
+                                    <td><span id="tree_top_drought">tree_top_drought</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title='nullable'>√</td>
@@ -756,7 +756,7 @@
                                     <td></td>
                                 </tr>
                                 <tr>
-                                    <td><span id="damage_bark">damage_bark</span></td>
+                                    <td><span id="bark_pocket">bark_pocket</span></td>
                                     <td>bool</td>
                                     <td>1</td>
                                     <td title='nullable'>√</td>

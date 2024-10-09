@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <database name="tfm" schema="private_ci2027_001" type="PostgreSQL - 13.3 (Debian 13.3-1.pgdg110+1)">
    <sequences>
-      <sequence increment="1" name="cluster_id_seq" startValue="1"/>
       <sequence increment="1" name="deadwood_id_seq" startValue="1"/>
       <sequence increment="1" name="edges_id_seq" startValue="1"/>
       <sequence increment="1" name="plot_id_seq" startValue="1"/>
       <sequence increment="1" name="plot_location_id_seq" startValue="1"/>
       <sequence increment="1" name="position_id_seq" startValue="1"/>
-      <sequence increment="1" name="sapling_1m_id_seq" startValue="1"/>
-      <sequence increment="1" name="sapling_2m_id_seq" startValue="1"/>
+      <sequence increment="1" name="regeneration_id_seq" startValue="1"/>
+      <sequence increment="1" name="structure_lt4m_id_seq" startValue="1"/>
       <sequence increment="1" name="wzp_tree_id_seq" startValue="1"/>
    </sequences>
    <tables>
-      <table name="cluster" numRows="0" remarks="Deine Trakte" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.cluster_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Unique ID des Traktes" size="10" type="serial" typeCode="4">
+      <table name="cluster" numRows="0" remarks="Eindeutige Bezeichung des Traktes" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="id" nullable="false" remarks="Unique ID des Traktes" size="10" type="int4" typeCode="4">
             <child column="cluster_id" foreignKey="fk_plot_cluster" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
          </column>
          <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="1" name="created_at" nullable="false" remarks="Erstellungsdatum" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="null" digits="6" id="2" name="modified_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="3" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="cluster_name" nullable="false" remarks="Eindeutige Bezeichung des Traktes" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="ARRAY[]::text[]" digits="0" id="5" name="select_access_by" nullable="false" remarks="" size="2147483647" type="_text" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="ARRAY[]::text[]" digits="0" id="4" name="select_access_by" nullable="false" remarks="" size="2147483647" type="_text" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="ARRAY[]::text[]" digits="0" id="5" name="update_access_by" nullable="false" remarks="" size="2147483647" type="_text" typeCode="2003"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="supervisor_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_cluster_user_id" implied="false" onDeleteCascade="false" schema="basic_auth" table="users"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="topographic_map_number" nullable="true" remarks="Nummer der topgraphischen Karte 1:25.000" size="10" type="&quot;private_ci2027_001&quot;.&quot;ck_topographicmapnumber&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="state_administration" nullable="false" remarks="Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_tract_lookupstateadministration" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_state"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="topo_map_sheet" nullable="true" remarks="Nummer der topgraphischen Karte 1:25.000" size="10" type="&quot;private_ci2027_001&quot;.&quot;ck_topographicmapsheet&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="state_responsible" nullable="false" remarks="Aufnahme-Bundesland für Feldaufnahmen und ggf. Vorklärungsmerkmale" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_tract_lookupstateresponsible" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_state"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="state_location" nullable="true" remarks="Standard-Land für Ecken und Wege, meist wie Aufnahmeland &quot;AufnBl&quot;, Ausnahmen bei Grenztrakten" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_tract_lookupstatelocation" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_state"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="state" nullable="true" remarks="Standard-Land für Ecken und Wege, meist wie Aufnahmeland &quot;StandardBl&quot;" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_tract_lookupstate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_state"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="states" nullable="true" remarks="zugehörige Ländernummer(n), auch mehrere" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_state&quot;" typeCode="2003"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="sampling_strata" nullable="false" remarks="Zugehörigkeit zum Rasternetz" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_sampling_strata&quot;" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="cluster_identifier" nullable="true" remarks="Traktkennung / Traktkennzeichen lt. Vorklärung durch vTI" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_cluster_identifier&quot;" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="13" name="is_locked" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="states_affected" nullable="true" remarks="zugehörige Ländernummer(n), auch mehrere" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_state&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="grid_density" nullable="false" remarks="Zugehörigkeit zum Stichprobennetz, Netzdichte" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_grid_density&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="cluster_status" nullable="true" remarks="Traktkennung / Traktkennzeichen lt. Vorklärung durch vTI" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_cluster_status&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="cluster_situation" nullable="true" remarks="Lage des Traktes im Vergleich zu Bundesland- und Landesgrenzen" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_cluster_situation&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="14" name="is_locked" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="cluster_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
-         <index name="cluster_cluster_name_key" unique="true">
-            <column ascending="true" name="cluster_name"/>
-         </index>
+         <checkConstraint constraint="(private_ci2027_001.check_select_access_by_emails(select_access_by))" name="check_select_access_by_emails_constraint"/>
+         <checkConstraint constraint="(private_ci2027_001.check_select_access_by_emails(update_access_by))" name="check_update_access_by_emails_constraint"/>
       </table>
       <table name="deadwood" numRows="0" remarks="Deadwood" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.deadwood_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
@@ -78,8 +77,8 @@
          <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="2" name="created_at" nullable="false" remarks="Erstellungszeitpunkt" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="null" digits="6" id="3" name="modified_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="4" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="edge_state" nullable="false" remarks="Kennziffer des Wald-/Bestandesrandes" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_state&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_edge_lookupedgestate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_edge_state"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="edge_status" nullable="false" remarks="Kennziffer des Wald-/Bestandesrandes" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_status&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_edge_lookupedgestatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_edge_status"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="edge_type" nullable="false" remarks="Art des Wald- /Bestandesrandes" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_type&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_edge_lookupedgetype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_edge_type"/>
@@ -94,23 +93,34 @@
          </index>
          <checkConstraint constraint="(st_isvalid(geometry))" name="ck_edges_geometry"/>
       </table>
-      <table name="lookup_bitten" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_browsing" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_bitten&quot;" typeCode="12">
-            <child column="bitten" foreignKey="fk_saplings1m_lookupbitten" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="sapling_1m"/>
-            <child column="bitten" foreignKey="fk_saplings2m_lookupbitten" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="sapling_2m"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_browsing&quot;" typeCode="12">
+            <child column="browsing" foreignKey="fk_saplings2m_lookupbrowsing" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="regeneration"/>
          </column>
-         <index name="lookup_bitten_abbreviation_key" unique="true">
+         <index name="lookup_browsing_abbreviation_key" unique="true">
+            <column ascending="true" name="abbreviation"/>
+         </index>
+      </table>
+      <table name="lookup_cluster_situation" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_cluster_situation&quot;" typeCode="12"/>
+         <index name="lookup_cluster_situation_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_dead_wood_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_dead_wood_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_dead_wood_type&quot;" typeCode="12">
             <child column="dead_wood_type" foreignKey="fk_deadwood_lookupdeadwoodtype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="deadwood"/>
          </column>
          <index name="lookup_dead_wood_type_abbreviation_key" unique="true">
@@ -120,212 +130,194 @@
       <table name="lookup_decomposition" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_decomposition&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_decomposition&quot;" typeCode="12">
             <child column="decomposition" foreignKey="fk_deadwood_lookupdecomposition" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="deadwood"/>
          </column>
          <index name="lookup_decomposition_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_edge_state" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_edge_status" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_state&quot;" typeCode="12">
-            <child column="edge_state" foreignKey="fk_edge_lookupedgestate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="edges"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_status&quot;" typeCode="12">
+            <child column="edge_status" foreignKey="fk_edge_lookupedgestatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="edges"/>
          </column>
-         <index name="lookup_edge_state_abbreviation_key" unique="true">
+         <index name="lookup_edge_status_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_edge_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_edge_type&quot;" typeCode="12">
             <child column="edge_type" foreignKey="fk_edge_lookupedgetype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="edges"/>
          </column>
          <index name="lookup_edge_type_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_forest_decision" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_elevation_level" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_decision&quot;" typeCode="12">
-            <child column="forest_decision" foreignKey="fk_plot_lookupforestdecision" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_elevation_level&quot;" typeCode="12">
+            <child column="elevation_level" foreignKey="fk_plot_lookupelevationlevel" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <index name="lookup_forest_decision_abbreviation_key" unique="true">
+         <index name="lookup_elevation_level_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_forest_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_ffh_forest_type_field" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_type&quot;" typeCode="12">
-            <child column="forest_type" foreignKey="fk_plot_lookupforesttype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <index name="lookup_forest_type_abbreviation_key" unique="true">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_ffh_forest_type_field&quot;" typeCode="12"/>
+         <index name="lookup_ffh_forest_type_field_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_forestry_department" numRows="814" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_forest_community_field" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="10" type="int4" typeCode="4">
-            <child column="forestry_department" foreignKey="fk_plot_lookupforestrydepartment" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_community_field&quot;" typeCode="12"/>
+         <index name="lookup_forest_community_field_abbreviation_key" unique="true">
+            <column ascending="true" name="abbreviation"/>
+         </index>
+      </table>
+      <table name="lookup_forest_office" numRows="814" remarks="" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="phone" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
+         <index name="lookup_forest_office_abbreviation_key" unique="true">
+            <column ascending="true" name="abbreviation"/>
+         </index>
+      </table>
+      <table name="lookup_forest_status" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_status&quot;" typeCode="12">
+            <child column="forest_status" foreignKey="fk_plot_lookupforeststatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="phone" nullable="true" remarks="" size="20" type="varchar" typeCode="12"/>
-         <index name="lookup_forestry_department_abbreviation_key" unique="true">
+         <index name="lookup_forest_status_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_gnss_quality" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_gnss_quality&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_gnss_quality&quot;" typeCode="12">
             <child column="quality" foreignKey="fk_position_lookupgnssquality" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="position"/>
          </column>
          <index name="lookup_gnss_quality_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_growth_area" numRows="83" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_grid_density" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="10" type="int4" typeCode="4">
-            <child column="district_area" foreignKey="fk_lookupgrowtharea" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_growth_district"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="states" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_state&quot;" typeCode="2003"/>
-         <index name="lookup_growth_area_abbreviation_key" unique="true">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_grid_density&quot;" typeCode="12"/>
+         <index name="lookup_grid_density_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_growth_district" numRows="696" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_growth_district" numRows="695" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="10" type="int4" typeCode="4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="5" type="int2" typeCode="5">
             <child column="growth_district" foreignKey="fk_plot_lookupgrowthdistrict" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="states" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_state&quot;" typeCode="2003"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="district_area" nullable="false" remarks="" size="10" type="int4" typeCode="4">
-            <parent column="abbreviation" foreignKey="fk_lookupgrowtharea" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_growth_area"/>
-         </column>
          <index name="lookup_growth_district_abbreviation_key" unique="true">
-            <column ascending="true" name="abbreviation"/>
-         </index>
-      </table>
-      <table name="lookup_habitat_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_habitat_type&quot;" typeCode="12">
-            <child column="habitat_type" foreignKey="fk_plot_lookuphabitattype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <index name="lookup_habitat_type_abbreviation_key" unique="true">
-            <column ascending="true" name="abbreviation"/>
-         </index>
-      </table>
-      <table name="lookup_habitat_type_source" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_habitat_type_source&quot;" typeCode="12">
-            <child column="habitat_type_source" foreignKey="fk_plot_lookuphabitattypesource" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <index name="lookup_habitat_type_source_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_harvesting_method" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_harvesting_method&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_harvesting_method&quot;" typeCode="12">
             <child column="harvesting_method" foreignKey="fk_plot_lookupharvestingmethod" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_harvesting_method_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_height_layer_class" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_height_layer_class&quot;" typeCode="12">
-            <child column="height_layer_class" foreignKey="fk_plot_lookupheightlayerclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <index name="lookup_height_layer_class_abbreviation_key" unique="true">
-            <column ascending="true" name="abbreviation"/>
-         </index>
-      </table>
       <table name="lookup_land_use" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;" typeCode="12">
-            <child column="land_use" foreignKey="fk_plot_lookuplanduse" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;" typeCode="12">
+            <child column="land_use_after" foreignKey="fk_plot_lookuplanduse" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_land_use_abbreviation_key" unique="true">
-            <column ascending="true" name="abbreviation"/>
-         </index>
-      </table>
-      <table name="lookup_layer_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_layer_type&quot;" typeCode="12">
-            <child column="layer_type" foreignKey="fk_plot_lookuplayertype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <index name="lookup_layer_type_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_management_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_management_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_management_type&quot;" typeCode="12">
             <child column="management_type" foreignKey="fk_plot_lookupmanagementtype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_management_type_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_marking_profile" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_marker_profile" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marking_profile&quot;" typeCode="12">
-            <child column="marking_profile" foreignKey="fk_plot_lookupmarkingprofile" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marker_profile&quot;" typeCode="12">
+            <child column="marker_profile" foreignKey="fk_plot_lookupmarkerprofile" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <index name="lookup_marking_profile_abbreviation_key" unique="true">
+         <index name="lookup_marker_profile_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_marking_state" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_marker_status" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marking_state&quot;" typeCode="12">
-            <child column="marking_state" foreignKey="fk_plot_lookupmarkingstate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marker_status&quot;" typeCode="12">
+            <child column="marker_status" foreignKey="fk_plot_lookupmarkerstatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <index name="lookup_marking_state_abbreviation_key" unique="true">
+         <index name="lookup_marker_status_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_property_size_class" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_size_class&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_size_class&quot;" typeCode="12">
             <child column="property_size_class" foreignKey="fk_plot_lookuppropertysizeclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_property_size_class_abbreviation_key" unique="true">
@@ -335,8 +327,9 @@
       <table name="lookup_property_type" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_type&quot;" typeCode="12">
             <child column="property_type" foreignKey="fk_plot_lookuppropertytype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_property_type_abbreviation_key" unique="true">
@@ -346,55 +339,60 @@
       <table name="lookup_pruning" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_pruning&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_pruning&quot;" typeCode="12">
             <child column="pruning" foreignKey="fk_wzptree_prunging" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <index name="lookup_pruning_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_sampling_strata" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_stand_dev_phase" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_sampling_strata&quot;" typeCode="12">
-            <child column="sampling_strata" foreignKey="fk_plot_samplingstrata" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_dev_phase&quot;" typeCode="12">
+            <child column="stand_dev_phase" foreignKey="fk_plot_lookupstanddevphase" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <index name="lookup_sampling_strata_abbreviation_key" unique="true">
+         <index name="lookup_stand_dev_phase_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_stand_layer" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
-            <child column="sablings_layer" foreignKey="fk_plot_lookupstandlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-            <child column="inventory_layer" foreignKey="fk_wzptree_standlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
+            <child column="stand_layer_reg" foreignKey="fk_plot_lookupstandlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+            <child column="stand_layer" foreignKey="fk_wzptree_standlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <index name="lookup_stand_layer_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_stand_phase" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_stand_structure" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_phase&quot;" typeCode="12">
-            <child column="stand_phase" foreignKey="fk_plot_lookupstandphase" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_structure&quot;" typeCode="12">
+            <child column="stand_structure" foreignKey="fk_plot_lookupstandstructure" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
-         <index name="lookup_stand_phase_abbreviation_key" unique="true">
+         <index name="lookup_stand_structure_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_state" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
-            <child column="state_administration" foreignKey="fk_tract_lookupstateadministration" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="cluster"/>
-            <child column="state_location" foreignKey="fk_tract_lookupstatelocation" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="cluster"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12">
+            <child column="state" foreignKey="fk_tract_lookupstate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="cluster"/>
+            <child column="state_responsible" foreignKey="fk_tract_lookupstateresponsible" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="cluster"/>
          </column>
          <index name="lookup_state_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
@@ -403,8 +401,9 @@
       <table name="lookup_stem_breakage" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stem_breakage&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stem_breakage&quot;" typeCode="12">
             <child column="stem_breakage" foreignKey="fk_wzptree_stembreakage" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <index name="lookup_stem_breakage_abbreviation_key" unique="true">
@@ -414,8 +413,9 @@
       <table name="lookup_stem_form" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stem_form&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stem_form&quot;" typeCode="12">
             <child column="stem_form" foreignKey="fk_wzptree_stemform" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <index name="lookup_stem_form_abbreviation_key" unique="true">
@@ -425,13 +425,15 @@
       <table name="lookup_template" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="false" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="false" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
       </table>
       <table name="lookup_terrain" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain&quot;" typeCode="12">
             <child column="terrain" foreignKey="fk_edge_lookupterrain" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="edges"/>
          </column>
          <index name="lookup_terrain_abbreviation_key" unique="true">
@@ -441,8 +443,9 @@
       <table name="lookup_terrain_form" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain_form&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain_form&quot;" typeCode="12">
             <child column="terrain_form" foreignKey="fk_plot_lookupterrainform" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_terrain_form_abbreviation_key" unique="true">
@@ -452,9 +455,10 @@
       <table name="lookup_tree_size_class" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_size_class&quot;" typeCode="12">
-            <child column="tree_size_class" foreignKey="fk_saplings2m_lookuptreesizeclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="sapling_2m"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_size_class&quot;" typeCode="12">
+            <child column="tree_size_class" foreignKey="fk_saplings2m_lookuptreesizeclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="regeneration"/>
          </column>
          <index name="lookup_tree_size_class_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
@@ -463,10 +467,11 @@
       <table name="lookup_tree_species" numRows="125" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="5" type="int2" typeCode="5">
-            <child column="tree_species" foreignKey="fk_saplings1m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="sapling_1m"/>
-            <child column="tree_species" foreignKey="fk_saplings2m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="sapling_2m"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="5" type="int2" typeCode="5">
+            <child column="tree_species" foreignKey="fk_saplings2m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="regeneration"/>
+            <child column="tree_species" foreignKey="fk_structurelt4m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="structure_lt4m"/>
             <child column="tree_species" foreignKey="fk_wzptree_treespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <index name="lookup_tree_species_abbreviation_key" unique="true">
@@ -476,32 +481,33 @@
       <table name="lookup_tree_species_group" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_species_group&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_species_group&quot;" typeCode="12">
             <child column="tree_species_group" foreignKey="fk_deadwood_lookuptreespeciesgroup" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="deadwood"/>
          </column>
          <index name="lookup_tree_species_group_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
-      <table name="lookup_tree_state" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
+      <table name="lookup_tree_status" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_state&quot;" typeCode="12">
-            <child column="tree_state" foreignKey="fk_wzptree_treestate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_status&quot;" typeCode="12">
+            <child column="tree_status" foreignKey="fk_wzptree_treestatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
-         <index name="lookup_tree_state_abbreviation_key" unique="true">
+         <index name="lookup_tree_status_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
       </table>
       <table name="lookup_trees_less_4meter_count_factor" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_count_factor&quot;" typeCode="12">
-            <child column="trees_less_4meter_count_factor" foreignKey="fk_plot_lookuptreesless4metercountfactor" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_count_factor&quot;" typeCode="12"/>
          <index name="lookup_trees_less_4meter_count_factor_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
@@ -509,10 +515,9 @@
       <table name="lookup_trees_less_4meter_layer" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_layer&quot;" typeCode="12">
-            <child column="trees_less_4meter_layer" foreignKey="fk_plot_lookuptreesless4meterlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_layer&quot;" typeCode="12"/>
          <index name="lookup_trees_less_4meter_layer_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
@@ -520,8 +525,9 @@
       <table name="lookup_trees_less_4meter_mirrored" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_mirrored&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_mirrored&quot;" typeCode="12">
             <child column="trees_less_4meter_mirrored" foreignKey="fk_plot_lookuptreesless4metermirrored" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
          </column>
          <index name="lookup_trees_less_4meter_mirrored_abbreviation_key" unique="true">
@@ -531,8 +537,9 @@
       <table name="lookup_trees_less_4meter_origin" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_origin&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_origin&quot;" typeCode="12"/>
          <index name="lookup_trees_less_4meter_origin_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
@@ -540,10 +547,9 @@
       <table name="lookup_use_restriction" numRows="0" remarks="" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="false" defaultValue="null" digits="0" id="0" name="name_de" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="name_en" nullable="true" remarks="" size="150" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_use_restriction&quot;" typeCode="12">
-            <child column="use_restriction" foreignKey="fk_plot_lookupuserestriction" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="plot"/>
-         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="interval" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_interval_name&quot;" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="3" name="sort" nullable="true" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="4" name="abbreviation" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_use_restriction&quot;" typeCode="12"/>
          <index name="lookup_use_restriction_abbreviation_key" unique="true">
             <column ascending="true" name="abbreviation"/>
          </index>
@@ -554,8 +560,8 @@
             <child column="plot_id" foreignKey="fk_edges_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="edges"/>
             <child column="plot_id" foreignKey="fk_plot_location_plot_id" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot_location"/>
             <child column="plot_id" foreignKey="fk_position_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="position"/>
-            <child column="plot_id" foreignKey="fk_saplings1m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="sapling_1m"/>
-            <child column="plot_id" foreignKey="fk_saplings2m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="sapling_2m"/>
+            <child column="plot_id" foreignKey="fk_saplings2m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="regeneration"/>
+            <child column="plot_id" foreignKey="fk_structurelt4m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="structure_lt4m"/>
             <child column="plot_id" foreignKey="fk_wzptree_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="wzp_tree"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="cluster_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
@@ -566,95 +572,80 @@
          <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="4" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
          <column autoUpdated="false" defaultValue="'ci2027'::private_ci2027_001.enum_interval_name" digits="0" id="5" name="interval_name" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_interval_name&quot;" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="plot_name" nullable="false" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_plot_name&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="sampling_strata" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_sampling_strata&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_samplingstrata" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_sampling_strata"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="state_administration" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="state_collect" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="geometry" nullable="true" remarks="" size="2147483647" type="geometry" typeCode="1111"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="growth_district" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="sampling_stratum" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="state" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_state&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="geometry" nullable="true" remarks="" size="2147483647" type="geometry" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="growth_district" nullable="true" remarks="" size="10" type="int4" typeCode="4">
             <parent column="abbreviation" foreignKey="fk_plot_lookupgrowthdistrict" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_growth_district"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="forest_decision" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_decision&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupforestdecision" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_forest_decision"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="forest_status" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_status&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupforeststatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_forest_status"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="accessibility" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="forestry_department" nullable="true" remarks="" size="5" type="int2" typeCode="5">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupforestrydepartment" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_forestry_department"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="accessibility" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="13" name="forest_office" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="14" name="elevation_level" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_elevation_level&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupelevationlevel" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_elevation_level"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="height_layer_class" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_height_layer_class&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupheightlayerclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_height_layer_class"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="property_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="property_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_type&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookuppropertytype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_property_type"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="property_size_class" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_size_class&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="property_size_class" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_property_size_class&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookuppropertysizeclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_property_size_class"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="forest_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_type&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupforesttype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_forest_type"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="habitat_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_habitat_type&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookuphabitattype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_habitat_type"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="habitat_type_source" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_habitat_type_source&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookuphabitattypesource" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_habitat_type_source"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="21" name="use_restriction" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_use_restriction&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupuserestriction" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_use_restriction"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="land_use" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="17" name="forest_community" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="18" name="forest_community_field" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_forest_community_field&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="19" name="ffh_forest_type" nullable="true" remarks="" size="2147483647" type="text" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="20" name="ffh_forest_type_field" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_ffh_forest_type_field&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="21" name="land_use_before" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="land_use_after" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_land_use&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookuplanduse" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_land_use"/>
          </column>
          <column autoUpdated="false" defaultValue="false" digits="0" id="23" name="coast" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="24" name="sandy" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="25" name="conservation_area" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="25" name="protected_landscape" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="26" name="histwald" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="'{}'::private_ci2027_001.enum_use_restriction_reason[]" digits="0" id="27" name="use_restriction_reasons" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;_enum_use_restriction_reason&quot;" typeCode="2003"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="28" name="landmark_azimuth" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="29" name="landmark_distance" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="30" name="landmark_note" nullable="true" remarks="" size="12" type="varchar" typeCode="12"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="31" name="marking_state" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marking_state&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupmarkingstate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_marking_state"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="27" name="harvest_restriction" nullable="false" remarks="" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="'{}'::integer[]" digits="0" id="28" name="harvest_restriction_source" nullable="false" remarks="" size="10" type="_int4" typeCode="2003"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="29" name="landmark_azimuth" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="30" name="landmark_distance" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="31" name="landmark_note" nullable="true" remarks="" size="12" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="32" name="marker_status" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marker_status&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupmarkerstatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_marker_status"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="32" name="marking_azimuth" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="33" name="marking_distance" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="34" name="marking_profile" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marking_profile&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupmarkingprofile" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_marking_profile"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="33" name="marker_azimuth" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="34" name="marker_distance" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="35" name="marker_profile" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_marker_profile&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupmarkerprofile" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_marker_profile"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="35" name="terrain_form" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain_form&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="36" name="terrain_form" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_terrain_form&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookupterrainform" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_terrain_form"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="36" name="terrain_slope" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_slope_degree&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="37" name="terrain_exposure" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="38" name="management_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_management_type&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="37" name="terrain_slope" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_slope_degree&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="38" name="terrain_exposure" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="39" name="management_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_management_type&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookupmanagementtype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_management_type"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="39" name="harvesting_method" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_harvesting_method&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="40" name="harvesting_method" nullable="false" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_harvesting_method&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookupharvestingmethod" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_harvesting_method"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="40" name="biotope" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_biotope&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="41" name="layer_type" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_layer_type&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookuplayertype" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_layer_type"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="41" name="biotope" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_biotope&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="42" name="stand_structure" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_structure&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupstandstructure" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_stand_structure"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="42" name="stand_age" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_stand_age&quot;" typeCode="2001"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="43" name="stand_phase" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_phase&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookupstandphase" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_stand_phase"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="43" name="stand_age" nullable="true" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_stand_age&quot;" typeCode="2001"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="44" name="stand_dev_phase" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_dev_phase&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_plot_lookupstanddevphase" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_stand_dev_phase"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="44" name="sablings_layer" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="45" name="stand_layer_reg" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookupstandlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_stand_layer"/>
          </column>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="45" name="sablings_fence" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="46" name="trees_less_4meter_mirrored" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_mirrored&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="false" digits="0" id="46" name="fence_reg" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="47" name="trees_less_4meter_mirrored" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_mirrored&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_plot_lookuptreesless4metermirrored" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_trees_less_4meter_mirrored"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="47" name="trees_less_4meter_count_factor" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_count_factor&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookuptreesless4metercountfactor" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_trees_less_4meter_count_factor"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="48" name="trees_less_4meter_coverage" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="49" name="trees_less_4meter_layer" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_layer&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_plot_lookuptreesless4meterlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_trees_less_4meter_layer"/>
-         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="48" name="trees_less_4meter_basal_area_factor" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_count_factor&quot;" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="49" name="trees_less_4meter_coverage" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="50" name="trees_less_4meter_layer" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_trees_less_4meter_layer&quot;" typeCode="12"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
          <index name="plot_pkey" unique="true">
             <column ascending="true" name="id"/>
@@ -667,8 +658,8 @@
       <table name="plot_location" numRows="0" remarks="Sub Plots" schema="private_ci2027_001" type="TABLE">
          <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.plot_location_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4">
             <child column="plot_location_id" foreignKey="fk_position_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="position"/>
-            <child column="plot_location_id" foreignKey="fk_saplings1m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="sapling_1m"/>
-            <child column="plot_location_id" foreignKey="fk_saplings2m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="sapling_2m"/>
+            <child column="plot_location_id" foreignKey="fk_saplings2m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="regeneration"/>
+            <child column="plot_location_id" foreignKey="fk_structurelt4m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="structure_lt4m"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_plot_location_plot_id" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
@@ -711,7 +702,7 @@
          <column autoUpdated="false" defaultValue="null" digits="17" id="12" name="rtcm_age" nullable="true" remarks="RTCM Age" size="17" type="float8" typeCode="8"/>
          <column autoUpdated="false" defaultValue="null" digits="6" id="13" name="start_measurement" nullable="true" remarks="Start Measurement" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="null" digits="6" id="14" name="stop_measurement" nullable="true" remarks="Stop Measurement" size="29" type="timestamp" typeCode="93"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="device_gps" nullable="true" remarks="Device GPS" size="150" type="varchar" typeCode="12"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="15" name="device_gnss" nullable="true" remarks="Device GNSS" size="150" type="varchar" typeCode="12"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="16" name="quality" nullable="true" remarks="Quality of GNSS" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_gnss_quality&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_position_lookupgnssquality" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_gnss_quality"/>
          </column>
@@ -720,33 +711,8 @@
             <column ascending="true" name="id"/>
          </index>
       </table>
-      <table name="sapling_1m" numRows="0" remarks="Sub Plot Saplings" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.sapling_1m_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="Foreign Key to Plot.id" size="10" type="int4" typeCode="4">
-            <parent column="id" foreignKey="fk_saplings1m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="plot_location_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
-            <parent column="id" foreignKey="fk_saplings1m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot_location"/>
-         </column>
-         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
-         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="modified_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
-         <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="5" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="stand_affiliation" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="tree_species" nullable="true" remarks="Baumart" size="5" type="int2" typeCode="5">
-            <parent column="abbreviation" foreignKey="fk_saplings1m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_species"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="bitten" nullable="false" remarks="Einfacher oder mehrfacher Verbiss der Terminalknospe" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_bitten&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_saplings1m_lookupbitten" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_bitten"/>
-         </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="protection_individual" nullable="true" remarks="Einzelschutz der Bäume" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="quantity" nullable="false" remarks="Anzahl gleichartiger Bäume" size="5" type="int2" typeCode="5"/>
-         <primaryKey column="id" sequenceNumberInPK="1"/>
-         <index name="sapling_1m_pkey" unique="true">
-            <column ascending="true" name="id"/>
-         </index>
-      </table>
-      <table name="sapling_2m" numRows="0" remarks="Sub Plot Saplings" schema="private_ci2027_001" type="TABLE">
-         <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.sapling_2m_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
+      <table name="regeneration" numRows="0" remarks="Sub Plot Saplings" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.regeneration_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="Foreign Key to Plot.id" size="10" type="int4" typeCode="4">
             <parent column="id" foreignKey="fk_saplings2m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
          </column>
@@ -756,21 +722,41 @@
          <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="modified_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
          <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="5" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="stand_affiliation" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="tree_species" nullable="true" remarks="Baumart" size="5" type="int2" typeCode="5">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="tree_species" nullable="true" remarks="Baumart" size="5" type="int2" typeCode="5">
             <parent column="abbreviation" foreignKey="fk_saplings2m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_species"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="bitten" nullable="false" remarks="Einfacher oder mehrfacher Verbiss der Terminalknospe" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_bitten&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_saplings2m_lookupbitten" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_bitten"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="browsing" nullable="false" remarks="Einfacher oder mehrfacher Verbiss der Terminalknospe" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_browsing&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_saplings2m_lookupbrowsing" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_browsing"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="tree_size_class" nullable="true" remarks="Größenklasse" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_size_class&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="tree_size_class" nullable="true" remarks="Größenklasse" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_size_class&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_saplings2m_lookuptreesizeclass" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_size_class"/>
          </column>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="damage_peel" nullable="true" remarks="Schälschaden" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="protection_individual" nullable="true" remarks="Einzelschutz der Bäume" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="12" name="quantity" nullable="false" remarks="Anzahl gleichartiger Bäume" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="damage_peel" nullable="true" remarks="Schälschaden" size="5" type="int2" typeCode="5"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="10" name="protection_individual" nullable="true" remarks="Einzelschutz der Bäume" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="11" name="count" nullable="false" remarks="Anzahl gleichartiger Bäume" size="5" type="int2" typeCode="5"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
-         <index name="sapling_2m_pkey" unique="true">
+         <index name="regeneration_pkey" unique="true">
+            <column ascending="true" name="id"/>
+         </index>
+      </table>
+      <table name="structure_lt4m" numRows="0" remarks="Probekreis mit 10 m Radius für die Erfassung der Jungbestockung - Bäume bis 4 m Höhe" schema="private_ci2027_001" type="TABLE">
+         <column autoUpdated="true" defaultValue="nextval('private_ci2027_001.structure_lt4m_id_seq'::regclass)" digits="0" id="0" name="id" nullable="false" remarks="Primary Key" size="10" type="serial" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="1" name="plot_id" nullable="false" remarks="Foreign Key to Plot.id" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="fk_structurelt4m_plot" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="2" name="plot_location_id" nullable="true" remarks="" size="10" type="int4" typeCode="4">
+            <parent column="id" foreignKey="fk_structurelt4m_plotlocation" implied="false" onDeleteCascade="true" schema="private_ci2027_001" table="plot_location"/>
+         </column>
+         <column autoUpdated="false" defaultValue="CURRENT_TIMESTAMP" digits="6" id="3" name="created_at" nullable="false" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="null" digits="6" id="4" name="modified_at" nullable="true" remarks="" size="29" type="timestamp" typeCode="93"/>
+         <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="5" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="6" name="tree_species" nullable="true" remarks="Baumart" size="5" type="int2" typeCode="5">
+            <parent column="abbreviation" foreignKey="fk_structurelt4m_lookuptreespecies" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_species"/>
+         </column>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="coverage" nullable="false" remarks="Anteil der Baumart in Zehntel (Deckungsgrad entspricht 10 Zehntel = 100 %)" size="10" type="int4" typeCode="4"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="regeneration_type" nullable="true" remarks="Verjüngungsart der Baumart" size="10" type="int4" typeCode="4"/>
+         <primaryKey column="id" sequenceNumberInPK="1"/>
+         <index name="structure_lt4m_pkey" unique="true">
             <column ascending="true" name="id"/>
          </index>
       </table>
@@ -784,8 +770,8 @@
          <column autoUpdated="false" defaultValue="(CURRENT_USER)::regrole" digits="0" id="4" name="modified_by" nullable="true" remarks="" size="2147483647" type="regrole" typeCode="1111"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="5" name="tree_number" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="6" name="tree_marked" nullable="false" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="tree_state" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_state&quot;" typeCode="12">
-            <parent column="abbreviation" foreignKey="fk_wzptree_treestate" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_state"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="7" name="tree_status" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_tree_status&quot;" typeCode="12">
+            <parent column="abbreviation" foreignKey="fk_wzptree_treestatus" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_tree_status"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="8" name="azimuth" nullable="false" remarks="" size="5" type="&quot;private_ci2027_001&quot;.&quot;ck_gon&quot;" typeCode="2001"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="9" name="distance" nullable="false" remarks="" size="5" type="int2" typeCode="5"/>
@@ -810,8 +796,8 @@
             <parent column="abbreviation" foreignKey="fk_wzptree_prunging" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_pruning"/>
          </column>
          <column autoUpdated="false" defaultValue="null" digits="0" id="22" name="pruning_height" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="23" name="stand_affiliation" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="null" digits="0" id="24" name="inventory_layer" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
+         <column autoUpdated="false" defaultValue="false" digits="0" id="23" name="within_stand" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="null" digits="0" id="24" name="stand_layer" nullable="true" remarks="" size="2147483647" type="&quot;private_ci2027_001&quot;.&quot;enum_stand_layer&quot;" typeCode="12">
             <parent column="abbreviation" foreignKey="fk_wzptree_standlayer" implied="false" onDeleteCascade="false" schema="private_ci2027_001" table="lookup_stand_layer"/>
          </column>
          <column autoUpdated="false" defaultValue="false" digits="0" id="25" name="damage_dead" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
@@ -823,9 +809,9 @@
          <column autoUpdated="false" defaultValue="false" digits="0" id="31" name="damage_beetle" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="32" name="damage_other" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="33" name="cave_tree" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="34" name="crown_clear" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="35" name="crown_dry" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
-         <column autoUpdated="false" defaultValue="false" digits="0" id="36" name="damage_bark" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="34" name="crown_dead_wood" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="35" name="tree_top_drought" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
+         <column autoUpdated="false" defaultValue="false" digits="0" id="36" name="bark_pocket" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="false" digits="0" id="37" name="biotope_marked" nullable="true" remarks="" size="1" type="bool" typeCode="-7"/>
          <column autoUpdated="false" defaultValue="null" digits="0" id="38" name="bark_condition" nullable="true" remarks="" size="5" type="int2" typeCode="5"/>
          <primaryKey column="id" sequenceNumberInPK="1"/>
@@ -835,7 +821,7 @@
       </table>
    </tables>
    <routines>
-      <routine dataAccess="MODIFIES" deterministic="false" name="apply_rls_policy(table_name text, policy_name text, role_name text, column_name text DEFAULT NULL::text)" returnType="json" securityType="INVOKER" type="FUNCTION">
+      <routine dataAccess="MODIFIES" deterministic="false" name="apply_rls_policy(table_name text, policy_name text, role_name text, column_name text DEFAULT NULL::text)" returnType="json" securityType="DEFINER" type="FUNCTION">
          <comment/>
          <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
@@ -857,10 +843,33 @@
             <parameter mode="IN" name="restricted_column" type="text"/>
          </parameters>
       </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="check_select_access_by_emails(select_access_by text[])" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="select_access_by" type="text[]"/>
+         </parameters>
+      </routine>
       <routine dataAccess="MODIFIES" deterministic="false" name="check_update_permission(table_name text, column_name text)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
+            <parameter mode="IN" name="table_name" type="text"/>
+            <parameter mode="IN" name="column_name" type="text"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="get_column_permissions(p_table_name text)" returnType="json" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="p_table_name" type="text"/>
+         </parameters>
+      </routine>
+      <routine dataAccess="MODIFIES" deterministic="false" name="has_column_privilege(user_name text, table_name text, column_name text)" returnType="boolean" securityType="INVOKER" type="FUNCTION">
+         <comment/>
+         <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
+         <parameters>
+            <parameter mode="IN" name="user_name" type="text"/>
             <parameter mode="IN" name="table_name" type="text"/>
             <parameter mode="IN" name="column_name" type="text"/>
          </parameters>
@@ -879,7 +888,7 @@
             <parameter mode="IN"/>
          </parameters>
       </routine>
-      <routine dataAccess="MODIFIES" deterministic="false" name="remove_rls_policy_and_trigger(table_name text, policy_name text, column_name text DEFAULT NULL::text)" returnType="void" securityType="INVOKER" type="FUNCTION">
+      <routine dataAccess="MODIFIES" deterministic="false" name="remove_rls_policy_and_trigger(table_name text, policy_name text, column_name text DEFAULT NULL::text)" returnType="json" securityType="DEFINER" type="FUNCTION">
          <comment/>
          <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
@@ -888,11 +897,11 @@
             <parameter mode="IN" name="column_name" type="text"/>
          </parameters>
       </routine>
-      <routine dataAccess="MODIFIES" deterministic="false" name="set_cluster(clusters json)" returnType="json" securityType="INVOKER" type="FUNCTION">
+      <routine dataAccess="MODIFIES" deterministic="false" name="set_cluster(json_object json)" returnType="json" securityType="INVOKER" type="FUNCTION">
          <comment/>
          <definition language="plpgsql"><![CDATA[Redacted, use --include-routine-definition]]></definition>
          <parameters>
-            <parameter mode="IN" name="clusters" type="json"/>
+            <parameter mode="IN" name="json_object" type="json"/>
          </parameters>
       </routine>
       <routine dataAccess="MODIFIES" deterministic="false" name="set_deadwood(parent_id integer, json_object json, plot_location_id integer)" returnType="json" securityType="INVOKER" type="FUNCTION">

@@ -7,17 +7,17 @@ ALTER TABLE lookup_stem_breakage ADD COLUMN abbreviation enum_stem_breakage UNIQ
 --
 
 -- Dumped from database version 13.3 (Debian 13.3-1.pgdg110+1)
--- Dumped by pg_dump version 14.11 (Homebrew)
+-- Dumped by pg_dump version 14.13 (Homebrew)
 
 
 --
--- Data for Name: lookup_stem_breakage; Type: TABLE DATA; Schema: public; Owner: postgres
+-- Data for Name: lookup_stem_breakage; Type: TABLE DATA; Schema: nfi2022; Owner: postgres
 --
 
-INSERT INTO lookup_stem_breakage (abbreviation, name_de, name_en, sort) VALUES
-	('0', 'kein Schaftbruch', 'no broken stem', NULL),
-	('1', 'Wipfelbruch (abgebrochener Teil bis 3 m Länge)', 'broken top (length of broken part up to 3 m)', NULL),
-	('2', 'Kronenbruch (abgebrochener Teil über 3 m Länge)', 'broken crown (length of broken part more than 3 m)', NULL);
+INSERT INTO lookup_stem_breakage (abbreviation, name_de, name_en, sort, "interval") VALUES
+	('0', 'kein Schaftbruch', 'no broken stem', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('1', 'Wipfelbruch (abgebrochener Teil bis 3 m Länge)', 'broken top (length of broken part up to 3 m)', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('2', 'Kronenbruch (abgebrochener Teil über 3 m Länge)', 'broken crown (length of broken part more than 3 m)', NULL, '{bwi1992,bwi2002,bwi2012}');
 
 
 --

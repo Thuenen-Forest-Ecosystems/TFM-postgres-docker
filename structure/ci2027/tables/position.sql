@@ -28,7 +28,7 @@ CREATE TABLE position (
 	start_measurement timestamp NULL, -- UTCStartzeit
 	stop_measurement timestamp NULL, -- UTCStopzeit
 
-	device_gps varchar(150) NULL, -- Geraet (smallint) || Ist hier ein freies Eingabefeld nicht sinnvoller ???
+	device_gnss varchar(150) NULL, -- Geraet (smallint) || ToDo: Ist hier ein freies Eingabefeld nicht sinnvoller ???
 
 	quality enum_gnss_quality NULL -- GNSS_Qualitaet
 
@@ -45,7 +45,7 @@ COMMENT ON COLUMN position.measurement_count IS 'Measurement Count';
 COMMENT ON COLUMN position.rtcm_age IS 'RTCM Age';
 COMMENT ON COLUMN position.start_measurement IS 'Start Measurement';
 COMMENT ON COLUMN position.stop_measurement IS 'Stop Measurement';
-COMMENT ON COLUMN position.device_gps IS 'Device GPS';
+COMMENT ON COLUMN position.device_gnss IS 'Device GNSS';
 COMMENT ON COLUMN position.quality IS 'Quality of GNSS';
 
 ALTER TABLE position ADD CONSTRAINT FK_Position_Plot FOREIGN KEY (plot_id)

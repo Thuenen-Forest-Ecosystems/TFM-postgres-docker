@@ -112,6 +112,24 @@
                                         <td></td>
                                     </tr>
                                     <tr>
+                                        <td><a href="routines/set_cluster_json_object_json__19a0ccc.html">set_cluster(json_object json)</a></td>
+                                        <td>FUNCTION</td>
+                                        <td>plpgsql</td>
+                                        <td>false</td>
+                                        <td>json</td>
+                                        <td>INVOKER</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="routines/check_select_access_by_emails_s_1e5b6281.html">check_select_access_by_emails(select_access_by text[])</a></td>
+                                        <td>FUNCTION</td>
+                                        <td>plpgsql</td>
+                                        <td>false</td>
+                                        <td>boolean</td>
+                                        <td>INVOKER</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
                                         <td><a href="routines/set_wzp_tree_parent_id_integer__a9e890d0.html">set_wzp_tree(parent_id integer, json_object json)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
@@ -130,7 +148,7 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="routines/set_plot_parent_id_integer__jso_813a32bf.html">set_plot(parent_id integer, json_object json)</a></td>
+                                        <td><a href="routines/get_column_permissions_p_table__54c4a2cb.html">get_column_permissions(p_table_name text)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
@@ -143,12 +161,12 @@
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
-                                        <td>void</td>
-                                        <td>INVOKER</td>
+                                        <td>json</td>
+                                        <td>DEFINER</td>
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="routines/set_plot_location_parent_id_int_d1ae6508.html">set_plot_location(parent_id integer, json_object json, parent_geometry geometry)</a></td>
+                                        <td><a href="routines/set_plot_parent_id_integer__jso_813a32bf.html">set_plot(parent_id integer, json_object json)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
@@ -157,7 +175,7 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="routines/set_cluster_clusters_json__7f806c85.html">set_cluster(clusters json)</a></td>
+                                        <td><a href="routines/set_plot_location_parent_id_int_d1ae6508.html">set_plot_location(parent_id integer, json_object json, parent_geometry geometry)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
@@ -211,15 +229,6 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="routines/set_sapling_2m_parent_id_intege_84280885.html">set_sapling_2m(parent_id integer, json_object json, plot_location_id integer)</a></td>
-                                        <td>FUNCTION</td>
-                                        <td>plpgsql</td>
-                                        <td>false</td>
-                                        <td>json</td>
-                                        <td>INVOKER</td>
-                                        <td></td>
-                                    </tr>
-                                    <tr>
                                         <td><a href="routines/set_sapling_1m_parent_id_intege_36689084.html">set_sapling_1m(parent_id integer, json_object json, plot_location_id integer)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
@@ -238,7 +247,7 @@
                                         <td></td>
                                     </tr>
                                     <tr>
-                                        <td><a href="routines/apply_rls_policy_table_name_tex_fb93d60b.html">apply_rls_policy(table_name text, policy_name text, role_name text, column_name text DEFAULT NULL::text)</a></td>
+                                        <td><a href="routines/set_sapling_2m_parent_id_intege_84280885.html">set_sapling_2m(parent_id integer, json_object json, plot_location_id integer)</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
@@ -247,11 +256,29 @@
                                         <td></td>
                                     </tr>
                                     <tr>
+                                        <td><a href="routines/apply_rls_policy_table_name_tex_fb93d60b.html">apply_rls_policy(table_name text, policy_name text, role_name text, column_name text DEFAULT NULL::text)</a></td>
+                                        <td>FUNCTION</td>
+                                        <td>plpgsql</td>
+                                        <td>false</td>
+                                        <td>json</td>
+                                        <td>DEFINER</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
                                         <td><a href="routines/update_table___60038bd9.html">update_table()</a></td>
                                         <td>FUNCTION</td>
                                         <td>plpgsql</td>
                                         <td>false</td>
                                         <td>trigger</td>
+                                        <td>INVOKER</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><a href="routines/has_column_privilege_user_name__df1552e8.html">has_column_privilege(user_name text, table_name text, column_name text)</a></td>
+                                        <td>FUNCTION</td>
+                                        <td>plpgsql</td>
+                                        <td>false</td>
+                                        <td>boolean</td>
                                         <td>INVOKER</td>
                                         <td></td>
                                     </tr>

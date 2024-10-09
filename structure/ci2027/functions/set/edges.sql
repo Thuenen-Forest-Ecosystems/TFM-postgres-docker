@@ -22,11 +22,11 @@ BEGIN
 
     FOR child_object IN SELECT * FROM json_array_elements(json_object)
     LOOP
-        INSERT INTO edges (id, plot_id, edge_state, edge_type, terrain)
+        INSERT INTO edges (id, plot_id, edge_status, edge_type, terrain)
         VALUES (
             COALESCE(NULLIF((child_object->>'id')::text, 'null')::int, nextval('edges_id_seq')),
             parent_id,
-            (child_object->>'edge_state')::enum_edge_state,
+            (child_object->>'edge_status')::enum_edge_status,
             (child_object->>'edge_type')::enum_edge_type,
             (child_object->>'terrain')::enum_terrain
             
@@ -34,7 +34,7 @@ BEGIN
         ON CONFLICT (id) DO UPDATE
         SET
             plot_id = EXCLUDED.plot_id,
-            edge_state = COALESCE(EXCLUDED.edge_state, edges.edge_state),
+            edge_status = COALESCE(EXCLUDED.edge_status, edges.edge_status),
             edge_type = COALESCE(EXCLUDED.edge_type, edges.edge_type),
             terrain = COALESCE(EXCLUDED.terrain, edges.terrain)
             
