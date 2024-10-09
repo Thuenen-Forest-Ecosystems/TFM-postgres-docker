@@ -37,7 +37,7 @@ BEGIN
             parent_id,
             (child_object->>'stand_affiliation')::boolean,
             (child_object->>'tree_species')::smallint,
-            (child_object->>'bitten')::enum_bitten,
+            (child_object->>'bitten')::enum_browsing,
             (child_object->>'protection_individual')::boolean,
             (child_object->>'quantity')::smallint
             

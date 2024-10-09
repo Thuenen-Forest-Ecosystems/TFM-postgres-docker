@@ -16,9 +16,6 @@ jobs:
 
       #- name: Clone data
       #  run: 'git clone "https://${{ secrets.GITLAB_USERNAME }}:${{ secrets.GITLAB_TOKEN }}@git-dmz.thuenen.de/datenerfassungci2027/ci2027_datenerfassung/ci2027-db-data.git" ci2027-db-data'
-#
-      #- name: List root
-      #  run: ls -la
 
       - name: Build the stack
         run: docker compose --env-file _.env up -d postgres postgrest
@@ -33,26 +30,22 @@ jobs:
           
       - name: Connect to PostgreSQL
         run: npm run test:dev
-        #env:
-        #  POSTGRES_HOST: localhost
-        #  # The default PostgreSQL port
-        #  POSTGRES_PORT: 5432
 
-      - name: Run SchemaSpy
-        uses: tj-actions/schemaspy@v2
-        with:
-          host: postgres
-          port: 5432
-          database_name: tfm
-          database_type: pgsql11
-          user: postgres
-          password: SecretSecretSecretSecret
-          schema: private_ci2027_001
-          output_dir: docs
-
-      - name: Archive production artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-without-markdown
-          path: docs
+      #- name: Run SchemaSpy
+      #  uses: tj-actions/schemaspy@v2
+      #  with:
+      #    host: postgres
+      #    port: 5432
+      #    database_name: tfm
+      #    database_type: pgsql11
+      #    user: postgres
+      #    password: SecretSecretSecretSecret
+      #    schema: private_ci2027_001
+      #    output_dir: docs
+#
+      #- name: Archive production artifacts
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: dist-without-markdown
+      #    path: docs
 

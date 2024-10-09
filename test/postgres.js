@@ -58,9 +58,10 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
     it(`can login -> return 200`, function () {
         const res = request('POST', 'http://localhost:3000/rpc/login', {
             json: { "email": process.env.COUNTRY_ADMIN_USER, "pass": process.env.COUNTRY_ADMIN_PASSWORD }
-        });
+        }, headers = { "Content-Type": "application/json" });
         if (res.statusCode === 200){
             country_admin_token = JSON.parse(res.getBody('utf8')).token;
+            console.log(country_admin_token);
         }else{
             console.log(res.statusCode);
         }
@@ -75,7 +76,7 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
         if (res.statusCode === 200){
             assert.strictEqual(JSON.parse(res.getBody('utf8')).email, process.env.COUNTRY_ADMIN_USER);
         }else{
-            console.log(res.statusCode);
+            console.log(res.statusCode, res.getBody('utf8'));
         }
         
         assert.strictEqual(res.statusCode, 200);
@@ -86,10 +87,9 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
             json: {
                 "json_object": [{
                     "id": 666666,
-                    "state_administration": "BB",
-                    "state_location": "BB",
-                    "states": ["BB"],
-                    "sampling_strata": "8",
+                    "state_responsible": "BB",
+                    "states_affected": ["BB"],
+                    "grid_density": "8",
                     "status": "12"
                 }]
             },
@@ -108,13 +108,14 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
     });
 
     it(`can get cluster -> return cluster object`, function () {
-        const res = request('GET', 'http://localhost:3000/cluster?id=eq.666666&select=*,plot(*,plot_location(*),wzp_tree(*),deadwood(*),edges(*),position(*),sapling_1m(*),sapling_2m(*))', {
+        const res = request('GET', 'http://localhost:3000/cluster?id=eq.666666&select=*,plot(*,plot_location(*),tree(*),deadwood(*),edges(*),position(*),regeneration(*),structure_lt4m(*))', {
             headers: {
                 "Authorization": `Bearer ${country_admin_token}`,
                 "Accept-Profile": "private_ci2027_001"
             }
         });
         if (res.statusCode === 200){
+            console.log(JSON.parse(res.getBody('utf8')));
             assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, 666666);
         }else{
             console.log(res.getBody('utf8'));

@@ -3,44 +3,35 @@ digraph "twoDegreesRelationshipsDiagram" {
   "deadwood":"elipses":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "edges":"elipses":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"cluster_id":w -> "cluster":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"forest_decision":w -> "lookup_forest_decision":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"forest_type":w -> "lookup_forest_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"forestry_department":w -> "lookup_forestry_department":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"elevation_level":w -> "lookup_elevation_level":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"forest_status":w -> "lookup_forest_status":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"growth_district":w -> "lookup_growth_district":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"habitat_type":w -> "lookup_habitat_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"habitat_type_source":w -> "lookup_habitat_type_source":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"harvesting_method":w -> "lookup_harvesting_method":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"height_layer_class":w -> "lookup_height_layer_class":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"land_use":w -> "lookup_land_use":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"layer_type":w -> "lookup_layer_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"land_use_after":w -> "lookup_land_use":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"management_type":w -> "lookup_management_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"marking_profile":w -> "lookup_marking_profile":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"marking_state":w -> "lookup_marking_state":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"marker_profile":w -> "lookup_marker_profile":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"marker_status":w -> "lookup_marker_status":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"property_size_class":w -> "lookup_property_size_class":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"property_type":w -> "lookup_property_type":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"sablings_layer":w -> "lookup_stand_layer":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"sampling_strata":w -> "lookup_sampling_strata":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"stand_phase":w -> "lookup_stand_phase":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"stand_dev_phase":w -> "lookup_stand_dev_phase":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"stand_layer_reg":w -> "lookup_stand_layer":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "plot":"stand_structure":w -> "lookup_stand_structure":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"terrain_form":w -> "lookup_terrain_form":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"trees_less_4meter_count_factor":w -> "lookup_trees_less_4meter_count_factor":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"trees_less_4meter_layer":w -> "lookup_trees_less_4meter_layer":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot":"trees_less_4meter_mirrored":w -> "lookup_trees_less_4meter_mirrored":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "plot":"use_restriction":w -> "lookup_use_restriction":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "plot_location":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "position":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
   "position":"plot_location_id":w -> "plot_location":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
   "position":"quality":w -> "lookup_gnss_quality":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_1m":"bitten":w -> "lookup_bitten":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_1m":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_1m":"plot_location_id":w -> "plot_location":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_1m":"tree_species":w -> "lookup_tree_species":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_2m":"bitten":w -> "lookup_bitten":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_2m":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_2m":"plot_location_id":w -> "plot_location":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_2m":"tree_size_class":w -> "lookup_tree_size_class":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "sapling_2m":"tree_species":w -> "lookup_tree_species":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
-  "wzp_tree":"elipses":w -> "lookup_stand_layer":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "regeneration":"browsing":w -> "lookup_browsing":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "regeneration":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "regeneration":"plot_location_id":w -> "plot_location":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
+  "regeneration":"tree_size_class":w -> "lookup_tree_size_class":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "regeneration":"tree_species":w -> "lookup_tree_species":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
+  "structure_lt4m":"plot_id":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "structure_lt4m":"plot_location_id":w -> "plot_location":"id.type":e [arrowhead=none dir=back arrowtail=crowodot];
+  "structure_lt4m":"tree_species":w -> "lookup_tree_species":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "wzp_tree":"elipses":w -> "plot":"id":e [arrowhead=none dir=back arrowtail=crowodot];
+  "wzp_tree":"elipses":w -> "lookup_stand_layer":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "wzp_tree":"elipses":w -> "lookup_tree_species":"elipses":e [arrowhead=none dir=back arrowtail=crowodot];
   "cluster" [
    label=<
@@ -75,49 +66,38 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="edges"
   ];
-  "lookup_bitten" [
+  "lookup_browsing" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="100" HEIGHT="16"><B>lookup_bitten</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">2 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_bitten.html"
-    target="_top"
-    tooltip="lookup_bitten"
-  ];
-  "lookup_forest_decision" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="166" HEIGHT="16"><B>lookup_forest_decision</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="123" HEIGHT="16"><B>lookup_browsing</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_forest_decision.html"
+    URL="../../tables/lookup_browsing.html"
     target="_top"
-    tooltip="lookup_forest_decision"
+    tooltip="lookup_browsing"
   ];
-  "lookup_forest_type" [
+  "lookup_elevation_level" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="139" HEIGHT="16"><B>lookup_forest_type</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="165" HEIGHT="16"><B>lookup_elevation_level</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_forest_type.html"
+    URL="../../tables/lookup_elevation_level.html"
     target="_top"
-    tooltip="lookup_forest_type"
+    tooltip="lookup_elevation_level"
   ];
-  "lookup_forestry_department" [
+  "lookup_forest_status" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="207" HEIGHT="16"><B>lookup_forestry_department</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="152" HEIGHT="16"><B>lookup_forest_status</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">814 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
+      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_forestry_department.html"
+    URL="../../tables/lookup_forest_status.html"
     target="_top"
-    tooltip="lookup_forestry_department"
+    tooltip="lookup_forest_status"
   ];
   "lookup_gnss_quality" [
    label=<
@@ -135,33 +115,11 @@ digraph "twoDegreesRelationshipsDiagram" {
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="167" HEIGHT="16"><B>lookup_growth_district</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 1</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">696 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
+      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">695 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
     URL="../../tables/lookup_growth_district.html"
     target="_top"
     tooltip="lookup_growth_district"
-  ];
-  "lookup_habitat_type" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="148" HEIGHT="16"><B>lookup_habitat_type</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_habitat_type.html"
-    target="_top"
-    tooltip="lookup_habitat_type"
-  ];
-  "lookup_habitat_type_source" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="203" HEIGHT="16"><B>lookup_habitat_type_source</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_habitat_type_source.html"
-    target="_top"
-    tooltip="lookup_habitat_type_source"
   ];
   "lookup_harvesting_method" [
    label=<
@@ -174,17 +132,6 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_harvesting_method"
   ];
-  "lookup_height_layer_class" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="189" HEIGHT="16"><B>lookup_height_layer_class</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_height_layer_class.html"
-    target="_top"
-    tooltip="lookup_height_layer_class"
-  ];
   "lookup_land_use" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -195,17 +142,6 @@ digraph "twoDegreesRelationshipsDiagram" {
     URL="../../tables/lookup_land_use.html"
     target="_top"
     tooltip="lookup_land_use"
-  ];
-  "lookup_layer_type" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="132" HEIGHT="16"><B>lookup_layer_type</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_layer_type.html"
-    target="_top"
-    tooltip="lookup_layer_type"
   ];
   "lookup_management_type" [
    label=<
@@ -218,27 +154,27 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_management_type"
   ];
-  "lookup_marking_profile" [
+  "lookup_marker_profile" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="170" HEIGHT="16"><B>lookup_marking_profile</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="163" HEIGHT="16"><B>lookup_marker_profile</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_marking_profile.html"
+    URL="../../tables/lookup_marker_profile.html"
     target="_top"
-    tooltip="lookup_marking_profile"
+    tooltip="lookup_marker_profile"
   ];
-  "lookup_marking_state" [
+  "lookup_marker_status" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="160" HEIGHT="16"><B>lookup_marking_state</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="161" HEIGHT="16"><B>lookup_marker_status</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_marking_state.html"
+    URL="../../tables/lookup_marker_status.html"
     target="_top"
-    tooltip="lookup_marking_state"
+    tooltip="lookup_marker_status"
   ];
   "lookup_property_size_class" [
    label=<
@@ -262,16 +198,16 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_property_type"
   ];
-  "lookup_sampling_strata" [
+  "lookup_stand_dev_phase" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="173" HEIGHT="16"><B>lookup_sampling_strata</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="180" HEIGHT="16"><B>lookup_stand_dev_phase</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_sampling_strata.html"
+    URL="../../tables/lookup_stand_dev_phase.html"
     target="_top"
-    tooltip="lookup_sampling_strata"
+    tooltip="lookup_stand_dev_phase"
   ];
   "lookup_stand_layer" [
    label=<
@@ -284,16 +220,16 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_stand_layer"
   ];
-  "lookup_stand_phase" [
+  "lookup_stand_structure" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="147" HEIGHT="16"><B>lookup_stand_phase</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="171" HEIGHT="16"><B>lookup_stand_structure</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/lookup_stand_phase.html"
+    URL="../../tables/lookup_stand_structure.html"
     target="_top"
-    tooltip="lookup_stand_phase"
+    tooltip="lookup_stand_structure"
   ];
   "lookup_terrain_form" [
    label=<
@@ -328,28 +264,6 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_tree_species"
   ];
-  "lookup_trees_less_4meter_count_factor" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="286" HEIGHT="16"><B>lookup_trees_less_4meter_count_factor</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_trees_less_4meter_count_factor.html"
-    target="_top"
-    tooltip="lookup_trees_less_4meter_count_factor"
-  ];
-  "lookup_trees_less_4meter_layer" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="232" HEIGHT="16"><B>lookup_trees_less_4meter_layer</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_trees_less_4meter_layer.html"
-    target="_top"
-    tooltip="lookup_trees_less_4meter_layer"
-  ];
   "lookup_trees_less_4meter_mirrored" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
@@ -361,23 +275,12 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="lookup_trees_less_4meter_mirrored"
   ];
-  "lookup_use_restriction" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="164" HEIGHT="16"><B>lookup_use_restriction</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">  </TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">1 &gt;</TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/lookup_use_restriction.html"
-    target="_top"
-    tooltip="lookup_use_restriction"
-  ];
   "plot" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
       <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="28" HEIGHT="16"><B>plot</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 24</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">7 &gt;</TD></TR></TABLE></TD></TR>
+      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 16</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">7 &gt;</TD></TR></TABLE></TD></TR>
     </TABLE>>
     URL="../../tables/plot.html"
     target="_top"
@@ -415,27 +318,27 @@ digraph "twoDegreesRelationshipsDiagram" {
     target="_top"
     tooltip="position"
   ];
-  "sapling_1m" [
+  "regeneration" [
    label=<
     <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="82" HEIGHT="16"><B>sapling_1m</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
-      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
-      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 4</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">  </TD></TR></TABLE></TD></TR>
-    </TABLE>>
-    URL="../../tables/sapling_1m.html"
-    target="_top"
-    tooltip="sapling_1m"
-  ];
-  "sapling_2m" [
-   label=<
-    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
-      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="82" HEIGHT="16"><B>sapling_2m</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="95" HEIGHT="16"><B>regeneration</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
       <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
       <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 5</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">  </TD></TR></TABLE></TD></TR>
     </TABLE>>
-    URL="../../tables/sapling_2m.html"
+    URL="../../tables/regeneration.html"
     target="_top"
-    tooltip="sapling_2m"
+    tooltip="regeneration"
+  ];
+  "structure_lt4m" [
+   label=<
+    <TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0" BGCOLOR="#ffffff">
+      <TR><TD COLSPAN="3"  BGCOLOR="#f5f5f5"><TABLE BORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" FIXEDSIZE="TRUE" WIDTH="107" HEIGHT="16"><B>structure_lt4m</B></TD><TD ALIGN="RIGHT">[table]</TD></TR></TABLE></TD></TR>
+      <TR><TD PORT="elipses" COLSPAN="3" ALIGN="LEFT">...</TD></TR>
+      <TR><TD ALIGN="LEFT" CELLPADDING="0" BGCOLOR="#ffffff" COLSPAN="3" ><TABLE BORDER="0" CELLBORDER="0" CELLSPACING="0"><TR><TD ALIGN="LEFT" BGCOLOR="#ffffff">&lt; 3</TD><VR/><TD ALIGN="CENTER" BGCOLOR="#ffffff">0 rows</TD><VR/><TD ALIGN="RIGHT" BGCOLOR="#ffffff">  </TD></TR></TABLE></TD></TR>
+    </TABLE>>
+    URL="../../tables/structure_lt4m.html"
+    target="_top"
+    tooltip="structure_lt4m"
   ];
   "wzp_tree" [
    label=<
