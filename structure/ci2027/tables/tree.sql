@@ -23,9 +23,10 @@ CREATE TABLE tree (
 
 	tree_species smallint NULL, -- Ba
 
-	bhd CK_BHD NOT NULL, -- M_Bhd in mm
-	bhd_height smallint NOT NULL DEFAULT 130, -- M_hBhd
+	dbh CK_BHD NOT NULL, -- M_Bhd in mm
+	dbh_height smallint NOT NULL DEFAULT 130, -- M_hBhd
 
+	--- Continue here
 	tree_height smallint NULL, -- M_Hoe
 	stem_height smallint NULL, -- M_StHoe
 	tree_height_azimuth smallint NULL, -- MPos_Azi

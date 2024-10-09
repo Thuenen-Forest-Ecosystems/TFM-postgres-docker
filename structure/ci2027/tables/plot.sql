@@ -72,10 +72,10 @@ CREATE TABLE IF NOT EXISTS plot (
 	-- st_wh_e smallint NULL, --st_wh_e Länderspezifisch: finde ich nur in x3_bl
 	-- st_var varchar(18)  NULL, -- st_var Länderspezifisch: finde ich nur in x3_bl
 
-	coast BOOLEAN NOT NULL DEFAULT FALSE, --kueste
-	sandy BOOLEAN NOT NULL DEFAULT FALSE, -- gestein
-	protected_landscape BOOLEAN NOT NULL DEFAULT FALSE, -- lsg
-	histwald BOOLEAN NOT NULL DEFAULT FALSE, -- histwald
+	coast BOOLEAN NULL DEFAULT FALSE, --kueste
+	sandy BOOLEAN NULL DEFAULT FALSE, -- gestein
+	protected_landscape BOOLEAN NULL DEFAULT FALSE, -- lsg
+	histwald BOOLEAN NULL DEFAULT FALSE, -- histwald
 
 	harvest_restriction INTEGER NULL, -- ne TODO: Lookup Table & enum
 	harvest_restriction_source INTEGER[] DEFAULT '{}', -- NEU: create enum_harvest_restriction_source Nutzungseinschränkungen als Array TODO: Lookup Table, inner- und außerbetrieblich zusammenführen
@@ -94,7 +94,7 @@ CREATE TABLE IF NOT EXISTS plot (
 	landmark_distance smallint NULL, -- mark_hori
 	landmark_note varchar(12)  NULL, -- mark_beschreibung
 
-	marker_status enum_marker_status NOT NULL, -- perm: Das Feld bietet kein Mehrwert, da perm_profile die gleiche Information enthält
+	marker_status enum_marker_status NULL, -- perm: Das Feld bietet kein Mehrwert, da perm_profile die gleiche Information enthält
 	marker_azimuth CK_GON NULL, -- perm_azi: 
 	marker_distance smallint NULL, -- perm_hori
 	marker_profile enum_marker_profile NULL, -- perm_profil -- TODO: enum_marker_profile + Lookup
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS plot (
 	terrain_exposure CK_GON NULL, -- gexp [Gon]
 
 	management_type enum_management_type NULL, -- be
-	harvesting_method enum_harvesting_method NOT NULL, -- ernte (x3_ernte)
+	harvesting_method enum_harvesting_method NULL, -- ernte (x3_ernte)
 	biotope CK_BIOTOPE NULL, -- biotop (x3_biotop)
 	stand_structure enum_stand_structure NULL, -- ab
 	stand_age CK_STAND_AGE NULL, -- al_best
@@ -249,7 +249,7 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupStandLayer FOREIGN KEY (stand_laye
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupTreesLess4meterMirrored FOREIGN KEY (trees_less_4meter_mirrored)
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupTreesLess4meterMirrored FOREIGN KEY (trees_greater_4meter_mirrored)
 	REFERENCES lookup_trees_less_4meter_mirrored (abbreviation) MATCH SIMPLE
 	ON UPDATE NO ACTION
 	ON DELETE NO ACTION;
