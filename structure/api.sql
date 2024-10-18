@@ -1,5 +1,5 @@
 CREATE SCHEMA IF NOT EXISTS public_api;
-COMMENT ON SCHEMA public_api IS 'Public API schema 1.0.0' ;
+COMMENT ON SCHEMA public_api IS 'Public API schema 1.0.2';
 
 ALTER SCHEMA public_api OWNER TO postgres;
 GRANT USAGE ON SCHEMA public_api TO web_anon;
