@@ -50,8 +50,8 @@ services:
       #- ./structure/structure.sql:/docker-entrypoint-initdb.d/20-structure.sql
       
       # NFI2022
-      #- ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/800-code_bwineu.sql
-      #- ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/801-bwineu_structure.sql
+      - ./ci2027-db-structure/NFI2022/code_bwineu.sql:/docker-entrypoint-initdb.d/800-code_bwineu.sql
+      - ./ci2027-db-structure/NFI2022/bwineu_structure.sql:/docker-entrypoint-initdb.d/801-bwineu_structure.sql
 
       ### New Setup (to be implemented) 
       #- ./structure/ci2027/structure.sql:/docker-entrypoint-initdb.d/930-structure.sql
