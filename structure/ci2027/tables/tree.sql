@@ -23,7 +23,7 @@ CREATE TABLE tree (
 
 	tree_species smallint NULL, -- Ba
 
-	dbh CK_BHD NOT NULL, -- M_Bhd in mm
+	dbh CK_BHD NULL, -- M_Bhd in mm
 	dbh_height smallint NOT NULL DEFAULT 130, -- M_hBhd
 
 	--- Continue here

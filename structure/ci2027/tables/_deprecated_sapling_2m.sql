@@ -12,10 +12,11 @@ CREATE TABLE sapling_2m (
 
 	tree_species smallint NULL, --Ba
 	bitten enum_browsing NOT NULL, --Biss
-	tree_size_class enum_tree_size_class NULL, --Gr
-	damage_peel smallint NULL, --Schael
 	protection_individual boolean NULL, --Schu
-	count smallint NOT NULL --Anz
+	count smallint NOT NULL, --Anz
+
+	tree_size_class enum_tree_size_class NULL, --Gr
+	damage_peel smallint NULL --Schael
 
 );
 
