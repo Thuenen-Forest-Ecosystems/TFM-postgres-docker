@@ -126,7 +126,7 @@ services:
 
       - ./structure/ci2027/tables/cluster.sql:/docker-entrypoint-initdb.d/919-cluster.sql
       - ./structure/ci2027/tables/plot.sql:/docker-entrypoint-initdb.d/919-plot.sql
-      #- ./structure/ci2027/tables/plot_location.sql:/docker-entrypoint-initdb.d/920-plot_location.sql
+      - ./structure/ci2027/tables/plot_location.sql:/docker-entrypoint-initdb.d/920-plot_location.sql
       
       
       - ./structure/ci2027/tables/tree.sql:/docker-entrypoint-initdb.d/922-tree.sql
@@ -156,7 +156,7 @@ services:
       #- ./structure/ci2027/functions/get_clusters.sql:/docker-entrypoint-initdb.d/99-get_clusters.sql
       
       # SET
-      #- ./structure/ci2027/functions/set/plot_location.sql:/docker-entrypoint-initdb.d/99-plot_location.sql
+      - ./structure/ci2027/functions/set/plot_location.sql:/docker-entrypoint-initdb.d/99-plot_location.sql
 
       - ./structure/ci2027/functions/set/tree.sql:/docker-entrypoint-initdb.d/99-tree.sql
       - ./structure/ci2027/functions/set/deadwood.sql:/docker-entrypoint-initdb.d/99-deadwood.sql
