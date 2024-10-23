@@ -2,8 +2,9 @@ SET search_path TO private_ci2027_001, public;
 
 CREATE TABLE IF NOT EXISTS plot (
 
-    id SERIAL PRIMARY KEY,
+    id SERIAL UNIQUE PRIMARY KEY, -- 
     cluster_id INTEGER NOT NULL,
+	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
 
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -11,7 +12,7 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
-	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
+	
 
     
 	sampling_stratum INTEGER NOT NULL, -- ToDo: create enum_sampling_stratum + Lookup from bwineu.Vbl 
