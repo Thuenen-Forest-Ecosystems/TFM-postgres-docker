@@ -24,7 +24,11 @@
     "docker:docu": "docker compose -f docker-compose-schemaspy.yml up",
 
     "docker:github": "docker compose --env-file _.env up -d postgres postgrest",
-    "test:dev": "ENV_FILE=_.env mocha --timeout 3000 --exit"
+    "test:dev": "ENV_FILE=_.env mocha --timeout 3000 --exit",
+
+
+    "dev:restart": "docker compose -f docker-compose-dev.yml down && docker compose -f docker-compose-dev.yml up -d --build",
+    "dev:stop": "docker compose -f docker-compose-dev.yml down"
   },
   "repository": {
     "type": "git",
