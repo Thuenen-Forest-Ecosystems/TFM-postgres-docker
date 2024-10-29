@@ -15,13 +15,12 @@ ALTER TABLE lookup_edge_status ADD COLUMN abbreviation enum_edge_status UNIQUE N
 --
 
 INSERT INTO lookup_edge_status (abbreviation, name_de, name_en, sort, "interval") VALUES
-	('0', 'neuer Waldrand oder neue Best.-Grenze zu Nichtholzboden', 'new stand border', NULL, '{bwi1992,bwi2002,bwi2012}'),
-	('1', 'übernommener Waldrand o. Best.-Grenze zu NHB aus früherer Inventur', 'stand border taken over from ???', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('0', 'neuer Waldrand oder neue Bestestandes-Grenze zu Nichtholzboden', 'new stand border', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('1', 'übernommener Waldrand o. Best.-Grenze zu Nichtholzboden aus früherer Inventur', 'stand border taken over from ???', NULL, '{bwi1992,bwi2002,bwi2012}'),
 	('4', '"neue" Wald- oder Best.-Grenze, gültig auch Vorgängerinventur (hier BWI3)', '"new" stand edge, valid for ??', NULL, '{bwi1992,bwi2002,bwi2012}'),
-	('5', '"neue" Waldrandgrenze oder Best.Grenze zu NHB, gültig auch Vorgängerinventur (hier BWI3)', '"new" edge, valid for ??', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('5', '"neue" Waldrandgrenze oder Best.Grenze zu Nichtholzboden, gültig auch Vorgängerinventur (hier BWI3)', '"new" edge, valid for ??', NULL, '{bwi1992,bwi2002,bwi2012}'),
 	('9', 'nicht auffindbar, nicht mehr gültig', 'not detectable, no longer valid', NULL, '{bwi1992,bwi2002,bwi2012}'),
-	('10', ' Best.-Grenze der Vorgängerinventur, die temporär (2017) nicht erfasst
- wurde (Grenzen Rart={3,4})', 'rausBestand', NULL, '{bwi1992,bwi2002,bwi2012}'),
+	('10', ' Best.-Grenze der Vorgängerinventur, die temporär (2017) nicht erfasst wurde (Grenzen Rart={3,4})', 'rausBestand', NULL, '{bwi1992,bwi2002,bwi2012}'),
 	('2002', 'schon 2002 bei BWI2 (2001/2002) ausgefallen', NULL, NULL, '{bwi1992,bwi2002,bwi2012}'),
 	('2007', 'schon 2007 bei Landesinventur RP (2007) ausgefallen', NULL, NULL, '{bwi1992,bwi2002,bwi2012}'),
 	('2008', 'schon 2008 bei Treibhausgasinventur bzw. Landesinventur HE, BB, SN 2008 ausgefallen', NULL, NULL, '{bwi1992,bwi2002,bwi2012}'),

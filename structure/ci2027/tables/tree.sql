@@ -1,9 +1,11 @@
 SET search_path TO private_ci2027_001, public;
 
 CREATE TABLE tree (
+
+	intkey varchar(12) UNIQUE NULL,
 	
-    id SERIAL PRIMARY KEY,
-    plot_id INTEGER NOT NULL,
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+    plot_id uuid NOT NULL,
     --plot_location_id INTEGER NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
@@ -24,7 +26,7 @@ CREATE TABLE tree (
 	tree_species smallint NULL, -- Ba
 
 	dbh CK_BHD NULL, -- M_Bhd in mm
-	dbh_height smallint NOT NULL DEFAULT 130, -- M_hBhd
+	dbh_height smallint NULL DEFAULT 130, -- M_hBhd
 
 	--- Continue here
 	tree_height smallint NULL, -- M_Hoe
@@ -62,6 +64,8 @@ CREATE TABLE tree (
 	bark_condition smallint NULL -- NEU:  Rindenzustand für frisch abgestorbene WZP4-Bäume (ab 2021/2022 wird das ehemals landesspez. WZ1 bundesweit verwendet)
 
 );
+
+ALTER TABLE tree ADD CONSTRAINT FK_Tree_Plot_Unique UNIQUE (plot_id, tree_number);
 
 ALTER TABLE tree ADD CONSTRAINT FK_Tree_Plot FOREIGN KEY (plot_id)
 	REFERENCES plot (id) MATCH SIMPLE

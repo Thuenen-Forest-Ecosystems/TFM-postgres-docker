@@ -2,8 +2,10 @@ SET search_path TO private_ci2027_001, public;
 
 CREATE TABLE IF NOT EXISTS edges (
 
-    id SERIAL PRIMARY KEY,
-	plot_id INTEGER NOT NULL,
+    intkey varchar(12) UNIQUE NULL,
+
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+	plot_id uuid NOT NULL,
 
 	edge_number INTEGER NULL, -- NEU: Kanten-ID || ToDo: Welchen Mehrwert hat diese ID gegenüber der ID?
 
@@ -11,8 +13,8 @@ CREATE TABLE IF NOT EXISTS edges (
 	modified_at TIMESTAMP DEFAULT NULL,
     modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
 
-	edge_status enum_edge_status NOT NULL, --Rk
-	edge_type enum_edge_type NOT NULL, --Rart
+	edge_status enum_edge_status NULL, --Rk
+	edge_type enum_edge_type NULL, --Rart
 	terrain enum_terrain NULL, --Rterrain
 
 
@@ -29,6 +31,8 @@ COMMENT ON COLUMN edges.edge_status IS 'Kennziffer des Wald-/Bestandesrandes';
 COMMENT ON COLUMN edges.edge_type IS 'Art des Wald- /Bestandesrandes';
 COMMENT ON COLUMN edges.terrain IS 'Vorgelagertes Terrain';
 COMMENT ON COLUMN edges.geometry_edges IS 'Geometrie der Kante';
+
+ALTER TABLE edges ADD CONSTRAINT FK_Edges_Plot_Unique UNIQUE (plot_id, edge_number);
 
 ALTER TABLE edges ADD CONSTRAINT FK_Edges_Plot FOREIGN KEY (plot_id) REFERENCES plot(id)
 	ON DELETE CASCADE;

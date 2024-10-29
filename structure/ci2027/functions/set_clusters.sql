@@ -46,7 +46,7 @@ BEGIN
 
         
         INSERT INTO cluster (
-            id,
+            cluster_name,
             state_responsible,
             states_affected,
             grid_density,
@@ -56,7 +56,7 @@ BEGIN
             update_access_by
         )
         VALUES (
-            (cluster_object->>'id')::int,
+            (cluster_object->>'cluster_name')::int,
             (cluster_object->>'state_responsible')::enum_state,
             states_array,
             (cluster_object->>'grid_density')::enum_grid_density,
@@ -65,7 +65,7 @@ BEGIN
             ARRAY(SELECT json_array_elements_text(cluster_object->'select_access_by'))::text[],
             ARRAY(SELECT json_array_elements_text(cluster_object->'update_access_by'))::text[]
         )
-        ON CONFLICT (id) DO UPDATE
+        ON CONFLICT (cluster_name) DO UPDATE
         SET 
             state_responsible = COALESCE(EXCLUDED.state_responsible, cluster.state_responsible),
             states_affected = COALESCE(EXCLUDED.states_affected, cluster.states_affected),
@@ -73,7 +73,7 @@ BEGIN
             cluster_status = COALESCE(EXCLUDED.cluster_status, cluster.cluster_status),
             select_access_by = COALESCE(EXCLUDED.select_access_by, cluster.select_access_by), -- select_access_by = cluster.select_access_by || '{"new item"}'
             update_access_by = COALESCE(EXCLUDED.update_access_by, cluster.update_access_by) -- select_access_by = cluster.select_access_by || '{"new item"}'
-        WHERE cluster.id = EXCLUDED.id
+        WHERE cluster.cluster_name = EXCLUDED.cluster_name
         RETURNING * INTO changed_values;
 
         new_cluster := row_to_json(changed_values);

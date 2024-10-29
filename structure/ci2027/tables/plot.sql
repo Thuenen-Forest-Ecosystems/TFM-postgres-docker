@@ -2,7 +2,10 @@ SET search_path TO private_ci2027_001, public;
 
 CREATE TABLE IF NOT EXISTS plot (
 
-    id SERIAL UNIQUE PRIMARY KEY, -- 
+	intkey varchar(12) UNIQUE NULL,
+
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+	
     cluster_id INTEGER NOT NULL,
 	plot_name CK_PLOT_NAME NOT NULL, -- Unique human readable name
 
@@ -12,9 +15,6 @@ CREATE TABLE IF NOT EXISTS plot (
 
 	interval_name enum_interval_name NOT NULL DEFAULT 'ci2027', -- Intervall
 
-	
-
-    
 	sampling_stratum INTEGER NOT NULL, -- ToDo: create enum_sampling_stratum + Lookup from bwineu.Vbl 
 	federal_state enum_state NOT NULL,
 
@@ -131,8 +131,10 @@ COMMENT ON COLUMN plot.forest_community IS 'Natürliche Waldgesellschaft.';
 COMMENT ON COLUMN plot.forest_community_field IS 'Natürliche Waldgesellschaft im Bestand definiert.';
 
 
+ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster_Unique UNIQUE (cluster_id, plot_name);
+
 ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster FOREIGN KEY (cluster_id)
-	REFERENCES cluster (id) MATCH SIMPLE
+	REFERENCES cluster (cluster_name) MATCH SIMPLE
 	ON DELETE CASCADE;
 
 --ALTER TABLE plot ADD CONSTRAINT FK_Plot_SamplingStratum FOREIGN KEY (sampling_stratum) -- TODO
@@ -279,4 +281,4 @@ ALTER TABLE plot ADD CONSTRAINT FK_Plot_LookupTreesLess4meterMirrored FOREIGN KE
 --        ON UPDATE NO ACTION
 --        ON DELETE NO ACTION,
 
-ALTER TABLE plot ADD CONSTRAINT FK_Plot_Cluster_Unique UNIQUE (cluster_id, plot_name);
+

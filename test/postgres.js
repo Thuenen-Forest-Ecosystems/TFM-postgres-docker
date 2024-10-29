@@ -82,16 +82,19 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
         assert.strictEqual(res.statusCode, 200);
     });
 
+    let clusterId = null;
+    const clusterToSet = {
+        "cluster_name": "6666666",
+        "state_responsible": "BB",
+        "states_affected": ["BB"],
+        "grid_density": "8",
+        "status": "12"
+    };
     it(`can insert cluster -> return cluster object`, function () {
+        console.log(clusterToSet);
         const res = request('POST', 'http://localhost:3000/rpc/set_cluster', {
             json: {
-                "json_object": [{
-                    "id": 666666,
-                    "state_responsible": "BB",
-                    "states_affected": ["BB"],
-                    "grid_density": "8",
-                    "status": "12"
-                }]
+                "json_object": [clusterToSet]
             },
             headers: {
                 "Authorization": `Bearer ${country_admin_token}`,
@@ -99,16 +102,17 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
             }
         });
         if (res.statusCode === 200){
-            assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, 666666);
+            clusterId = JSON.parse(res.getBody('utf8'))[0].id;
+            assert.strictEqual(res.statusCode, 200);
         }else{
-            console.log(res.getBody('utf8'));
+            console.log(res.getBody('utf8'), res.statusCode, res.headers);
         }
         
         assert.strictEqual(res.statusCode, 200);
     });
 
     it(`can get cluster -> return cluster object`, function () {
-        const res = request('GET', 'http://localhost:3000/cluster?id=eq.666666&select=*,plot(*,plot_location(*),tree(*),deadwood(*),edges(*),position(*),regeneration(*),structure_lt4m(*))', {
+        const res = request('GET', `http://localhost:3000/cluster?id=eq.${clusterId}&select=*,plot(*,plot_location(*),tree(*),deadwood(*),edges(*),position(*),regeneration(*),structure_lt4m(*))`, {
             headers: {
                 "Authorization": `Bearer ${country_admin_token}`,
                 "Accept-Profile": "private_ci2027_001"
@@ -116,7 +120,7 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
         });
         if (res.statusCode === 200){
             console.log(JSON.parse(res.getBody('utf8')));
-            assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, 666666);
+            assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, clusterId);
         }else{
             console.log(res.getBody('utf8'));
         }
@@ -125,7 +129,7 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
     });
 
     it(`can DELETE cluster -> return cluster object`, function () {
-        const res = request('DELETE', 'http://localhost:3000/cluster?id=eq.666666', {
+        const res = request('DELETE', `http://localhost:3000/cluster?id=eq.${clusterId}`, {
             
             headers: {
                 "Authorization": `Bearer ${country_admin_token}`,
@@ -134,7 +138,7 @@ describe(`User: ${process.env.COUNTRY_ADMIN_USER}`, function () {
             }
         });
         if (res.statusCode === 200){
-            assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, 666666);
+            assert.strictEqual(JSON.parse(res.getBody('utf8'))[0].id, clusterId);
         }else{
             console.log(res.getBody('utf8'));
         }
