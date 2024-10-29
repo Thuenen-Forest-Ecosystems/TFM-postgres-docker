@@ -2,8 +2,10 @@ SET search_path TO private_ci2027_001;
 
 CREATE TABLE structure_lt4m (
 
-    id SERIAL PRIMARY KEY,
-    plot_id INTEGER NOT NULL,
+    intkey varchar(12) UNIQUE NULL,
+
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+    plot_id uuid NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,

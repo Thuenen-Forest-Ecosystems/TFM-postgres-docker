@@ -2,8 +2,10 @@ SET search_path TO private_ci2027_001;
 
 CREATE TABLE regeneration (
 
-    id SERIAL PRIMARY KEY,
-    plot_id INTEGER NOT NULL,
+	intkey varchar(12) UNIQUE NULL,
+
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+    plot_id uuid NOT NULL,
 
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -15,7 +17,6 @@ CREATE TABLE regeneration (
 	damage_peel smallint NULL, --Schael
 	protection_individual boolean NULL, --Schu
 	tree_count smallint NOT NULL --Anz
-
 );
 
 COMMENT ON TABLE regeneration IS 'Sub Plot Saplings';
@@ -28,6 +29,7 @@ COMMENT ON COLUMN regeneration.tree_size_class IS 'Größenklasse';
 COMMENT ON COLUMN regeneration.damage_peel IS 'Schälschaden';
 COMMENT ON COLUMN regeneration.protection_individual IS 'Einzelschutz der Bäume';
 COMMENT ON COLUMN regeneration.tree_count IS 'Anzahl gleichartiger Bäume';
+
 
 ALTER TABLE regeneration ADD CONSTRAINT FK_Saplings2m_Plot FOREIGN KEY (plot_id) REFERENCES plot(id) MATCH SIMPLE
 	ON DELETE CASCADE;

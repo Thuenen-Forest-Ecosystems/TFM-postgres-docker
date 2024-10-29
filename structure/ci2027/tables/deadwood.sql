@@ -2,8 +2,10 @@ SET search_path TO private_ci2027_001;
 
 CREATE TABLE deadwood (
 
-    id SERIAL PRIMARY KEY,
-    plot_id INTEGER NOT NULL,
+	intkey varchar(12) UNIQUE NULL,
+
+    id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+    plot_id uuid NOT NULL,
 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
@@ -14,8 +16,8 @@ CREATE TABLE deadwood (
 	decomposition enum_decomposition NULL, -- Tzg
 	length_height smallint NULL, -- Tl
 
-	diameter_butt CK_BHD NULL, -- Tbd
-	diameter_top CK_BHD NULL, -- Tsd
+	diameter_butt CK_BHD_DEADWOOD_BUTT NOT NULL, -- Tbd
+	diameter_top CK_BHD_DEADWOOD_TOP NULL, -- Tsd
 
 	count smallint NULL, -- Anz
 	bark_pocket smallint NULL -- TRinde

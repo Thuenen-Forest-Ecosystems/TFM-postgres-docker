@@ -2,7 +2,10 @@ SET search_path TO private_ci2027_001;
 
 CREATE TABLE IF NOT EXISTS cluster (
 
-	id INTEGER PRIMARY KEY NOT NULL,
+	intkey varchar(12) UNIQUE NULL,
+
+	id uuid UNIQUE DEFAULT gen_random_uuid() PRIMARY KEY,
+	cluster_name INTEGER UNIQUE NOT NULL,
 	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
 	modified_at TIMESTAMP DEFAULT NULL,
 	modified_by REGROLE DEFAULT CURRENT_USER::REGROLE,
@@ -116,6 +119,19 @@ CREATE POLICY cluster_update ON cluster
 	USING (current_setting('request.jwt.claims', true)::json->>'email' = ANY(update_access_by) OR current_user = 'country_admin')
 	WITH CHECK (true);
 COMMENT ON POLICY cluster_update ON cluster IS 'Only country_admin can update clusters';
+
+-----------------------------------------------------------------------------------------------------------------------
+
+-- TruncateCascade Table Function. GRants the necessary permissions to everyone.
+--CREATE OR REPLACE FUNCTION truncate_cascade(schema_name TEXT, table_name TEXT) RETURNS void AS $$
+--DECLARE
+--	query TEXT;
+--BEGIN
+--	query := 'TRUNCATE TABLE ' || schema_name || '.' || table_name || ' CASCADE;';
+--	EXECUTE query;
+--END;
+--$$ LANGUAGE plpgsql;
+--GRANT EXECUTE ON FUNCTION truncate_cascade(TEXT, TEXT) TO PUBLIC;
 
 -----------------------------------------------------------------------------------------------------------------------
 
